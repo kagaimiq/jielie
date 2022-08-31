@@ -1,0 +1,19 @@
+
+#======= Unneccessary directories... ========#
+
+#----- Main folder
+JieLiDumpsters/
+
+#----- Other repos
+jl-uboot-tool/
+
+#----- Bloat
+FiwmareDumps/
+TOOLCAHN/
+
+#=================== Stuff ==================#
+
+*.swp
+
+__pycache__
+*.pyc

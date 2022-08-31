@@ -1,0 +1,26 @@
+# watashi
+
+align: 32
+
+files:
+  - type: 1
+    name: kagami_hiiragi
+
+    content: bankcb
+    filename: payload.bin
+    load_addr: 0x2000
+
+#  - type: 0
+#    name: user.app
+#
+#    crypt: block
+#    content: syd
+#    hdrpos: end
+#    hdrencrypt: no
+#    files:
+#      - type: 0
+#        filename: /home/kagaimiq/Zeros/SID666/C64Music/MUSICIANS/B/Bakewell_Dwayne/Fury.sid
+#
+#      - type: 0
+#        filename: /home/kagaimiq/Zeros/SID666/C64Music/MUSICIANS/A/Amadeus_Attic/Tron.sid
+#
