@@ -40,9 +40,11 @@ Yes, you got it right. Beware.
 Risky stuff.
 
 - [gitzzc/JieLi1082](https://github.com/gitzzc/JieLi1082) - Some stuff about CD002 (AC109N), particulary for AC1082
+- [gitzzc/JieLi](https://github.com/gitzzc/JieLi) - Another CD002 thing, seems to be older
 - [go2net/kt-rec-pro](https://github.com/go2net/kt-rec-pro) - Some stuff about AC309N
 - [go2net/my-com-rec](https://github.com/go2net/my-com-rec) - Some more stuff about AC309N
 - [qqq5127/AC6901_clock](https://github.com/qqq5127/AC6901_clock) - Contrary to its name, it seems to be an SDK for BR21 (AC692N)
+- [qqq5127/AC695N](https://github.com/qqq5127/AC6951) - SDK for BR23 (AC695N), particulary for AC6951?
 - [qqq5127/AC6966B](https://github.com/qqq5127/AC6966B) - SDK for BR25 (AC696N), particulary for AC6966B?
 
 ### Forums
