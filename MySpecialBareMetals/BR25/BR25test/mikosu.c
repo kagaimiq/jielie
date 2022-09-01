@@ -37,6 +37,15 @@ void hexdump(void *ptr, int len) {
 }
 
 
+void delay(uint32_t ms) {
+	while (ms--) // TODO!
+		for (volatile int i = 1000; i; i--);
+}
+
+
+
+
+
 
 
 void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
@@ -117,14 +126,4 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	///----------- amux bias
 	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux_biasen, 0); // amux bias
 	#endif
-
-	/*==================================================================*/
-
-	reg32_wsmask(0x1F1700, 14, 1, 0); // ENABLE FM TX REGS!
-	reg32_write(0x1F1734, 0);
-
-	for (int i = 0; i < 0x100; i += 4) {
-		xprintf("%02x: %08x\n", i, reg32_read(0x1F1700+i));
-	}
-
 }
