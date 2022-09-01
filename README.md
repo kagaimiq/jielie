@@ -30,7 +30,7 @@ and btw, **ewogs30** and **kagaimiq868m** is actually me! just for sure.
 
 #### Now dead
 
-**Not sure if i ever should mention them... but... i WANT!**
+Not sure if i ever should mention them... but... i WANT!
 
 - [Radioskot](http://web.archive.org/web/20190401022412/https://radioskot.ru/forum/11-14227-1)
 - [Shemaforum](https://web.archive.org/web/20210511195409/https://shemaforum.ru/topic/jl-soc-ac109n-ac209n-ac309n-ac410n-ac460n-ac690n/)
