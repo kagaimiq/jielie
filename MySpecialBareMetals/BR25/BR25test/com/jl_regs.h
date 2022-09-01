@@ -17,11 +17,17 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 	return (*(volatile uint32_t*)addr >> shift) & mask;
 }
 
+#define _REG_MKVAL(addr, shift, mask, val)	(((val) & (mask)) << (shift))
+#define REG_MKVAL(regdef, val)			_REG_MKVAL(regdef, val)
+
+#define _REG_GETVAL(addr, shift, mask, val)	(((val) >> (shift)) & (mask))
+#define REG_GETVAL(regdef, val)			_REG_GETVAL(regdef, val)
+
 /*////////////////////////////////////////////////////////////////////////////*/
 /* Low Speed SFR */
 
 /*================ CLOCK ================*/
-#define CLOCK_BASE		0x1E0000
+#define CLOCK_base		0x1E0000
 
 #define CLOCK_PWR_CON			0x00
 #define CLOCK_HTC_CON			0x04
@@ -39,12 +45,12 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define CLOCK_PLL_CON2			0x58
 
 /*================ TIMER ================*/
-#define TIMER0_BASE		0x1E0400
-#define TIMER1_BASE		0x1E0500
-#define TIMER2_BASE		0x1E0600
-#define TIMER3_BASE		0x1E0700
-#define TIMER4_BASE		0x1E0800
-#define TIMER5_BASE		0x1E0900
+#define TIMER0_base		0x1E0400
+#define TIMER1_base		0x1E0500
+#define TIMER2_base		0x1E0600
+#define TIMER3_base		0x1E0700
+#define TIMER4_base		0x1E0800
+#define TIMER5_base		0x1E0900
 
 #define TIMERx_CON			0x00	// control reg
 #define 	TIMERx_CON_MODE			TIMERx_CON, 0, 0x3	// timer mode [dis|count|io rising cap|io falling cap]
@@ -60,7 +66,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define TIMERx_PWM			0x0C	// pwm duty cycle
 
 /*================= ANA =================*/
-#define ANA_BASE		0x1E1900
+#define ANA_base		0x1E1900
 
 //blah blah blah WLA stuff
 
@@ -90,9 +96,9 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define ANA_ADA_CON4			0xF0
 
 /*================= SPI =================*/
-#define SPI0_BASE		0x1E1C00
-#define SPI1_BASE		0x1E1D00
-#define SPI2_BASE		0x1E1E00
+#define SPI0_base		0x1E1C00
+#define SPI1_base		0x1E1D00
+#define SPI2_base		0x1E1E00
 
 #define SPIx_CON			0x00	// control reg
 #define 	SPIx_CON_SPIE			SPIx_CON, 0, 1		// spi enable
@@ -114,9 +120,9 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SPIx_CNT			0x10	// dma length (iirc it triggers dma)
 
 /*================ UART =================*/
-#define UART0_BASE		0x1E2000
-#define UART1_BASE		0x1E2100
-#define UART2_BASE		0x1E2200
+#define UART0_base		0x1E2000
+#define UART1_base		0x1E2100
+#define UART2_base		0x1E2200
 
 #define UARTx_CON0			0x00	// control reg 0
 #define 	UARTx_CON0_UTEN			UARTx_CON0, 0, 1	// uart enable
@@ -153,7 +159,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define UARTx_HRXCNT			0x28	// rx dma received length
 
 /*================ AUDIO ================*/
-#define AUDIO_BASE		0x1E2F00
+#define AUDIO_base		0x1E2F00
 
 #define AUDIO_DAC_CON			0x00	// dac control
 #define AUDIO_DAC_ADR			0x04	// dac data address
@@ -176,7 +182,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define AUDIO_ADC_SRN			0x58
 
 /*================= P33 =================*/
-#define P33_BASE		0x1E3E00
+#define P33_base		0x1E3E00
 
 #define P33_PMU_CON			0x00	// pmu control
 #define P33_RTC_CON			0x04	// rtc control
@@ -184,10 +190,10 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define P33_SPI_DAT			0x0C	// spi data
 
 /*================ PORT =================*/
-#define PORTA_BASE		0x1E5000
-#define PORTB_BASE		0x1E5040
-#define PORTC_BASE		0x1E5080
-#define PORTD_BASE		0x1E50C0
+#define PORTA_base		0x1E5000
+#define PORTB_base		0x1E5040
+#define PORTC_base		0x1E5080
+#define PORTD_base		0x1E50C0
 
 #define PORTx_OUT			0x00	// port output reg
 #define 	PORTx_OUTn(n)			PORTx_OUT, (n), 1	// 0=low, 1=high
@@ -206,7 +212,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define PORTx_DIEH			0x20
 
 /*================ IOMAP ================*/
-#define IOMAP_BASE		0x1E5118
+#define IOMAP_base		0x1E5118
 
 #define IOMAP_CON0			0x00
 #define IOMAP_CON1			0x04
@@ -219,7 +225,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 /* High Speed SFR */
 
 /*================= FM ==================*/
-#define FM_BASE			0x1F1700
+#define FM_base			0x1F1700
 
 #define FM_CON				0x00
 

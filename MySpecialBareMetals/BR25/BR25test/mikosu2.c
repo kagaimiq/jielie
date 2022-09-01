@@ -4,9 +4,9 @@
 
 
 void uputc(int c) {
-	reg32_write(UART0_BASE+UARTx_BUF, c);
-	while (!reg32_rsmask(UART0_BASE+UARTx_CON0_TPND));
-	reg32_wsmask(UART0_BASE+UARTx_CON0_CLRTPND, 1);
+	reg32_write(UART0_base+UARTx_BUF, c);
+	while (!reg32_rsmask(UART0_base+UARTx_CON0_TPND));
+	reg32_wsmask(UART0_base+UARTx_CON0_CLRTPND, 1);
 }
 
 
@@ -63,40 +63,40 @@ struct JieLi_LoaderArgs *largs;
 
 
 void sflash_init(void) {
-	reg32_wsmask(PORTD_BASE+PORTx_DIRn(0), 0); // PD0 out  -> SCK
-	reg32_wsmask(PORTD_BASE+PORTx_DIRn(1), 0); // PD1 out  -> MOSI
-	reg32_wsmask(PORTD_BASE+PORTx_DIRn(2), 1); // PD2 in   -> MISO
-	reg32_wsmask(PORTD_BASE+PORTx_DIRn(3), 0); // PD3 out  -> CS
-	reg32_wsmask(PORTD_BASE+PORTx_DIRn(4), 0); // PD4 out  -> ?? HOLD? Power?!
+	reg32_wsmask(PORTD_base+PORTx_DIRn(0), 0); // PD0 out  -> SCK
+	reg32_wsmask(PORTD_base+PORTx_DIRn(1), 0); // PD1 out  -> MOSI
+	reg32_wsmask(PORTD_base+PORTx_DIRn(2), 1); // PD2 in   -> MISO
+	reg32_wsmask(PORTD_base+PORTx_DIRn(3), 0); // PD3 out  -> CS
+	reg32_wsmask(PORTD_base+PORTx_DIRn(4), 0); // PD4 out  -> ?? HOLD? Power?!
 
-	reg32_wsmask(PORTD_BASE+PORTx_OUTn(3), 1); // PD3 high
-	reg32_wsmask(PORTD_BASE+PORTx_OUTn(4), 1); // PD4 high
+	reg32_wsmask(PORTD_base+PORTx_OUTn(3), 1); // PD3 high
+	reg32_wsmask(PORTD_base+PORTx_OUTn(4), 1); // PD4 high
 
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON0, 2, 1, 0); // SPI0 on PD3/PD2/PD1/PD0
+	reg32_wsmask(IOMAP_base+IOMAP_CON0, 2, 1, 0); // SPI0 on PD3/PD2/PD1/PD0
 
-	reg32_write(SPI0_BASE+SPIx_CON, 0x20);
-	reg32_write(SPI0_BASE+SPIx_BAUD, 32); // some clock speed
-	reg32_wsmask(SPI0_BASE+SPIx_CON_BIDIR, 1); // full duplex
-	reg32_wsmask(SPI0_BASE+SPIx_CON_SPIE, 1);
+	reg32_write(SPI0_base+SPIx_CON, 0x20);
+	reg32_write(SPI0_base+SPIx_BAUD, 32); // some clock speed
+	reg32_wsmask(SPI0_base+SPIx_CON_BIDIR, 1); // full duplex
+	reg32_wsmask(SPI0_base+SPIx_CON_SPIE, 1);
 }
 
 void sflash_sel(char sel) {
-	reg32_wsmask(PORTD_BASE+PORTx_OUTn(3), !sel); // CS
+	reg32_wsmask(PORTD_base+PORTx_OUTn(3), !sel); // CS
 }
 
 uint8_t sflash_bytexfer(uint8_t val) {
-	reg32_write(SPI0_BASE+SPIx_BUF, val);
-	while (!reg32_rsmask(SPI0_BASE+SPIx_CON_PND));
-	reg32_wsmask(SPI0_BASE+SPIx_CON_PCLR, 1);
-	return reg32_read(SPI0_BASE+SPIx_BUF);
+	reg32_write(SPI0_base+SPIx_BUF, val);
+	while (!reg32_rsmask(SPI0_base+SPIx_CON_PND));
+	reg32_wsmask(SPI0_base+SPIx_CON_PCLR, 1);
+	return reg32_read(SPI0_base+SPIx_BUF);
 }
 
 void sflash_dmaxfer(void *ptr, int len, int dir) {
-	reg32_wsmask(SPI0_BASE+SPIx_CON_DIR, !!dir); //1=recv, 0=send
-	reg32_write(SPI0_BASE+SPIx_ADR, (uint32_t)ptr);
-	reg32_write(SPI0_BASE+SPIx_CNT, len);
-	while (!reg32_rsmask(SPI0_BASE+SPIx_CON_PND));
-	reg32_wsmask(SPI0_BASE+SPIx_CON_PCLR, 1);
+	reg32_wsmask(SPI0_base+SPIx_CON_DIR, !!dir); //1=recv, 0=send
+	reg32_write(SPI0_base+SPIx_ADR, (uint32_t)ptr);
+	reg32_write(SPI0_base+SPIx_CNT, len);
+	while (!reg32_rsmask(SPI0_base+SPIx_CON_PND));
+	reg32_wsmask(SPI0_base+SPIx_CON_PCLR, 1);
 }
 
 
@@ -144,22 +144,22 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 
 void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	#if 0 // Remember that voodoo magic! ...basically like everything else??!?! ( i mean... )
-	reg32_write(UART2_BASE+UARTx_CON0, 1); // 8n1, en
-	reg32_write(UART2_BASE+UARTx_BAUD, 48000000/4/115200);
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON1, 14, 3, 3); // UART2 to PC4/PC5
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON3, 10, 1, 0); // UART2 ... IO SEL -> IOMUX ?
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON3, 11, 1, 1); // UART2 I/O enable
-	reg32_wsmask(PORTC_BASE+PORTx_DIRn(4), 0); // PC4 out
-	reg32_wsmask(PORTC_BASE+PORTx_DIRn(5), 1); // PC5 in
+	reg32_write(UART2_base+UARTx_CON0, 1); // 8n1, en
+	reg32_write(UART2_base+UARTx_BAUD, 48000000/4/115200);
+	reg32_wsmask(IOMAP_base+IOMAP_CON1, 14, 3, 3); // UART2 to PC4/PC5
+	reg32_wsmask(IOMAP_base+IOMAP_CON3, 10, 1, 0); // UART2 ... IO SEL -> IOMUX ?
+	reg32_wsmask(IOMAP_base+IOMAP_CON3, 11, 1, 1); // UART2 I/O enable
+	reg32_wsmask(PORTC_base+PORTx_DIRn(4), 0); // PC4 out
+	reg32_wsmask(PORTC_base+PORTx_DIRn(5), 1); // PC5 in
 	#endif
 
 	// init UART0 on PB5
-	reg32_write(UART0_BASE+UARTx_CON0, 1); // 8n1, en
-	reg32_write(UART0_BASE+UARTx_BAUD, (48000000 / 4 / 921600) - 1);
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON0, 3, 3, 2); // UART0 to PB5
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON3, 2, 1, 0); // UART0 ... IO SEL -> IOMUX ?
-	reg32_wsmask(IOMAP_BASE+IOMAP_CON3, 3, 1, 1); // UART0 I/O enable
-	reg32_wsmask(PORTB_BASE+PORTx_DIRn(5), 0); // PB5 out
+	reg32_write(UART0_base+UARTx_CON0, 1); // 8n1, en
+	reg32_write(UART0_base+UARTx_BAUD, (48000000 / 4 / 921600) - 1);
+	reg32_wsmask(IOMAP_base+IOMAP_CON0, 3, 3, 2); // UART0 to PB5
+	reg32_wsmask(IOMAP_base+IOMAP_CON3, 2, 1, 0); // UART0 ... IO SEL -> IOMUX ?
+	reg32_wsmask(IOMAP_base+IOMAP_CON3, 3, 1, 1); // UART0 I/O enable
+	reg32_wsmask(PORTB_base+PORTx_DIRn(5), 0); // PB5 out
 
 	xdev_out(uputc);
 	xputs("\n\e[1;37;41;5m==== JieLi AC6965A! "__DATE__" "__TIME__" ====\e[0m\n");
