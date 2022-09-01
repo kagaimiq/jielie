@@ -1,12 +1,23 @@
 # JieLi STUFF
 
-A special dumpster
-for (almost) all my stuff
-about JieLi!
+I have been sorta an JieLi maniac since 2013?!
 
-So that i don't have to pollute the [jl-uboot-tool](https://github.com/kagaimiq/jl-uboot-tool) repo
-with very unrelated stuff!
+- xx.xx.2013 - mp3 player with **AC1187**
+- xx.xx.2018 - mp3 player with **AC1187** yet again, revisit with a 12 year old mind...
+- 27.12.2018 - the mp3 bluetooth disco ball thing illuminate from XL12345.COM based on **AC6908A**(?)
+- 12.02.2019 - the super 4k (no way, GC0307 == 640x480) wifi action dash sport dv camera based on **AC5204A**
+- 26.12.2020 - the mp3 stroboscope from XL12345.COM based on **AC1082**
+- 11.06.2022 - some blue JBL-ish speaker based on **AC6925E**
+- xx.07.2022 - HW-770 V0.2 bluetooth board based on **AC6965E**
 
+## Contents
+
+There's not really much....
+
+- [Boards](boards/index.md) - Information about some boards i've encountered
+- [JIE LI Files](jl-files/index.md) - The JieLi file format stuff
+
+----
 
 ## Special links
 
@@ -14,13 +25,25 @@ with very unrelated stuff!
 
 #### Official
 
+Yes, you got it right. Beware.
+
 - [JieLi-Tech](https://github.com/Jieli-Tech) - an organization
 - [JieLiTech](https://github.com/JieliTech) - an user account; idk why you need to know about it
 
-#### Community
+#### Kinda community stuff
 
 - [kagaimiq/jl-uboot-tool](https://github.com/kagaimiq/jl-uboot-tool)
 - [christian-kramer/JieLi-AC690X-Familiarization](https://github.com/christian-kramer/JieLi-AC690X-Familiarization)
+
+#### Leakies
+
+Risky stuff.
+
+- [gitzzc/JieLi1082](https://github.com/gitzzc/JieLi1082) - Some stuff about CD002 (AC109N), particulary for AC1082
+- [go2net/kt-rec-pro](https://github.com/go2net/kt-rec-pro) - Some stuff about AC309N
+- [go2net/my-com-rec](https://github.com/go2net/my-com-rec) - Some more stuff about AC309N
+- [qqq5127/AC6901_clock](https://github.com/qqq5127/AC6901_clock) - Contrary to its name, it seems to be an SDK for BR21 (AC692N)
+- [qqq5127/AC6966B](https://github.com/qqq5127/AC6966B) - SDK for BR25 (AC696N), particulary for AC6966B?
 
 ### Forums
 
