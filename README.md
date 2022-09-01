@@ -8,7 +8,7 @@ I have been sorta an JieLi maniac since 2013?! But actually it's more like 2019.
 - 08.02.2019 - the super 4k (no way, GC0307 == 640x480) wifi action dash sport dv camera based on **AC5204A**
 - 28.12.2020 - the mp3 stroboscope from XL12345.COM based on **AC1082**
 - 06.06.2022 - some blue JBL-ish speaker based on **AC6925E**
-- **07.07**.2022 - HW-770 V0.2 bluetooth board based on **AC6965E**
+- **07.07**.2022 - HW-770 V0.2 bluetooth board based on **AC6965A**
 
 ## Contents
 
