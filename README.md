@@ -12,10 +12,11 @@ I have been sorta an JieLi maniac since 2013?! But actually it's more like 2019.
 
 ## Contents
 
-There's not really much....
+- [Chips](chips/index.md) - Information about chips
+- [Boards](boards/index.md) - Information about some boards
+- [JIE LI Files](jl-files/index.md) - Info about JieLi files and other binary structures
 
-- [Boards](boards/index.md) - Information about some boards i've encountered
-- [JIE LI Files](jl-files/index.md) - The JieLi file format stuff
+- [USB VID/PID list](usb_vid_pid.md)
 
 ----
 
@@ -44,7 +45,7 @@ Risky stuff.
 - [go2net/kt-rec-pro](https://github.com/go2net/kt-rec-pro) - Some stuff about AC309N
 - [go2net/my-com-rec](https://github.com/go2net/my-com-rec) - Some more stuff about AC309N
 - [qqq5127/AC6901_clock](https://github.com/qqq5127/AC6901_clock) - Contrary to its name, it seems to be an SDK for BR21 (AC692N)
-- [qqq5127/AC695N](https://github.com/qqq5127/AC6951) - SDK for BR23 (AC695N), particulary for AC6951?
+- [qqq5127/AC6951](https://github.com/qqq5127/AC6951) - SDK for BR23 (AC695N), particulary for AC6951?
 - [qqq5127/AC6966B](https://github.com/qqq5127/AC6966B) - SDK for BR25 (AC696N), particulary for AC6966B?
 
 ### Forums
