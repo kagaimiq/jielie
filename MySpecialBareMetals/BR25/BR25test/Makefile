@@ -45,3 +45,4 @@ $(TARGET): $(OBJS)
 
 copy: $(TARGET)
 	$(OBJCOPY) -Obinary $< $<.bin
+	sudo python3 ../../../../jl-uboot-tool/pytool/jl_uboot_proto.py /dev/sg2 $<.bin
