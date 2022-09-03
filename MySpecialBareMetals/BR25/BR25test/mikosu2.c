@@ -162,7 +162,7 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	reg32_wsmask(PORTB_base+PORTx_DIRn(5), 0); // PB5 out
 
 	xdev_out(uputc);
-	xputs("\n\e[1;37;41;5m==== JieLi AC6965A! "__DATE__" "__TIME__" ====\e[0m\n");
+	xputs("\n\e[1;37;41m==== JieLi AC6965A! "__DATE__" "__TIME__" ====\e[0m\n");
 	xprintf("r0: <%08x>  r1: <%08x>  r2: <%08x>  r3: <%08x>\n", r0,r1,r2,r3);
 
 	largs = (void *)r0;
