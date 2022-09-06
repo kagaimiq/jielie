@@ -37,13 +37,6 @@ void hexdump(void *ptr, int len) {
 }
 
 
-void delay(uint32_t ms) {
-	while (ms--) // TODO!
-		for (volatile int i = 1000; i; i--);
-}
-
-
-
 struct JieLi_ExceptFrame {
 	// general purpose
 	uint32_t gpr[16];
@@ -59,6 +52,7 @@ struct JieLi_ExceptFrame {
 		};
 	};
 };
+
 
 void ExceptionHandler(struct JieLi_ExceptFrame *ef) {
 	xputs("\e[1;33;44m=========== JieLi Crashed! ===========\e[0m\n");
@@ -80,31 +74,43 @@ void ExceptionHandler(struct JieLi_ExceptFrame *ef) {
 	xprintf(" usp: <%08x>   ssp: <%08x>    sp: <%08x>    pc: <%08x>\n", p[12], p[13], p[14], p[15]);
 }
 
+__attribute__((naked)) void ExceptionHandler_entry(void) {
+	// store all the regs - make an exception frame
+	asm ("[--sp] = {pc, sp, ssp, usp, icfg, sr10, sr9, sr8, sr7, cnum, psr, sr4, rets, retx, rete, reti}");
+	asm ("[--sp] = {r15-r0}");
 
-volatile int msecs;
+	// pass the pointer to the exception frame
+	asm ("r0 = sp");
+
+	// call the handler
+	asm ("call ExceptionHandler");
+
+	// halt
+	asm ("1: idle\ngoto 1b");
+}
+
+
+#if 0
+volatile uint32_t msecs;
 
 __attribute__((interrupt)) void Konatachan2(void) {
-	static int ctr;
-
-	if (++ctr >= 1000) {
-		ctr = 0;
-		xprintf("hai, %d\n", msecs);
-	}
-
 	msecs++;
 	reg32_wsmask(TIMER0_base+TIMERx_CON_PCLR, 1);
 }
 
-__attribute__((interrupt)) void Hakase(void) {
-	static int ctr2;
-
-	if (++ctr2 >= 1000) {
-		ctr2 = 0;
-		xprintf("wai, %d\n", msecs);
-	}
-
-	reg32_wsmask(TIMER1_base+TIMERx_CON_PCLR, 1);
+uint32_t millis(void) {
+	return msecs;
 }
+
+void delay(uint32_t ms) {
+	for (uint32_t target = millis() + ms; millis() < target; );
+}
+#endif
+
+
+
+
+
 
 
 
@@ -124,6 +130,7 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	/*==================================================================*/
 
+	//xprintf("%08x\n", reg32_read(0x1E0200));
 
 	extern void *irqvectors[];
 	void ExceptionHandler_entry(void);
@@ -139,25 +146,17 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	irqvectors[1] = ExceptionHandler_entry;
 
-	irqvectors[4] = Konatachan2;
-	irqvectors[5] = Hakase;
-
 	//asm volatile ("[--sp] = {r1-r0}\nr0 = 0xdead\nr1 = 0x1638\n[r0] = r1;\n{r1-r0} = [sp++]\n");
+
+	#if 0
+	irqvectors[4] = Konatachan2;
 
 	reg32_write(TIMER0_base+TIMERx_CON, 0);
 	reg32_write(TIMER0_base+TIMERx_PRD, 48000);
 	reg32_wsmask(TIMER0_base+TIMERx_CON_MODE, 1);
 
-	reg32_write(TIMER1_base+TIMERx_CON, 0);
-	reg32_write(TIMER1_base+TIMERx_PRD, 24000);
-	reg32_wsmask(TIMER1_base+TIMERx_CON_MODE, 1);
-	reg32_wsmask(TIMER1_base+TIMERx_CON_MODE, 1);
-
-	//reg32_wsmask(0x100000+0xf000+0x100+0x8, 8, 0xf, 0x1); // en irq18
 	reg32_wsmask(0x100000+0xf000+0x100+0x0, 16, 0xf, 0x1); // en irq4
-	reg32_wsmask(0x100000+0xf000+0x100+0x0, 20, 0xf, 0x1); // en irq5
-
-	xputs("Nothing ?!");
+	#endif
 
 	#if 0
 	///----------- dac init
