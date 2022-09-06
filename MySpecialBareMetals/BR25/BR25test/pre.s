@@ -22,3 +22,21 @@ _start:
 
 	// restore caller regs and return
 	{pc, r15-r4} = [sp++]
+
+
+	.global ExceptionHandler_entry
+ExceptionHandler_entry:
+	// store all the regs - make an exception frame
+	[--sp] = {pc, sp, ssp, usp, icfg, sr10, sr9, sr8, sr7, cnum, psr, sr4, rets, retx, rete, reti}
+	[--sp] = {r15-r0}
+
+	// pass the pointer to the exception frame
+	r0 = sp
+
+	// call the function
+	call ExceptionHandler
+
+	// halt
+1:	idle
+	goto 1b
+
