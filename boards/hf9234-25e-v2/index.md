@@ -31,4 +31,5 @@ but the chip they used has only one output channel.... yikes!
 | USBDP     | USB D+                         |
 
 Keys are connected as follows:
+
 ![Keys schematic](keys.svg)
