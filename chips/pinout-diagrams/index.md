@@ -26,8 +26,6 @@ Global TODO: describe all the alt functions too.
 
 ![AC6925E](AC6925E.svg)
 
-![AC6925F](AC6925F.svg)
-
 ![AC6928A](AC6928A.svg)
 
 ![AC6929C](AC6929C.svg)
