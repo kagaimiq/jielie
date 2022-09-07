@@ -24,6 +24,132 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define REG_GETVAL(regdef, val)			_REG_GETVAL(regdef, val)
 
 /*////////////////////////////////////////////////////////////////////////////*/
+/* CPU Core SFR */
+/*================= CMNG ================*/
+#define CMNG_base		0x100000
+
+#define CMNG_SOFT_INT			0x00
+#define CMNG_SOFT_SET			0x04
+#define CMNG_SOFT_CLR			0x08
+#define CMNG_CON			0x0C
+
+/*================ SDTAP ================*/
+#define SDTAP_base		0x100100
+
+#define SDTAP_CON			0x00
+#define SDTAP_KEY			0x04
+
+/*================= MMU =================*/
+#define MMU_base		0x100300
+
+#define MMU_CON				0x00	// control
+#define MMU_CON_enable				MMU_CON, 0, 1		// mmu enable
+#define MMU_TLB1_BEG			0x04	// TLB1 begin
+#define MMU_TLB1_END			0x08	// TLB1 end
+
+// mmu mapping @ 0x200000
+// page size = 128 bytes
+// tlb format:
+//   entry = 16 bit
+//     0..12  = physical page
+//     13     = valid
+//     14..15 = reserved
+
+/*================= DSP =================*/
+#define DSP_base		0x101000
+
+#define DSP_CON				0x00
+#define DSP_RING_OSC			0x04
+#define DSP_CPASS_CON			0x08
+#define DSP_CPASS_ADRH			0x0C
+#define DSP_CPASS_ADRL			0x10
+#define DSP_CPASS_BUF_LAST		0x14
+#define DSP_CPREFETCH_ADRH		0x18
+#define DSP_CPREFETCH_ADRL		0x1C
+#define DSP_CACHE_MSG_CH		0x20
+#define DSP_MEM_CON			0x24
+
+/*================ DEBUG ================*/
+#define DEBUG_base		0x101040
+
+#define DEBUG_DSP_BF_CON		0x00
+#define DEBUG_WR_EN			0x04
+#define DEBUG_MSG			0x08
+#define DEBUG_MSG_CLR			0x0C
+#define DEBUG_CPU_WR_LIMH		0x10
+#define DEBUG_CPU_WR_LIML		0x14
+#define DEBUG_PRP_WR_LIMH		0x18
+#define DEBUG_PRP_WR_LIML		0x1C
+#define DEBUG_PRP_MMU_MSG		0x20
+#define DEBUG_LSB_MMU_MSG_CH		0x24
+#define DEBUG_PRP_WR_LIMIT_MSG		0x28
+#define DEBUG_LSB_WR_LIMIT_CH		0x2C
+#define DEBUG_CPU_PC_LIMH0		0x30
+#define DEBUG_CPU_PC_LIML0		0x34
+#define DEBUG_CPU_PC_LIMH1		0x38
+#define DEBUG_CPU_PC_LIML1		0x3C
+#define DEBUG_PRP_SRM_INV_MSG		0x40
+#define DEBUG_LSB_SRM_INV_CH		0x44
+
+/*================= FFT =================*/
+#define FFT_base		0x102000
+
+#define FFT_CON				0x00	// control
+#define FFT_CADR			0x04
+#define FFT_TEST0			0x08
+#define FFT_TEST1			0x0C
+
+/*================= CORE ================*/
+#define CORE_base		0x10F000
+#define COREn_base(n)		(CORE_base + 0x10000 * (n))
+
+#define CORE_DRn(n)			(0x00 + 0x4 * (n))	// gpr
+#define CORE_SRn(n)			(0x40 + 0x4 * (n))	// sfr
+#define CORE_RETI			CORE_SRn(0)	// reti
+#define CORE_RETE			CORE_SRn(1)	// rete
+#define CORE_RETX			CORE_SRn(2)	// retx
+#define CORE_RETS			CORE_SRn(3)	// rets
+#define CORE_PSR			CORE_SRn(5)	// psr
+#define CORE_CNUM			CORE_SRn(6)	// cnum
+#define CORE_ICFG			CORE_SRn(11)	// icfg
+#define CORE_USP			CORE_SRn(12)	// usp
+#define CORE_SSP			CORE_SRn(13)	// ssp
+#define CORE_SP				CORE_SRn(14)	// sp
+#define CORE_PCRS			CORE_SRn(15)	// pc
+#define CORE_BPCON			0x80
+#define CORE_BSP			0x84
+#define CORE_BPn(n)			(0x88 + 0x4 * (n))
+#define CORE_CMD_PAUSE			0x98
+#define CORE_PMU_CON			0xC0
+#define CORE_EMU_CON			0xD0
+#define CORE_EMU_MSG			0xD4
+#define CORE_EMU_SSP_H			0xD8
+#define CORE_EMU_SSP_L			0xDC
+#define CORE_EMU_USP_H			0xE0
+#define CORE_EMU_USP_L			0xE4
+#define CORE_TTMR_CON			0xEC	// tick timer control
+#define CORE_TTMR_CON_enable			CORE_TTMR_CON, 0, 1	// enable
+#define CORE_TTMR_CON_cpnd			CORE_TTMR_CON, 6, 1	// clear int pending
+#define CORE_TTMR_CON_pnd			CORE_TTMR_CON, 7, 1	// int pending
+#define CORE_TTMR_CNT			0xF0	// tick timer counter
+#define CORE_TTMR_PRD			0xF4	// tick timer period
+#define CORE_BANK_CON			0xF8
+#define CORE_BANK_NUM			0xFC
+#define CORE_ICFGn(n)			(0x100 + 0x4 * (n))	// interrupt config
+#define 	CORE_ICFGi(i)			CORE_ICFGn(i / 8), ((i % 8) * 4), 0xf
+#define 	CORE_ICFGi_enable(i)		CORE_ICFGn(i / 8), ((i % 8) * 4 + 0), 1
+#define 	CORE_ICFGi_priority(i)		CORE_ICFGn(i / 8), ((i % 8) * 4 + 1), 0x7
+#define CORE_IPNDn(n)			(0x180 + 0x4 * (n))	// interrupt pending
+#define 	CORE_IPNDi(i)			CORE_IPNDn(i / 32), (i % 32), 1
+#define CORE_ETM_CON			0x1C0
+#define CORE_ETM_PCn(n)			(0x1C4 + 0x4 * (n))
+#define CORE_WP0_ADRH			0x1D4
+#define CORE_WP0_ADRL			0x1D8
+#define CORE_WP0_DATH			0x1DC
+#define CORE_WP0_DATL			0x1E0
+#define CORE_WP0_PC			0x1E4
+
+/*////////////////////////////////////////////////////////////////////////////*/
 /* Low Speed SFR */
 
 /*================ CLOCK ================*/
@@ -69,14 +195,14 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define TIMER5_base		0x1E0900
 
 #define TIMERx_CON			0x00	// control
-#define 	TIMERx_CON_MODE			TIMERx_CON, 0, 0x3	// timer mode [dis|count|io rising cap|io falling cap]
-#define 	TIMERx_CON_SSEL			TIMERx_CON, 2, 0x3	// clock sel [bus|io|osc|rc]
-#define 	TIMERx_CON_PSETa		TIMERx_CON, 4, 0x3	// prescaler (1) [1|4|16|64]
-#define 	TIMERx_CON_PSETb		TIMERx_CON, 6, 0x3	// prescaler (2) [1|2|256|512]
-#define 	TIMERx_CON_PWMEN		TIMERx_CON, 8, 1	// pwm enable
-#define 	TIMERx_CON_PWMINV		TIMERx_CON, 9, 1	// pwm invert
-#define 	TIMERx_CON_PCLR			TIMERx_CON, 14, 1	// clear pending int
-#define 	TIMERx_CON_PND			TIMERx_CON, 15, 1	// int pending
+#define 	TIMERx_CON_mode			TIMERx_CON, 0, 0x3	// timer mode [dis|count|io rising cap|io falling cap]
+#define 	TIMERx_CON_ssel			TIMERx_CON, 2, 0x3	// clock sel [bus|io|osc|rc]
+#define 	TIMERx_CON_pseta		TIMERx_CON, 4, 0x3	// prescaler (1) [1|4|16|64]
+#define 	TIMERx_CON_psetb		TIMERx_CON, 6, 0x3	// prescaler (2) [1|2|256|512]
+#define 	TIMERx_CON_pwmen		TIMERx_CON, 8, 1	// pwm enable
+#define 	TIMERx_CON_pwminv		TIMERx_CON, 9, 1	// pwm invert
+#define 	TIMERx_CON_pclk			TIMERx_CON, 14, 1	// clear pending int
+#define 	TIMERx_CON_pnd			TIMERx_CON, 15, 1	// int pending
 #define TIMERx_CNT			0x04	// counter
 #define TIMERx_PRD			0x08	// period
 #define TIMERx_PWM			0x0C	// pwm duty cycle
@@ -199,19 +325,19 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SPI2_base		0x1E1E00
 
 #define SPIx_CON			0x00	// control
-#define 	SPIx_CON_SPIE			SPIx_CON, 0, 1		// spi enable
-#define 	SPIx_CON_SLAVE			SPIx_CON, 1, 1		// slave mode
-#define 	SPIx_CON_CSE			SPIx_CON, 2, 1		// enable cs
-#define 	SPIx_CON_BIDIR			SPIx_CON, 3, 1		// full-duplex mode
-#define 	SPIx_CON_SE			SPIx_CON, 4, 1		// data sample [on ck rising edge|on ck falling edge]
-#define 	SPIx_CON_UE			SPIx_CON, 5, 1		// data update [on ck rising edge|on ck falling edge]
-#define 	SPIx_CON_CKID			SPIx_CON, 6, 1		// ck polarity [low when idle|high when idle]
-#define 	SPIx_CON_CSID			SPIx_CON, 7, 1		// cs polarity [low when idle|high when idle]
-#define 	SPIx_CON_DATW			SPIx_CON, 10, 0x3	// data width [1 bit|2 bits|4 bits]
-#define 	SPIx_CON_DIR			SPIx_CON, 12, 1		// transfer direction [tx|rx]
-#define 	SPIx_CON_IE			SPIx_CON, 13, 1		// int enable
-#define 	SPIx_CON_PCLR			SPIx_CON, 14, 1		// pending int clear
-#define 	SPIx_CON_PND			SPIx_CON, 15, 1		// pending int
+#define 	SPIx_CON_spie			SPIx_CON, 0, 1		// spi enable
+#define 	SPIx_CON_slave			SPIx_CON, 1, 1		// slave mode
+#define 	SPIx_CON_csr			SPIx_CON, 2, 1		// enable cs
+#define 	SPIx_CON_bidir			SPIx_CON, 3, 1		// full-duplex mode
+#define 	SPIx_CON_se			SPIx_CON, 4, 1		// data sample [on ck rising edge|on ck falling edge]
+#define 	SPIx_CON_ue			SPIx_CON, 5, 1		// data update [on ck rising edge|on ck falling edge]
+#define 	SPIx_CON_ckid			SPIx_CON, 6, 1		// ck polarity [low when idle|high when idle]
+#define 	SPIx_CON_csid			SPIx_CON, 7, 1		// cs polarity [low when idle|high when idle]
+#define 	SPIx_CON_datw			SPIx_CON, 10, 0x3	// data width [1 bit|2 bits|4 bits]
+#define 	SPIx_CON_dir			SPIx_CON, 12, 1		// transfer direction [tx|rx]
+#define 	SPIx_CON_ie			SPIx_CON, 13, 1		// int enable
+#define 	SPIx_CON_pclk			SPIx_CON, 14, 1		// pending int clear
+#define 	SPIx_CON_pnd			SPIx_CON, 15, 1		// pending int
 #define SPIx_BAUD			0x04	// baudrate
 #define SPIx_BUF			0x08	// data reg
 #define SPIx_ADR			0x0C	// dma address
@@ -223,29 +349,29 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define UART2_base		0x1E2200
 
 #define UARTx_CON0			0x00	// control 0
-#define 	UARTx_CON0_UTEN			UARTx_CON0, 0, 1	// uart enable
-#define 	UARTx_CON0_M9EN			UARTx_CON0, 1, 1	// frame size [8 bit|9 bit]
-#define 	UARTx_CON0_TXIE			UARTx_CON0, 2, 1	// tx int enable
-#define 	UARTx_CON0_RXIE			UARTx_CON0, 3, 1	// rx int enable
-#define 	UARTx_CON0_DIVS			UARTx_CON0, 4, 1	// baudrate predivide [/4|/3]
-#define 	UARTx_CON0_OTIE			UARTx_CON0, 5, 1	// timeout interrupt enable
-#define 	UARTx_CON0_RXMODE		UARTx_CON0, 6, 1	// rx mode [pio|dma]
-#define 	UARTx_CON0_RDC			UARTx_CON0, 7, 1	// received amount clear
-#define 	UARTx_CON0_RB8			UARTx_CON0, 8, 1	// rx frame bit8
-#define 	UARTx_CON0_TB8			UARTx_CON0, 9, 1	// tx frame bit8
-#define 	UARTx_CON0_CLROTPND		UARTx_CON0, 10, 1	// clear timeout pending
-#define 	UARTx_CON0_OTPND		UARTx_CON0, 11, 1	// timeout pending
-#define 	UARTx_CON0_CLRRPND		UARTx_CON0, 12, 1	// clear rx pending
-#define 	UARTx_CON0_CLRTPND		UARTx_CON0, 13, 1	// clear tx pending
-#define 	UARTx_CON0_RPND			UARTx_CON0, 14, 1	// rx pending
-#define 	UARTx_CON0_TPND			UARTx_CON0, 15, 1	// tx pending
+#define 	UARTx_CON0_uten			UARTx_CON0, 0, 1	// uart enable
+#define 	UARTx_CON0_m9en			UARTx_CON0, 1, 1	// frame size [8 bit|9 bit]
+#define 	UARTx_CON0_txie			UARTx_CON0, 2, 1	// tx int enable
+#define 	UARTx_CON0_rxie			UARTx_CON0, 3, 1	// rx int enable
+#define 	UARTx_CON0_divs			UARTx_CON0, 4, 1	// baudrate predivide [/4|/3]
+#define 	UARTx_CON0_otie			UARTx_CON0, 5, 1	// timeout interrupt enable
+#define 	UARTx_CON0_rxmode		UARTx_CON0, 6, 1	// rx mode [pio|dma]
+#define 	UARTx_CON0_rdc			UARTx_CON0, 7, 1	// received amount clear
+#define 	UARTx_CON0_rb8			UARTx_CON0, 8, 1	// rx frame bit8
+#define 	UARTx_CON0_tb8			UARTx_CON0, 9, 1	// tx frame bit8
+#define 	UARTx_CON0_clrotpnd		UARTx_CON0, 10, 1	// clear timeout pending
+#define 	UARTx_CON0_otpnd		UARTx_CON0, 11, 1	// timeout pending
+#define 	UARTx_CON0_clrrpnd		UARTx_CON0, 12, 1	// clear rx pending
+#define 	UARTx_CON0_clrtpnd		UARTx_CON0, 13, 1	// clear tx pending
+#define 	UARTx_CON0_rpnd			UARTx_CON0, 14, 1	// rx pending
+#define 	UARTx_CON0_tpnd			UARTx_CON0, 15, 1	// tx pending
 #define UARTx_CON1			0x04	// control 1
-#define 	UARTx_CON1_RTSE			UARTx_CON1, 0, 1	// enable rts
-#define 	UARTx_CON1_RTSDMAEN		UARTx_CON1, 1, 1	// rts dma enable ??
-#define 	UARTx_CON1_CTSE			UARTx_CON1, 2, 1	// enable cts
-#define 	UARTx_CON1_CTSIE		UARTx_CON1, 3, 1	// cts int enable
-#define 	UARTx_CON1_BAUDFRAC		UARTx_CON1, 4, 0x3	// fractional baudrate
-#define 	UARTx_CON1_CLRRTS		UARTx_CON1, 13, 1	// clear rts
+#define 	UARTx_CON1_rtse			UARTx_CON1, 0, 1	// enable rts
+#define 	UARTx_CON1_rtsdmaen		UARTx_CON1, 1, 1	// rts dma enable ??
+#define 	UARTx_CON1_ctse			UARTx_CON1, 2, 1	// enable cts
+#define 	UARTx_CON1_ctsie		UARTx_CON1, 3, 1	// cts int enable
+#define 	UARTx_CON1_baudfrac		UARTx_CON1, 4, 0x3	// fractional baudrate
+#define 	UARTx_CON1_clrrts		UARTx_CON1, 13, 1	// clear rts
 #define UARTx_BAUD			0x08	// baudrate
 #define UARTx_BUF			0x0C	// data reg
 #define UARTx_OTCNT			0x10	// timeout
