@@ -19,6 +19,48 @@ I was *really* shocked when i saw that there was an **JIE LI** chip inside!!
 
 ![Board back side](20190221_180616.jpg)
 
+
+## The Sensor
+
+The image sensor that was used in it is the GalaxyCore's GC0307.
+It has an resolution of **640x480**. Yeah.... That's the 4K quality we want!
+
+...TODO describe all the story...
+
+![The sensor](IMG_20201018_214557.jpg)
+
+![Breakout cardboard front](IMG_20201019_031732.jpg)
+![Breakout cardboard back](IMG_20201019_031804.jpg)
+
+Pinout: (labels as per GC0307 datasheet)
+
+|  #  |     Name            |
+|-----|---------------------|
+|   1 | PCLK                |
+|   2 | GND                 |
+|   3 | HSYNC               |
+|   4 | VSYNC               |
+|   5 | D7                  |
+|   6 | D6                  |
+|   7 | D5                  |
+|   8 | D4                  |
+|   9 | D3                  |
+|  10 | D2                  |
+|  11 | D1                  |
+|  12 | D0                  |
+|  13 |                     |
+|  14 |                     |
+|  15 | GND                 |
+|  16 | IN_CLK              |
+|  17 | GND                 |
+|  18 | PWDN                |
+|  19 |                     |
+|  20 | SBCL                |
+|  21 | SBDA                |
+|  22 |                     |
+|  23 | VDD                 |
+|  24 |                     |
+
 ----
 
 # Whatever
