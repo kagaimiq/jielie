@@ -13,7 +13,7 @@ I have been sorta an JieLi maniac since 2013?! But actually it's more like 2019.
 ## Contents
 
 - [Chips](chips/index.md) - Information about chips
-- [Boards](boards/index.md) - Information about some boards
+- [Boards and devices](boards/index.md) - Information about some boards and devices
 - [JIE LI Files](jl-files/index.md) - Info about JieLi files and other binary structures
 
 - [USB VID/PID list](usb_vid_pid.md)

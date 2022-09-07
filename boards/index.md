@@ -1,4 +1,4 @@
-# Boards
+# Boards and devices
 
 ## Their
 
