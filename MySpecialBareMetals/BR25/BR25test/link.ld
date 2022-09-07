@@ -4,7 +4,7 @@ MEMORY {
 
 ENTRY(_start);
 
-irqvectors = 0x32000 - 0x100;
+InterruptVectorTable = 0x32000 - 0x100;
 
 SECTIONS {
 	.text : {
