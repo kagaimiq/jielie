@@ -201,7 +201,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define 	TIMERx_CON_psetb		TIMERx_CON, 6, 0x3	// prescaler (2) [1|2|256|512]
 #define 	TIMERx_CON_pwmen		TIMERx_CON, 8, 1	// pwm enable
 #define 	TIMERx_CON_pwminv		TIMERx_CON, 9, 1	// pwm invert
-#define 	TIMERx_CON_pclk			TIMERx_CON, 14, 1	// clear pending int
+#define 	TIMERx_CON_pclr			TIMERx_CON, 14, 1	// clear pending int
 #define 	TIMERx_CON_pnd			TIMERx_CON, 15, 1	// int pending
 #define TIMERx_CNT			0x04	// counter
 #define TIMERx_PRD			0x08	// period
@@ -327,7 +327,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SPIx_CON			0x00	// control
 #define 	SPIx_CON_spie			SPIx_CON, 0, 1		// spi enable
 #define 	SPIx_CON_slave			SPIx_CON, 1, 1		// slave mode
-#define 	SPIx_CON_csr			SPIx_CON, 2, 1		// enable cs
+#define 	SPIx_CON_cse			SPIx_CON, 2, 1		// enable cs
 #define 	SPIx_CON_bidir			SPIx_CON, 3, 1		// full-duplex mode
 #define 	SPIx_CON_se			SPIx_CON, 4, 1		// data sample [on ck rising edge|on ck falling edge]
 #define 	SPIx_CON_ue			SPIx_CON, 5, 1		// data update [on ck rising edge|on ck falling edge]
@@ -336,7 +336,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define 	SPIx_CON_datw			SPIx_CON, 10, 0x3	// data width [1 bit|2 bits|4 bits]
 #define 	SPIx_CON_dir			SPIx_CON, 12, 1		// transfer direction [tx|rx]
 #define 	SPIx_CON_ie			SPIx_CON, 13, 1		// int enable
-#define 	SPIx_CON_pclk			SPIx_CON, 14, 1		// pending int clear
+#define 	SPIx_CON_pclr			SPIx_CON, 14, 1		// pending int clear
 #define 	SPIx_CON_pnd			SPIx_CON, 15, 1		// pending int
 #define SPIx_BAUD			0x04	// baudrate
 #define SPIx_BUF			0x08	// data reg
@@ -370,7 +370,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define 	UARTx_CON1_rtsdmaen		UARTx_CON1, 1, 1	// rts dma enable ??
 #define 	UARTx_CON1_ctse			UARTx_CON1, 2, 1	// enable cts
 #define 	UARTx_CON1_ctsie		UARTx_CON1, 3, 1	// cts int enable
-#define 	UARTx_CON1_baudfrac		UARTx_CON1, 4, 0x3	// fractional baudrate
+#define 	UARTx_CON1_baudfrac		UARTx_CON1, 4, 0x3	// baudrate fraction
 #define 	UARTx_CON1_clrrts		UARTx_CON1, 13, 1	// clear rts
 #define UARTx_BAUD			0x08	// baudrate
 #define UARTx_BUF			0x0C	// data reg
