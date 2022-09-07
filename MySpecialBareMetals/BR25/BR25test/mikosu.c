@@ -115,7 +115,7 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	/*==================================================================*/
 
-	irq_attach(0, ExceptionHandler_entry);
+	irq_attach(1, ExceptionHandler_entry);
 
 	reg32_write(CORE_base+CORE_TTMR_CON, 0);
 	reg32_write(CORE_base+CORE_TTMR_CNT, 0);
@@ -123,6 +123,8 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	reg32_write(CORE_base+CORE_TTMR_CON, 1);
 
 	irq_attach(3, TickerTimer);
+
+	asm volatile ("r0 = 0xdead\nr1 = 0xbeef\n[r0] = r1");
 
 	#if 0
 	///----------- open linein
