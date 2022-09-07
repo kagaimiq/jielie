@@ -38,6 +38,57 @@ void hexdump(void *ptr, int len) {
 
 
 
+struct JieLi_ExceptFrame {
+	// general purpose
+	uint32_t gpr[16];
+
+	// special function
+	union {
+		uint32_t sfr[16];
+		struct {
+			uint32_t reti, rete, retx, rets;
+			uint32_t sr4,  psr,  cnum, sr7;
+			uint32_t sr8,  sr9,  sr10, icfg;
+			uint32_t usp,  ssp,  sp,   pc;
+		};
+	};
+};
+
+void ExceptionHandler(struct JieLi_ExceptFrame *ef) {
+	xputs("\e[1;33;44m=========== JieLi Crashed! ===========\e[0m\n");
+
+	uint32_t *p;
+
+	xputs("\n---- General purpose regs ----\n");
+	p = ef->gpr;
+	xprintf(" r0: <%08x>   r1: <%08x>   r2: <%08x>   r3: <%08x>\n", p[ 0], p[ 1], p[ 2], p[ 3]);
+	xprintf(" r4: <%08x>   r5: <%08x>   r6: <%08x>   r7: <%08x>\n", p[ 4], p[ 5], p[ 6], p[ 7]);
+	xprintf(" r8: <%08x>   r9: <%08x>  r10: <%08x>  r11: <%08x>\n", p[ 8], p[ 9], p[10], p[11]);
+	xprintf("r12: <%08x>  r13: <%08x>  r14: <%08x>  r15: <%08x>\n", p[12], p[13], p[14], p[15]);
+
+	xputs("\n---- Special function regs ----\n");
+	p = ef->sfr;
+	xprintf("reti: <%08x>  rete: <%08x>  retx: <%08x>  rets: <%08x>\n", p[ 0], p[ 1], p[ 2], p[ 3]);
+	xprintf(" sr4: <%08x>   psr: <%08x>  cnum: <%08x>   sr7: <%08x>\n", p[ 4], p[ 5], p[ 6], p[ 7]);
+	xprintf(" sr8: <%08x>   sr9: <%08x>  sr10: <%08x>  icfg: <%08x>\n", p[ 8], p[ 9], p[10], p[11]);
+	xprintf(" usp: <%08x>   ssp: <%08x>    sp: <%08x>    pc: <%08x>\n", p[12], p[13], p[14], p[15]);
+}
+
+__attribute__((naked)) void ExceptionHandler_entry(void) {
+	// store all the regs - make an exception frame
+	asm ("[--sp] = {pc, sp, ssp, usp, icfg, sr10, sr9, sr8, sr7, cnum, psr, sr4, rets, retx, rete, reti}");
+	asm ("[--sp] = {r15-r0}");
+
+	// pass the pointer to the exception frame
+	asm ("r0 = sp");
+
+	// call the handler
+	asm ("call ExceptionHandler");
+
+	// halt
+	asm ("1: idle\ngoto 1b");
+}
+
 
 
 void IRQ_HANDLER TickerTimer(void) {
@@ -63,6 +114,8 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	xprintf("r0: <%08x>  r1: <%08x>  r2: <%08x>  r3: <%08x>\n", r0,r1,r2,r3);
 
 	/*==================================================================*/
+
+	irq_attach(0, ExceptionHandler_entry);
 
 	reg32_write(CORE_base+CORE_TTMR_CON, 0);
 	reg32_write(CORE_base+CORE_TTMR_CNT, 0);
