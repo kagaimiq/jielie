@@ -1,9 +1,11 @@
 # HF9234-25E-V2
 
-**I don't have this board (and device) anymore. Because it wasn't mine at all**
+**I don't have this thing anymore because it wasn't mine at all.**
+**What i was supposed to do is to replace an microusb port for charging, that's all.**
+**But of course i didn't miss an opportunity to do some stuff with it.**
+**Of course i also messed with its flash, and of course did dump it to restore it back.**
 
-A board from some blue JBL-ish speaker... that has two speakers, implying that it's stereo...
-but the chip they used has only one output channel.... yikes!
+A board from some blue JBL-ish speaker/boombox.
 
 - MCU: AC6925E
 

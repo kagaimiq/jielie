@@ -1,6 +1,6 @@
 # LS-DV04-B-V1.1
 
-**I don't have this board (and device) anymore. RIP 08.02.2019 - 23.03.2019**
+**I don't have this thing anymore... RIP 08.02.2019 - 05.03.2019 - 23.03.2019**
 
 Super Action Dash DV Camera 4K GC0307 sensor camera based on the **JieLi AC5204A**!
 I was *really* shocked when i saw that there was an **JIE LI** chip inside!!
