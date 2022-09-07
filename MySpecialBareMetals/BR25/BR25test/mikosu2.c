@@ -101,6 +101,16 @@ void sflash_dmaxfer(void *ptr, int len, int dir) {
 
 
 
+void sflash_waitbusy(void) {
+	sflash_sel(1);
+	sflash_bytexfer(0x05);
+	while (sflash_bytexfer(0) & 1); // TODO timeout?
+	sflash_sel(0);
+}
+
+
+
+
 int KonaHook(struct usb_msc_cbw *cbw) {
 	xprintf(
 		"\e[1;45;33m---- SCSI Request ----\e[0m\n"
@@ -118,25 +128,27 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 	//============================================
 
 	uint8_t *cmd = (uint8_t *)&cbw->cdb;
-	static uint8_t buffer[512];
+	static uint8_t buffer[4096];
 
 	switch (cmd[0]) {
-	case 0xa5:
-		{
-			int len = (cbw->xfer_len > sizeof(buffer)) ? sizeof(buffer) : cbw->xfer_len;
+	case 0xfb:
+		switch (cmd[1]) {
+		case 0x00: // erase flash block
+			
 
-			sflash_sel(1);
-			sflash_bytexfer(0x03);
-			sflash_bytexfer(cmd[1]);
-			sflash_bytexfer(cmd[2]);
-			sflash_bytexfer(cmd[3]);
-			//sflash_bytexfer(0x00);
-			sflash_dmaxfer(buffer, len, 1);
-			sflash_sel(0);
-
-			largs->msd_send(buffer, len);
+			memset(buffer, 0, 16);
+			buffer[0] = cmd[0]; buffer[1] = cmd[1];
+			largs->msd_send(buffer, 16);
+			return 1;
 		}
-		return 1;
+
+		break;
+
+	case 0xfc:
+		break;
+
+	case 0xfd:
+		break;
 	}
 
 	return 0;
@@ -178,6 +190,26 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	sflash_init();
 
+	#if 0
+	// en write
+	sflash_sel(1);
+	sflash_bytexfer(0x06);
+	sflash_sel(0);
+
+	// erase full chip
+	sflash_sel(1);
+	sflash_bytexfer(0x60);
+	sflash_sel(0);
+
+	// wait
+	sflash_sel(1);
+	sflash_bytexfer(0x05);
+	xputs("wait");
+	while (sflash_bytexfer(0x00) & 0x01) xputc('.');
+	xputs("done!\n");
+	sflash_sel(0);
+
+	// read
 	sflash_sel(1);
 	sflash_bytexfer(0x03);
 	sflash_bytexfer(0x00);
@@ -187,4 +219,5 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	sflash_sel(0);
 
 	hexdump((void *)0x20000, 0x100);
+	#endif
 }
