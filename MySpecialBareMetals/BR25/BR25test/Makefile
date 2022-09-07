@@ -2,8 +2,9 @@ TARGET = AC6965A
 
 OBJS = \
 	pre.o \
-	mikosu.o \
+	mikosu-FMTX.o \
 	com/xprintf.o \
+	com/wallclk.o \
 	com/jl_irq.o
 
 CFLAGS  = -Werror -O2
