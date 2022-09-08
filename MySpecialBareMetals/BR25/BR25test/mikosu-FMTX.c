@@ -39,35 +39,31 @@ void hexdump(void *ptr, int len) {
 }
 
 
-
-
-
 volatile uint32_t fmtx_buf[2][1024];
-volatile uint64_t lasttime;
 
 void IRQ_HANDLER fmtx_isr(void) {
-	reg32_wsmask(FM_base+FM_TX_CON1, 6, 1, 1); // clear pending
-	int slice = reg32_rsmask(FM_base+FM_TX_CON0, 4, 1);
+	static uint32_t t = 0;
 
-	for (int i = 0; i < 1024; i++)
-		fmtx_buf[slice][i] = reg32_read(RAND_base+RAND_R64L);
+	int slice = reg32_rsmask(FM_base+FM_TX_CON0_buffslice);
+	xprintf("!! FMTX irq -> slice=%d, t=%u\n", slice, t);
 
-	//xprintf("%08x\n", fmtx_buf[slice][0]);
+	for (int i = 0; i < 1024; i++) {
+		 // ryg 2011-10-10 http://www.youtube.com/watch?v=tCRPUv8V22o 44.1 kHz
+		uint8_t v = ((t*("36364689"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127);
+		t++;
 
-	uint32_t ctime = micros() - lasttime;
-	lasttime = micros();
+		fmtx_buf[(slice + 1) % 2][i] = (v * 0x01000100) ^ 0x80008000;
+	}
 
-	xprintf("!!! FMTX IRQ, slice=%d, period=%u\n", slice, 1024 * 1000000 / ctime);
+	reg32_wsmask(FM_base+FM_TX_CON1_cpnd, 1); // clear pending
 }
 
 void fmtx_on(void) {
-	reg32_wsmask(FM_base+FM_TX_CON0, 0, 1, 1);
-	reg32_wsmask(FM_base+FM_TX_CON0, 7, 1, 1);
+	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0x81);
 }
 
 void fmtx_off(void) {
-	reg32_wsmask(FM_base+FM_TX_CON0, 0, 1, 0);
-	reg32_wsmask(FM_base+FM_TX_CON0, 7, 1, 0);
+	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0x00);
 }
 
 void fmtx_init(void) {
@@ -76,8 +72,7 @@ void fmtx_init(void) {
 	reg32_write(FM_base+FM_TX_BASE_ADR, (uint32_t)fmtx_buf);
 
 	// effectively fmtx_on
-	reg32_wsmask(FM_base+FM_TX_CON0, 7, 1, 1);
-	reg32_wsmask(FM_base+FM_TX_CON0, 0, 1, 1);
+	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0x81);
 
 	reg32_write(FM_base+FM_TX_MUL,      59);
 	reg32_write(FM_base+FM_TX_PILOT,    166);
@@ -86,9 +81,9 @@ void fmtx_init(void) {
 
 	//----------------------------------------------------
 
-	reg32_write(FM_base+FM_TX_LEN,      0);
+	reg32_write(FM_base+FM_TX_LEN, 0);
 
-	for (int i = 160; i >= 0; i--) {
+	for (int i = 160; i > 0; i--) {
 		reg32_write(FM_base+FM_TX_ADR, i << 2);
 		delay(5);
 		reg32_wsmask(FM_base+FM_TX_CON0, 5, 1, 1);
@@ -184,7 +179,7 @@ void fmtx_init(void) {
 	reg32_wsmask(FM_base+FM_TX_CON1, 6, 1, 1);
 	delay(10);
 
-	reg32_wsmask(FM_base+FM_TX_CON0, 1, 1, 1); // <--- stereo flag
+	reg32_wsmask(FM_base+FM_TX_CON0, 1, 1, 0); // <--- stereo flag
 
 	reg32_wsmask(FM_base+FM_TX_CON1, 0, 1, 1);
 	reg32_wsmask(FM_base+FM_TX_CON1, 0, 0xf, 0x0);
@@ -198,19 +193,22 @@ void fmtx_init(void) {
 	reg32_wsmask(FM_base+FM_TX_CON0, 3, 1, 1);
 }
 
-#if 0
+#if 1
 void fmtx_set_freq(int freq) {
-	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 0);
+	/*reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 0);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 11, 1, 1);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 22, 0x3, 0x1);
 	reg32_wsmask(ANA_base+ANA_WLA_CON19, 21, 1, 1);
-	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON2, 2, 0xf, 0x8); //<--- divider[%12 - 1]
+
+	const char divider[8] = {0x0, 0x4, 0x1, 0x8, 0x2, 0x5, 0x3, 0xC};
+	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON2, 2, 0xf, divider[0]);
+
 	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON2, 0, 0x3, 0x3);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 24, 0x7, 0x1);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 27, 0x7, 0x3);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 10, 1, 1);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 19, 1, 1);
-	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 1);
+	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 1);*/
 
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 0, 1, 1); // enable
 	delay(150);
@@ -296,8 +294,9 @@ __attribute__((naked)) void ExceptionHandler_entry(void) {
 
 void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	// init UART0 on PB5
-	reg32_write(UART0_base+UARTx_CON0, 1); // 8n1, en
-	reg32_write(UART0_base+UARTx_BAUD, (48000000 / 4 / 921600) - 1);
+	reg32_write(UART0_base+UARTx_CON0, 0);
+	reg32_write(UART0_base+UARTx_BAUD, (24000000 / 4 / 115200) - 1);
+	reg32_wsmask(UART0_base+UARTx_CON0_uten, 1); // enable
 	reg32_wsmask(IOMAP_base+IOMAP_CON0, 3, 3, 2); // UART0 to PB5
 	reg32_wsmask(IOMAP_base+IOMAP_CON3, 2, 1, 0); // UART0 ... IO SEL -> IOMUX ?
 	reg32_wsmask(IOMAP_base+IOMAP_CON3, 3, 1, 1); // UART0 I/O enable
@@ -317,7 +316,11 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	xputs("Start\n");
 
 	fm_emitter_init();
-	//fmtx_set_freq(9000); // 90 mhz sorta like that
+	fmtx_set_freq(8600); // 86 mhz
 
 	xputs("End\n");
+
+	xputs("Ko");
+	delay(1000);
+	xputs("nata\n");
 }
