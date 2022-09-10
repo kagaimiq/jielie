@@ -8,7 +8,7 @@ I was *really* shocked when i saw that there was an **JIE LI** chip inside!!
 - SoC: AC5204A
 - Flash: 32 Mbit (4 MiB) SPI flash (in my case, Pm25LQ032)
 - Camera: GC0307 (640x480)
-- Display: ILI9341(?) TFT display (208x176 iirc)
+- Display: ILI9341(?) TFT display (~220x176, 208x176 used)
 - Wi-Fi: RTL8189ES
 
 ![Kinda in action](20190222_200456.jpg)
