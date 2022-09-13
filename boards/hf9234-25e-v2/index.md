@@ -24,7 +24,7 @@ A board from some blue JBL-ish speaker/boombox.
 | PA0       | Microphone                     |
 | PA3       | AUX in                         |
 | PA4       | Keys1                          |
-| PB0       | Onboard LEDs (half of them)    |
+| PB0       | Onboard LEDs (BLUE1 and BLUE2) |
 | PB4       | Keys2                          |
 | PB5       | Keys3                          |
 | PC5       | SD card CLK                    |
