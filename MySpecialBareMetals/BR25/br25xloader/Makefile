@@ -8,6 +8,7 @@ CFLAGS  = -Werror -O2
 ASFLAGS = -c
 LDFLAGS = -Tlink.ld -lc
 
+CFLAGS += -I../commoninc
 CFLAGS += -Icom
 
 # You can get the toolchain from here: https://doc.zh-jieli.com/Tools/zh-cn/other_info/index.html
