@@ -23,6 +23,9 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define _REG_GETVAL(addr, shift, mask, val)	(((val) >> (shift)) & (mask))
 #define REG_GETVAL(regdef, val)			_REG_GETVAL(regdef, val)
 
+#define _REG_SMASK(addr, shift, mask)	((mask) << (shift))
+#define REG_SMASK(regdef)			_REG_SMASK(regdef)
+
 /*////////////////////////////////////////////////////////////////////////////*/
 /* CPU Core SFR */
 /*================= CMNG ================*/
@@ -224,12 +227,27 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SD1_base		0x1E1500
 
 #define SDx_CON0			0x00	// control 0
+#define 	SDx_CON0_firecmd		SDx_CON0, 0, 0x7	// fire a command transfer (5 = 48 bit resp, 6 = 136 bit resp)
+#define 	SDx_CON0_cpnd_cmd		SDx_CON0, 6, 1		// clear pending int (command)
+#define 	SDx_CON0_pnd_cmd		SDx_CON0, 7, 1		// pending interrupt (command)
+#define 	SDx_CON0_cpnd_dat		SDx_CON0, 14, 1		// clear pending int (data)
+#define 	SDx_CON0_pnd_dat		SDx_CON0, 15, 1		// pending interrupt (data)
 #define SDx_CON1			0x04	// control 1
+#define 	SDx_CON1_enable			SDx_CON1, 0, 1		// enable
+#define 	SDx_CON1_idleclken		SDx_CON1, 5, 1		// output clock even when idle
+#define 	SDx_CON1_baud			SDx_CON1, 8, 0xff	// clock divider
 #define SDx_CON2			0x08	// control 2
-#define SDx_CPTR			0x0C	// command ptr
-#define SDx_DPTR			0x10	// data ptr
+#define 	SDx_CON2_blksize		SDx_CON2, 0, 0x1ff	// block size
+#define SDx_CPTR			0x0C	// command buffer address
+#define SDx_DPTR			0x10	// data buffer address
 #define SDx_CTU_CON			0x14	// ctu control
-#define SDx_CTU_CNT			0x18	// ctu count
+#define 	SDx_CTU_CON_enable		SDx_CTU_CON, 0, 1	// enable
+#define 	SDx_CTU_CON_clr_err		SDx_CTU_CON, 4, 1	// clear error flag
+#define 	SDx_CTU_CON_err			SDx_CTU_CON, 5, 1	// error flag
+#define 	SDx_CTU_CON_clr_done		SDx_CTU_CON, 6, 1	// clear done flag
+#define 	SDx_CTU_CON_done		SDx_CTU_CON, 7, 1	// done flag ? wtf ?
+#define 	SDx_CTU_CON_firedat		SDx_CTU_CON, 8, 0x7	// fire a data transfer (5 = tx data, 6 = rx data)
+#define SDx_CTU_CNT			0x18	// ctu count (block count)
 
 /*================= USB =================*/
 #define USB_base		0x1E1800
@@ -296,7 +314,8 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define ANA_WLA_CON39			0x9C
 #define ANA_DAA_CON0			0xC0
 #define ANA_DAA_CON1			0xC4
-#define 	ANA_DAA_CON1_amux_lrmix		ANA_DAA_CON1, 17, 0x3	// mixing [L=L R=R|L=L+R R=0|L=0 R=L+R|L=R=L+R]
+#define 	ANA_DAA_CON1_amux_lr2lmix	ANA_DAA_CON1, 17, 1
+#define 	ANA_DAA_CON1_amux_lr2rmix	ANA_DAA_CON1, 18, 1
 #define 	ANA_DAA_CON1_amux0l_biasen	ANA_DAA_CON1, 19, 1
 #define 	ANA_DAA_CON1_amux0l_en		ANA_DAA_CON1, 20, 1
 #define 	ANA_DAA_CON1_amux0r_biasen	ANA_DAA_CON1, 21, 1
@@ -452,6 +471,11 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define AUDIO_base		0x1E2F00
 
 #define AUDIO_DAC_CON			0x00	// dac control
+#define 	AUDIO_DAC_CON_dacsr		AUDIO_DAC_CON, 0, 0xf	// 96000,88200,64000,x, 48000,44100,32000,x, 24000,22050,16000,x, 12000,11025,8000,x
+#define 	AUDIO_DAC_CON_dacen		AUDIO_DAC_CON, 4, 1	// dac start
+#define 	AUDIO_DAC_CON_dacie		AUDIO_DAC_CON, 5, 1	// dac interrupt enable
+#define 	AUDIO_DAC_CON_cpnd		AUDIO_DAC_CON, 6, 1	// clear pending int
+#define 	AUDIO_DAC_CON_pnd		AUDIO_DAC_CON, 7, 1	// interrupt pending
 #define AUDIO_DAC_ADR			0x04	// dac data address
 #define AUDIO_DAC_LEN			0x08	// dac data length
 #define AUDIO_DAC_PNS			0x0C
@@ -556,9 +580,13 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 /*=============== PERIENC ===============*/
 #define PERIENC_base		0x1E4100
 
-#define PERIENC_ENCCON			0x00	// control
-#define PERIENC_ENCKEY			0x04	// key
-#define PERIENC_ENCADR			0x08	// "address" (key ^ (ADR >> 2)), something like that
+#define PERIENC_CON			0x00	// control
+#define 	PERIENC_CON_en_spi0dma		PERIENC_CON, 0, 1	// enable for SPI0 DMA transfers
+//#define 	PERIENC_CON_en_konata		PERIENC_CON, 1, 1	// enable for something
+#define 	PERIENC_CON_en_sd0data		PERIENC_CON, 2, 1	// enable for SD0 data transfers
+#define 	PERIENC_CON_rstkey		PERIENC_CON, 7, 1	// reset key register
+#define PERIENC_KEY			0x04	// key
+#define PERIENC_ADR			0x08	// "address" (key ^ (ADR >> 2)), something like that
 
 /*================= SBC =================*/
 #define SBC_base		0x1E4200
@@ -634,8 +662,11 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define IOMAP_base		0x1E5118
 
 #define IOMAP_CON0			0x00
+#define 	IOMAP_CON0_sd0cken		IOMAP_CON0, 0, 1	// SD0 clock enable
+#define 	IOMAP_CON0_sd0dten		IOMAP_CON0, 1, 1	// SD0 data enable
 #define 	IOMAP_CON0_spi0ios		IOMAP_CON0, 2, 0x1	// SPI0 io mapping sel
 #define 	IOMAP_CON0_ut0ios		IOMAP_CON0, 3, 0x3	// UART0 io mapping select
+#define 	IOMAP_CON0_sd0ios		IOMAP_CON0, 8, 0x7	// SD0 io mapping sel
 #define IOMAP_CON1			0x04
 #define 	IOMAP_CON1_ut1ios		IOMAP_CON1, 2, 0x3	// UART1 io mapping sel
 #define 	IOMAP_CON1_spi1ios		IOMAP_CON1, 4, 0x1	// SPI1 io mapping sel
