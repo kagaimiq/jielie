@@ -5,7 +5,7 @@
 // hardcoded...
 #define PERIOD_1MS		(48000000 / 1000)
 
-volatile uint64_t msecs;
+volatile uint32_t msecs;
 
 static void IRQ_HANDLER TickerTimer(void) {
 	msecs++;
@@ -26,15 +26,15 @@ uint64_t micros(void) {
 	return (msecs * 1000ull) + (reg32_read(CORE_base+CORE_TTMR_CNT) / (PERIOD_1MS / 1000));
 }
 
-void usleep(uint64_t us) {
+void usleep(uint32_t us) {
 	for (uint64_t target = micros() + us; micros() < us; );
 }
 
 
-uint64_t millis(void) {
+uint32_t millis(void) {
 	return msecs;
 }
 
-void delay(uint64_t ms) {
-	for (uint64_t target = millis() + ms; millis() < ms; );
+void delay(uint32_t ms) {
+	for (uint32_t target = millis() + ms; millis() < ms; );
 }

@@ -8,9 +8,9 @@
 void wallclk_init();
 
 uint64_t micros();
-void usleep(uint64_t us);
+void usleep(uint32_t us);
 
-uint64_t millis();
-void delay(uint64_t ms);
+uint32_t millis();
+void delay(uint32_t ms);
 
 #endif
