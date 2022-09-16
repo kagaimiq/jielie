@@ -2,6 +2,8 @@
 #include <xprintf.h>
 #include <jl_regs.h>
 #include <jl_irq.h>
+#include <wallclk.h>
+#include <maskrom_stuff.h>
 
 void uputc(int c) {
 	reg32_write(UART0_base+UARTx_BUF, c);
@@ -34,78 +36,64 @@ void hexdump(void *ptr, int len) {
 
 		xputs("|\n");
 	}
+
+	xputc('\n');
 }
 
 
 
-struct JieLi_ExceptFrame {
-	// general purpose
-	uint32_t gpr[16];
 
-	// special function
-	union {
-		uint32_t sfr[16];
-		struct {
-			uint32_t reti, rete, retx, rets;
-			uint32_t sr4,  psr,  cnum, sr7;
-			uint32_t sr8,  sr9,  sr10, icfg;
-			uint32_t usp,  ssp,  sp,   pc;
-		};
+int sd_send_cmd(uint8_t cmd, uint32_t addr, int rtype, uint32_t *resp) {
+	uint8_t cbuff[32] = {
+		0x40 | (cmd & 0x3f),
+		addr >> 24,
+		addr >> 16,
+		addr >> 8,
+		addr >> 0,
 	};
-};
 
-void ExceptionHandler(struct JieLi_ExceptFrame *ef) {
-	xputs("\e[1;33;44m=========== JieLi Crashed! ===========\e[0m\n");
+	reg32_write(SD0_base+SDx_CPTR, (uint32_t)cbuff);
 
-	uint32_t *p;
+	reg32_wsmask(SD0_base+SDx_CON1, 6, 1, 0);
+	reg32_wsmask(SD0_base+SDx_CON0, 4, 1, 1);
 
-	xputs("\n---- General purpose regs ----\n");
-	p = ef->gpr;
-	xprintf(" r0: <%08x>   r1: <%08x>   r2: <%08x>   r3: <%08x>\n", p[ 0], p[ 1], p[ 2], p[ 3]);
-	xprintf(" r4: <%08x>   r5: <%08x>   r6: <%08x>   r7: <%08x>\n", p[ 4], p[ 5], p[ 6], p[ 7]);
-	xprintf(" r8: <%08x>   r9: <%08x>  r10: <%08x>  r11: <%08x>\n", p[ 8], p[ 9], p[10], p[11]);
-	xprintf("r12: <%08x>  r13: <%08x>  r14: <%08x>  r15: <%08x>\n", p[12], p[13], p[14], p[15]);
+	reg32_wsmask(SD0_base+SDx_CON0_firecmd, rtype == 2 ? 0x6 : 0x5);
 
-	xputs("\n---- Special function regs ----\n");
-	p = ef->sfr;
-	xprintf("reti: <%08x>  rete: <%08x>  retx: <%08x>  rets: <%08x>\n", p[ 0], p[ 1], p[ 2], p[ 3]);
-	xprintf(" sr4: <%08x>   psr: <%08x>  cnum: <%08x>   sr7: <%08x>\n", p[ 4], p[ 5], p[ 6], p[ 7]);
-	xprintf(" sr8: <%08x>   sr9: <%08x>  sr10: <%08x>  icfg: <%08x>\n", p[ 8], p[ 9], p[10], p[11]);
-	xprintf(" usp: <%08x>   ssp: <%08x>    sp: <%08x>    pc: <%08x>\n", p[12], p[13], p[14], p[15]);
-}
+	// timeout...
+	while (!reg32_rsmask(SD0_base+SDx_CON0_pnd_cmd));
+	reg32_wsmask(SD0_base+SDx_CON0_cpnd_cmd, 1);
 
-__attribute__((naked)) void ExceptionHandler_entry(void) {
-	// store all the regs - make an exception frame
-	asm ("[--sp] = {pc, sp, ssp, usp, icfg, sr10, sr9, sr8, sr7, cnum, psr, sr4, rets, retx, rete, reti}");
-	asm ("[--sp] = {r15-r0}");
+	reg32_wsmask(SD0_base+SDx_CON0, 4, 1, 0);
 
-	// pass the pointer to the exception frame
-	asm ("r0 = sp");
+	asm volatile ("csync");
 
-	// call the handler
-	asm ("call ExceptionHandler");
+	if (rtype == 1) {
+		resp[0] = (cbuff[ 7] << 24) | (cbuff[ 8] << 16) | (cbuff[ 9] << 8) | cbuff[10];
+		xprintf("RESP->%08x\n", resp[0]);
+	} else if (rtype == 2) {
+		resp[0] = (cbuff[ 6] << 24) | (cbuff[ 7] << 16) | (cbuff[ 8] << 8) | cbuff[ 9];
+		resp[1] = (cbuff[12] << 24) | (cbuff[13] << 16) | (cbuff[14] << 8) | cbuff[15];
+		resp[2] = (cbuff[16] << 24) | (cbuff[17] << 16) | (cbuff[18] << 8) | cbuff[19];
+		resp[3] = (cbuff[20] << 24) | (cbuff[21] << 16) | (cbuff[22] << 8) | cbuff[23];
+		xprintf("RESP->%08x %08x %08x %08x\n", resp[0],resp[1],resp[2],resp[3]);
+	}
 
-	// halt
-	asm ("1: idle\ngoto 1b");
+	return 0;
 }
 
 
-
-void IRQ_HANDLER TickerTimer(void) {
-	static int cnt;
-	xprintf("!!! wait... %d\n", cnt++);
-
-	reg32_wsmask(CORE_base+CORE_TTMR_CON, 6, 1, 1);
-};
 
 
 void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
+	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON1, 10, 0x3, 0x0); // uart_clk <- pll_48m?
+
 	// init UART0 on PB5
 	reg32_write(UART0_base+UARTx_CON0, 1); // 8n1, en
 	reg32_write(UART0_base+UARTx_BAUD, (48000000 / 4 / 921600) - 1);
-	reg32_wsmask(IOMAP_base+IOMAP_CON0, 3, 3, 2); // UART0 to PB5
-	reg32_wsmask(IOMAP_base+IOMAP_CON3, 2, 1, 0); // UART0 ... IO SEL -> IOMUX ?
-	reg32_wsmask(IOMAP_base+IOMAP_CON3, 3, 1, 1); // UART0 I/O enable
+	reg32_wsmask(IOMAP_base+IOMAP_CON0_ut0ios, 0x2); // UART0 to PB5
+	reg32_wsmask(IOMAP_base+IOMAP_CON3_ut0mxs, 0x0); // UART0 muxsel -> iomux
+	reg32_wsmask(IOMAP_base+IOMAP_CON3_ut0ioen, 1); // UART0 I/O enable
+	reg32_wsmask(PORTB_base+PORTx_PUn(5), 1); // PB5 pullup
 	reg32_wsmask(PORTB_base+PORTx_DIRn(5), 0); // PB5 out
 
 	xdev_out(uputc);
@@ -115,53 +103,147 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	/*==================================================================*/
 
-	irq_attach(1, ExceptionHandler_entry);
+	//wallclk_init();
+	//irq_attach(1, ExceptionHandler_entry);
 
-	reg32_write(CORE_base+CORE_TTMR_CON, 0);
-	reg32_write(CORE_base+CORE_TTMR_CNT, 0);
-	reg32_write(CORE_base+CORE_TTMR_PRD, 48000000);
-	reg32_write(CORE_base+CORE_TTMR_CON, 1);
+	// iocfg
+	reg32_wsmask(IOMAP_base+IOMAP_CON0_sd0ios, 'f'-'a');
+	reg32_wsmask(IOMAP_base+IOMAP_CON0_sd0cken, 1);
+	reg32_wsmask(IOMAP_base+IOMAP_CON0_sd0dten, 1);
+	// pullup
+	reg32_wsmask(PORTB_base+PORTx_PUn(4), 1); //PB4 pullup
+	reg32_wsmask(PORTB_base+PORTx_PUn(6), 1); //PB6 pullup
+	reg32_wsmask(PORTB_base+PORTx_PUn(7), 1); //PB7 pullup
+	// pulldown
+	reg32_wsmask(PORTB_base+PORTx_PDn(4), 0); //PB4 no pulldown
+	reg32_wsmask(PORTB_base+PORTx_PDn(6), 0); //PB6 no pulldown
+	reg32_wsmask(PORTB_base+PORTx_PDn(7), 0); //PB7 no pulldown
+	// output
+	reg32_wsmask(PORTB_base+PORTx_DIRn(4), 0); // PB4 output
+	reg32_wsmask(PORTB_base+PORTx_DIRn(6), 0); // PB6 output
+	reg32_wsmask(PORTB_base+PORTx_DIRn(7), 0); // PB7 output
+	// digital in
+	reg32_wsmask(PORTB_base+PORTx_DIEn(4), 1); // PB4 digital in
+	reg32_wsmask(PORTB_base+PORTx_DIEn(6), 1); // PB6 digital in
+	reg32_wsmask(PORTB_base+PORTx_DIEn(7), 1); // PB7 digital in
 
-	irq_attach(3, TickerTimer);
+	// hw CLOSE
+	reg32_write(SD0_base+SDx_CON0, REG_SMASK(SDx_CON0_cpnd_cmd)|REG_SMASK(SDx_CON0_cpnd_dat));
+	reg32_write(SD0_base+SDx_CON1, 0);
+	reg32_write(SD0_base+SDx_CON2, REG_MKVAL(SDx_CON2_blksize, 512-1));
+	reg32_write(SD0_base+SDx_CTU_CON, REG_SMASK(SDx_CTU_CON_done)); //waa
+	reg32_write(SD0_base+SDx_CTU_CNT, 0);
 
-	asm volatile ("r0 = 0xdead\nr1 = 0xbeef\n[r0] = r1");
+	// set BUAD
+	reg32_wsmask(SD0_base+SDx_CON1_baud, (48000 / 400) - 1);
 
-	#if 0
-	///----------- open linein
-	reg32_wsmask(PORTA_base+PORTx_DIRn(3), 1); // PA3 in
-	reg32_wsmask(PORTA_base+PORTx_DIEn(3), 0); // PA3 digital in disable
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux0l_en, 1); // AMUX0L enable
+	// hw bit enable
+	reg32_wsmask(SD0_base+SDx_CON1_enable, 1);
+	reg32_wsmask(SD0_base+SDx_CTU_CON_enable, 1);
 
-	reg32_wsmask(PORTA_base+PORTx_DIRn(4), 1); // PA4 in
-	reg32_wsmask(PORTA_base+PORTx_DIEn(4), 0); // PA4 digital in disable
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux0r_en, 1); // AMUX0R enable
+	// idle clock enable
+	reg32_wsmask(SD0_base+SDx_CON1_idleclken, 1);
 
-	reg32_wsmask(PORTB_base+PORTx_DIRn(6), 1); // PB6 in
-	reg32_wsmask(PORTB_base+PORTx_DIEn(6), 0); // PB6 digital in disable
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux1l_en, 1); // AMUX1L enable
+	// wait for some time (at least 74 clock ticks should be sent to the card)
+	for (volatile int i = 1000; i; i--) {};
 
-	reg32_wsmask(PORTB_base+PORTx_DIRn(7), 1); // PB7 in
-	reg32_wsmask(PORTB_base+PORTx_DIEn(7), 0); // PB7 digital in disable
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux1r_en, 1); // AMUX1R enable
+	//-------------------------------------------------------//
 
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux_en, 1); // AMUX enable
+	uint32_t resp[4];
+	uint16_t rca;
 
-	///----------- gain
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux_gain, 0); // 2x gain
+	sd_send_cmd(0, 0, 0, NULL);		// CMD0 (GO_IDLE_STATE)
 
-	///----------- mute
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux_mute, 0); // mute
+	//----------------------idle state-----------------------//
 
-	///----------- combine
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux_lrmix, 0x0);
+	sd_send_cmd(8, 0x1aa, 1, resp);		// CMD8 (SEND_IF_COND)
 
-	///----------- linein bias
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux0l_biasen, 0); // AMUX0L bias
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux0r_biasen, 0); // AMUX0R bias
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux1l_biasen, 0); // AMUX1L bias
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux1r_biasen, 0); // AMUX1R bias
+	for (int i = 0; i < 100; i++) {
+		sd_send_cmd(55, 0, 1, resp);		// CMD55 (APP_CMD)
 
-	///----------- amux bias
-	reg32_wsmask(ANA_base+ANA_DAA_CON1_amux_biasen, 0); // amux bias
-	#endif
+		sd_send_cmd(41, 0x40ff8000, 1, resp);	// ACMD41 (APP_SEND_OP_COND)
+
+		if (resp[0] & 0x80000000) break;
+	}
+
+	//---------------------ready state-----------------------//
+
+	sd_send_cmd(2, 0, 2, resp);		// CMD2 (APP_SEND_CID)
+	xprintf("CID => %08x %08x %08x %08x\n", resp[0],resp[1],resp[2],resp[3]);
+
+	//---------------------ident state-----------------------//
+
+	sd_send_cmd(3, 0, 1, resp);		// CMD3 (SEND_RELATIVE_ADDR)
+	rca = resp[0] >> 16;
+	xprintf("Card address => %04x\n", rca);
+
+	//----------------------stby state-----------------------//
+
+	sd_send_cmd(9, rca << 16, 2, resp);	// CMD9 (SEND_CSD)
+	xprintf("CSD => %08x %08x %08x %08x\n", resp[0],resp[1],resp[2],resp[3]);
+
+	xprintf("...%u\n", (((resp[1] & 0xff) << 16) | (resp[2] >> 16)) << 10);
+
+	sd_send_cmd(7, rca << 16, 1, resp);	// CMD7 (SELECT_CARD)
+
+	//----------------------tran state-----------------------//
+
+	reg32_wsmask(SD0_base+SDx_CON1_baud, (48000 / 12000) - 1);
+
+	static uint8_t databuff[512];
+
+	/* send CMD24 (WRITE_BLOCK) */ {
+		for (int i = 0; i < sizeof databuff; i++)
+			databuff[i] = reg32_read(RAND_base+RAND_R64L);
+
+		sd_send_cmd(24, 2, 1, resp);
+
+		reg32_wsmask(SD0_base+SDx_CON0, 12, 1, 0);
+
+		reg32_write(SD0_base+SDx_DPTR, (uint32_t)databuff);
+		reg32_wsmask(SD0_base+SDx_CON1, 7, 1, 0);
+
+		reg32_wsmask(SD0_base+SDx_CTU_CON, 1, 0x3, 0x0);
+
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_done, 1);
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_err, 1);
+
+		reg32_write(SD0_base+SDx_CON2, REG_MKVAL(SDx_CON2_blksize, 512-1)); //block size
+		reg32_wsmask(SD0_base+SDx_CTU_CON, 8, 0x7, 0x5); // data tx
+		reg32_write(SD0_base+SDx_CTU_CNT, 0); // block count
+
+		while (!reg32_rsmask(SD0_base+SDx_CON0_pnd_dat));
+		reg32_wsmask(SD0_base+SDx_CON0_cpnd_dat, 1); // clr data pend
+
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_done, 1);
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_err, 1);
+	}
+
+	memset(databuff, 'k', sizeof(databuff));
+
+	/* send CMD17 (READ_SINGLE_BLOCK) */ {
+		reg32_wsmask(SD0_base+SDx_CON0, 12, 1, 0);
+
+		reg32_write(SD0_base+SDx_DPTR, (uint32_t)databuff);
+		reg32_wsmask(SD0_base+SDx_CON1, 7, 1, 0);
+
+		reg32_wsmask(SD0_base+SDx_CTU_CON, 1, 0x3, 0x0);
+
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_done, 1);
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_err, 1);
+
+		reg32_write(SD0_base+SDx_CON2, REG_MKVAL(SDx_CON2_blksize, 512-1)); //block size
+		reg32_wsmask(SD0_base+SDx_CTU_CON_firedat, 0x6); // data rx
+		reg32_write(SD0_base+SDx_CTU_CNT, 1-1); // block count
+
+		sd_send_cmd(17, 2, 1, resp);
+
+		while (!reg32_rsmask(SD0_base+SDx_CON0_pnd_dat));
+		reg32_wsmask(SD0_base+SDx_CON0_cpnd_dat, 1); // clr data pend
+
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_done, 1);
+		reg32_wsmask(SD0_base+SDx_CTU_CON_clr_err, 1);
+
+		hexdump(databuff, sizeof databuff);
+	}
 }

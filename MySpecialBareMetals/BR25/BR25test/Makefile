@@ -2,7 +2,7 @@ TARGET = AC6965A
 
 OBJS = \
 	pre.o \
-	mikosu-FMTX.o \
+	mikosu.o \
 	com/xprintf.o \
 	com/wallclk.o \
 	com/jl_irq.o
@@ -11,6 +11,7 @@ CFLAGS  = -Werror -O2
 ASFLAGS = -c
 LDFLAGS = -Tlink.ld -lc
 
+CFLAGS += -I../commoninc
 CFLAGS += -Icom
 
 # You can get the toolchain from here: https://doc.zh-jieli.com/Tools/zh-cn/other_info/index.html
@@ -47,4 +48,4 @@ $(TARGET): $(OBJS)
 
 copy: $(TARGET)
 	$(OBJCOPY) -Obinary $< $<.bin
-	sudo python3 ../../../../jl-uboot-tool/pytool/jl_uboot_proto.py /dev/sg2 $<.bin
+	sudo python3 ../../../../jl-uboot-tool/the-tool/jl_uboot_proto.py /dev/sg2 $<.bin
