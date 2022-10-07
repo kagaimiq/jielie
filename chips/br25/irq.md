@@ -1,4 +1,4 @@
-# IRQ for BR25
+# IRQ map of BR25
 
 |  # |   Name    |
 |----|-----------|

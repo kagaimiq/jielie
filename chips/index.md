@@ -2,10 +2,13 @@
 
 [Pinout diagrams](pinout-diagrams/index.md)
 
-
 ## Families
 
-**a big mess**
+- [BR17 (AC690N)](br17/index.md)
+- [BR21 (AC692N)](br21/index.md)
+- [BR25 (AC696N/AC636N)](br25/index.md)
+
+----
 
 - CD002 (AC109N)
   - AC1082
@@ -13,12 +16,12 @@
   - AC1085
   - AC1094
 
+- CD005 / CDN5
+  - AC1187
+
 - AC209N
 
 - AC309N
-
-- CD005
-  - AC1187
 
 - AC410N
 - AC460N
@@ -33,43 +36,13 @@
 
 - BT15
 
-- BR17 (AC690N)
-  - AC690
-  - AC6900A
-  - AC6901A
-  - AC6902A
-  - AC6903A
-  - AC6904A
-  - AC6905A
-  - AC6905B
-  - AC6905C
-  - AC6907A
-  - AC6908A
+- BR16
 
-- BR21 (AC692N)
-  - AC6921A
-  - AC6922A
-  - AC6922B
-  - AC6925A
-  - AC6925B
-  - AC6925C
-  - AC6925D
-  - AC6925E
-  - AC6926A
-  - AC6928A
-  - AC6929C
+- BR20 (AC691N)?
 
 - BR22 (AC693N)
 
 - BR23 (AC695N/AC635N)
-  - AC6955F
-
-- BR25 (AC696N/AC636N)
-  - AC6965A
-  - AC6966A
-  - AC6966B
-  - AC6968A
-  - AC6969A
 
 - BR28 (AC701N)
 
@@ -95,15 +68,6 @@
 
 It is well-known that JieLi uses completely nonsense chip markings
 instead of pointing out the real chip name (except maybe in the AC63XX series).
-
-Actually, they are not the only ones who do that.
-For example, Buildwin does it. So does Bluetrum.
-
-Buildwin is a special exception because they are based in the same city as JieLi (ZhuHai),
-and, it seems like some people moved from Buildwin to JieLi.
-
-Actions Semi is also a such exception,
-altrough idk whether they do put nonsense markings on their chips.
 
 ### Full list
 
@@ -139,7 +103,3 @@ Others are scaped off random resources.
 | **AC20BP05193-65A4**    | AC6965A      | year 2020, 4 Mbit flash        |
 | AS21BP0B847-65A4        | AC6965A      | year 2021, 4 Mbit flash        |
 
-### General rule
-
-|         Marking         |   Actual     |   Note                         |
-|-------------------------|--------------|--------------------------------|

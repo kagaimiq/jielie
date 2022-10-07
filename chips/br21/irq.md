@@ -1,4 +1,4 @@
-# IRQ for BR21
+# IRQ map of BR21
 
 |  # |   Name    |
 |----|-----------|
