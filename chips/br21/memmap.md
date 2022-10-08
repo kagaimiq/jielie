@@ -6,9 +6,7 @@
 | 0x00010000 | 64k    | SRAM1                 |
 | 0x00020000 | 10k    | MaskROM               |
 | 0x00022800 | 150k   | reserved              |
-| 0x00048000 | 2k     | ? cache related ??    |
-| 0x00048800 | 2k     | reserved              |
-| 0x00049000 | 2k     | ? cache related ??    |
+| 0x00048000 | 6k     | SFC cache tag         |
 | 0x00049800 | 256    | MMU tag0 ...?!        |
 | 0x00049900 | 89.75k | reserved              |
 | 0x00060000 | 64k    | LSB peripherals       |
