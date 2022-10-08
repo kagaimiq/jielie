@@ -139,11 +139,11 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define CORE_BANK_CON			0xF8
 #define CORE_BANK_NUM			0xFC
 #define CORE_ICFGn(n)			(0x100 + 0x4 * (n))	// interrupt config
-#define 	CORE_ICFGi(i)			CORE_ICFGn(i / 8), ((i % 8) * 4), 0xf
-#define 	CORE_ICFGi_enable(i)		CORE_ICFGn(i / 8), ((i % 8) * 4 + 0), 1
-#define 	CORE_ICFGi_priority(i)		CORE_ICFGn(i / 8), ((i % 8) * 4 + 1), 0x7
+#define 	CORE_ICFGi(i)			CORE_ICFGn((i) / 8), (((i) % 8) * 4), 0xf
+#define 	CORE_ICFGi_enable(i)		CORE_ICFGn((i) / 8), (((i) % 8) * 4 + 0), 1
+#define 	CORE_ICFGi_priority(i)		CORE_ICFGn((i) / 8), (((i) % 8) * 4 + 1), 0x7
 #define CORE_IPNDn(n)			(0x180 + 0x4 * (n))	// interrupt pending
-#define 	CORE_IPNDi(i)			CORE_IPNDn(i / 32), (i % 32), 1
+#define 	CORE_IPNDi(i)			CORE_IPNDn((i) / 32), ((i) % 32), 1
 #define CORE_ETM_CON			0x1C0
 #define CORE_ETM_PCn(n)			(0x1C4 + 0x4 * (n))
 #define CORE_WP0_ADRH			0x1D4
@@ -670,6 +670,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define IOMAP_CON1			0x04
 #define 	IOMAP_CON1_ut1ios		IOMAP_CON1, 2, 0x3	// UART1 io mapping sel
 #define 	IOMAP_CON1_spi1ios		IOMAP_CON1, 4, 0x1	// SPI1 io mapping sel
+#define 	IOMAP_CON1_sfcios		IOMAP_CON1, 5, 0x1	// SFC io mapping sel
 #define 	IOMAP_CON1_ut2ios		IOMAP_CON1, 14, 0x3	// UART2 io mapping sel
 #define 	IOMAP_CON1_spi2ios		IOMAP_CON1, 16, 0x1	// SPI2 io mapping sel
 #define 	IOMAP_CON1_iicios		IOMAP_CON1, 18, 0x3	//MAYBE!! IIC io mapping sel
@@ -718,15 +719,19 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SFC_base		0x1F0200
 
 #define SFC_CON				0x00	// control
+#define 	SFC_CON_enable			SFC_CON, 0, 1		// enable
+
 #define SFC_BAUD			0x04	// baudrate
 #define SFC_CODE			0x08
-#define SFC_BASE_ADR			0x0C
+#define SFC_BASE_ADR			0x0C	// map offset in flash
 #define SFC_QUCNT			0x10
 
 /*=============== SFCENC ================*/
 #define SFCENC_base		0x1F0300
 
 #define SFCENC_CON			0x00	// control
+#define 	SFCENC_CON_enable		SFCENC_CON, 0, 1	// enable
+#define 	SFCENC_CON_bit1			SFCENC_CON, 1, 1	// ?? cleared
 #define SFCENC_KEY			0x04	// key
 #define SFCENC_UNENC_ADRH		0x08
 #define SFCENC_UNENC_ADRL		0x0C
