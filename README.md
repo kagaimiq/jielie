@@ -5,8 +5,7 @@
 - [Chips](chips/index.md) - Information about chips
 - [Boards and devices](boards/index.md) - Information about some boards and devices
 - [JIE LI Files](jl-files/index.md) - Info about JieLi files and other binary structures
-
-- [USB VID/PID list](usb_vid_pid.md)
+- [Misc info](misc/index.md) - Various information that doesn't really belong to any category...
 
 ----
 
