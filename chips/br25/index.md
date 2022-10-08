@@ -7,6 +7,7 @@
 ### AC6965A
 
 - Package: QSOP24
+- [Pinout diagram](../pinout-diagrams/AC6965A.svg)
 - [Datasheet](https://www.lenzetech.com/public/store/pdf/jsggs/AC6965A%C2%A0Datasheet%C2%A0V1.0.pdf)
 
 ### AC6966A

@@ -19,22 +19,27 @@
 ### AC6925A
 
 - Package: QSOP24
+- [Pinout diagram](../pinout-diagrams/AC6925A.svg)
 
 ### AC6925B
 
 - Package: QSOP24
+- [Pinout diagram](../pinout-diagrams/AC6925B.svg)
 
 ### AC6925C
 
 - Package: QSOP24
+- [Pinout diagram](../pinout-diagrams/AC6925C.svg)
 
 ### AC6925D
 
 - Package: QSOP24
+- [Pinout diagram](../pinout-diagrams/AC6925D.svg)
 
 ### AC6925E
 
 - Package: QSOP24
+- [Pinout diagram](../pinout-diagrams/AC6925E.svg)
 
 ### AC6926A
 
@@ -47,7 +52,9 @@
 ### AC6928A
 
 - Package: TSSOP20
+- [Pinout diagram](../pinout-diagrams/AC6928A.svg)
 
 ### AC6929C
 
 - Package: SOP16
+- [Pinout diagram](../pinout-diagrams/AC6929C.svg)
