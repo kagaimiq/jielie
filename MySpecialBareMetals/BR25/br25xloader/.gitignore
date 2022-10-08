@@ -1,4 +1,4 @@
-br25loader*
-*.o
-*.lst
+*.elf
 *.bin
+*.lst
+*.o

@@ -1,5 +1,4 @@
-AC6965A*
-
-*.o
-*.lst
+*.elf
 *.bin
+*.lst
+*.o
