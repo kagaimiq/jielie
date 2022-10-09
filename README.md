@@ -1,5 +1,17 @@
 # JieLi STUFF
 
+![ZHUHAI_JIELI_TECHNALAGI_KO_LTD](http://www.zh-jieli.com/upload/201703/1490110856.jpg)
+
+![JL_TECH_CHIP_DELITE_DA_WORLD](https://doc.zh-jieli.com/static/image/logo.png)
+
+**JieLi Technology - Chips Delight the World.**
+
+Yes Indeed!
+Most cheap Bluetooth speakers, Bluetooth audio modules, MP3 players, etc. are based on their chips!
+Or maybe some other companies like *Appotech* or *Beken* or *Actions SEMI* or *RDA*...
+
+Appotech and JieLi are very similar..... Isn't it because they are both based in ZhuHai??
+
 ## Contents
 
 - [Chips](chips/index.md) - Information about chips
@@ -7,9 +19,14 @@
 - [JIE LI Files](jl-files/index.md) - Info about JieLi files and other binary structures
 - [Misc info](misc/index.md) - Various information that doesn't really belong to any category...
 
-----
+--------------------------------------------------------------------------------------------------------
 
 ## Special links
+
+### WEBs
+
+- [JieLi Website](https://www.zh-jieli.com)
+- [JieLi Docs](https://doc.zh-jieli.com)
 
 ### GitHubs
 
