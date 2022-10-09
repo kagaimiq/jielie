@@ -6,6 +6,7 @@
 
 - [BR17 (AC690N)](br17/index.md)
 - [BR21 (AC692N)](br21/index.md)
+- [BR23 (AC695N/AC635N)](br23/index.md)
 - [BR25 (AC696N/AC636N)](br25/index.md)
 
 ----
@@ -41,8 +42,6 @@
 - BR20 (AC691N)?
 
 - BR22 (AC693N)
-
-- BR23 (AC695N/AC635N)
 
 - BR28 (AC701N)
 
