@@ -2,10 +2,7 @@ TARGET = JieLiKudasai
 
 OBJS = \
 	pre.o \
-	mikosu.o \
-	com/xprintf.o \
-	com/wallclk.o \
-	com/jl_irq.o
+	mikosu.o
 
 CFLAGS  = -Werror -O2
 ASFLAGS = -c
@@ -14,11 +11,16 @@ LDFLAGS = -Tlink.ld -lc
 CFLAGS  += -I ../commoninc
 LDFLAGS += -T ../commoninc/maskrom_stuff.ld
 
-CFLAGS += -Icom
+CFLAGS += -I ../commonsrc
+OBJS += \
+	../commonsrc/xprintf.o \
+	../commonsrc/wallclk.o \
+	../commonsrc/jl_irq.o
 
+#------------------------------------------------------------------------
 
 # You can get the toolchain from here: https://doc.zh-jieli.com/Tools/zh-cn/other_info/index.html
-JL_TOOLCHAIN_DIR = /home/kagaimiq/Desktop/JieLi/TOOLCAHN/ws/pi32v2
+JL_TOOLCHAIN_DIR = ../../../../Toolchain/pi32v2
 
 #for some reason these directories is not being put in the compilation flags
 # so the libc stuff (-lc, string.h, etc) is not available

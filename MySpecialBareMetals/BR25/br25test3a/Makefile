@@ -2,20 +2,23 @@ TARGET = JieLiKudasai
 
 OBJS = \
 	head.o \
-	neko.o \
-	com/xprintf.o
+	neko.o
 
 CFLAGS  = -Werror -O2
 ASFLAGS = -c
 LDFLAGS = -Tlink.ld -lc
 
-CFLAGS += -Icom
-
 CFLAGS  += -I ../commoninc
 #LDFLAGS += -T ../commoninc/maskrom_stuff.ld
 
+CFLAGS += -I ../commonsrc
+OBJS += \
+	../commonsrc/xprintf.o
+
+#------------------------------------------------------------------------
+
 # You can get the toolchain from here: https://doc.zh-jieli.com/Tools/zh-cn/other_info/index.html
-JL_TOOLCHAIN_DIR = /home/kagaimiq/Desktop/JieLi/TOOLCAHN/ws/pi32v2
+JL_TOOLCHAIN_DIR = ../../../../Toolchain/pi32v2
 
 #for some reason these directories is not being put in the compilation flags
 # so the libc stuff (-lc, string.h, etc) is not available
@@ -47,12 +50,3 @@ $(TARGET).elf: $(OBJS)
 
 $(TARGET).bin: $(TARGET).elf
 	$(OBJCOPY) -O binary $< $@
-
-flash: $(TARGET).bin
-	python3 ../../../../eet/mkfw-br25.py $<.fw 0x12000 $<
-
-	python3 ../../../../jl-uboot-tool/the-tool/jlflasher.py \
-		--loader 0x12000 ../br25xloader/br25loader.bin \
-		--device /dev/sg2 $<.fw
-
-	rm $<.fw
