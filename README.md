@@ -8,7 +8,7 @@
 
 Yes Indeed!
 Most cheap Bluetooth speakers, Bluetooth audio modules, MP3 players, etc. are based on their chips!
-Or maybe some other companies like *Appotech* or *Beken* or *Actions SEMI* or *RDA*...
+Or maybe some other companies like *Appotech* or *Beken* or *Actions SEMI* or *RDA*... or *bluetrum*????
 
 Appotech and JieLi are very similar..... Isn't it because they are both based in ZhuHai??
 
