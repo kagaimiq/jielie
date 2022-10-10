@@ -19,7 +19,6 @@ I was *really* shocked when i saw that there was an **JIE LI** chip inside!!
 
 ![Board back side](20190221_180616.jpg)
 
-
 ## The Sensor
 
 The image sensor that was used in it is the GalaxyCore's GC0307.
@@ -34,34 +33,13 @@ It has an resolution of **640x480**. Yeah.... That's the 4K quality we want!
 
 Pinout: (labels as per GC0307 datasheet)
 
-|  #  |     Name            |
-|-----|---------------------|
-|   1 | PCLK                |
-|   2 | GND                 |
-|   3 | HSYNC               |
-|   4 | VSYNC               |
-|   5 | D7                  |
-|   6 | D6                  |
-|   7 | D5                  |
-|   8 | D4                  |
-|   9 | D3                  |
-|  10 | D2                  |
-|  11 | D1                  |
-|  12 | D0                  |
-|  13 |                     |
-|  14 |                     |
-|  15 | GND                 |
-|  16 | IN_CLK              |
-|  17 | GND                 |
-|  18 | PWDN                |
-|  19 |                     |
-|  20 | SBCL                |
-|  21 | SBDA                |
-|  22 |                     |
-|  23 | VDD                 |
-|  24 |                     |
+|  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |
+|----|--------|----|--------|----|--------|----|--------|----|--------|----|--------|----|--------|----|--------|
+|  1 | PCLK   |  2 | GND    |  3 | HSYNC  |  4 | VSYNC  |  5 | D7     |  6 | D6     |  7 | D5     |  8 | D4     |
+|  9 | D3     | 10 | D2     | 11 | D1     | 12 | D0     | 13 |        | 14 |        | 15 | GND    | 16 | IN_CLK |
+| 17 | GND    | 18 | PWDN   | 19 |        | 20 | SBCL   | 21 | SBDA   | 22 |        | 23 | VDD    | 24 |        |
 
-----
+--------------------------------------------------------------------------------------------
 
 # Whatever
 
@@ -94,3 +72,9 @@ Rest in peace.
 Guess why.
 
 ![480wee](mpvshot_2022-09-06_22-16-23_[REC00007.AVI]_0h00m13s533.png)
+
+----
+
+Oh, wait, i forgot!! It can also work as a webcam!!
+
+![WEK_BAM](mpvshot_2022-09-26_21-51-05_[2020-01-13 15-11-33.mp4]_0h17m30s867.png)
