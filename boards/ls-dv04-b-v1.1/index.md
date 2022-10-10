@@ -77,4 +77,4 @@ Guess why.
 
 Oh, wait, i forgot!! It can also work as a webcam!!
 
-![WEK_BAM](mpvshot_2022-09-26_21-51-05_[2020-01-13 15-11-33.mp4]_0h17m30s867.png)
+![WEK_BAM](mpvshot_2022-09-26_21-51-05_[2020-01-13%2015-11-33.mp4]_0h17m30s867.png)
