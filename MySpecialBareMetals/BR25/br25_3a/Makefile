@@ -9,7 +9,7 @@ ASFLAGS = -c
 LDFLAGS = -Tlink.ld -lc
 
 CFLAGS  += -I ../commoninc
-#LDFLAGS += -T ../commoninc/maskrom_stuff.ld
+LDFLAGS += -T ../commoninc/maskrom_stuff.ld
 
 CFLAGS += -I ../commonsrc
 OBJS += \

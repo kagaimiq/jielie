@@ -191,7 +191,7 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	reg32_wsmask(DSP_base+DSP_CON, 8, 1, 1); // enable sfc map
 
 	reg32_wsmask(SPI0_base+SPIx_CON_spie, 0); // disable spi
-	reg32_wsmask(SFC_base+SFC_CON_enable, 1);  // enable sfc
+	reg32_wsmask(SFC_base+SFC_CON_enable, 1); // enable sfc
 
 	hexdump((void *)0x1000000, 0x100);
 

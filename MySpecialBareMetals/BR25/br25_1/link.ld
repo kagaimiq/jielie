@@ -1,5 +1,5 @@
 MEMORY {
-	RAM (rwx): ORIGIN = 0x12000, LENGTH = 0x10000-0x2000
+	RAM (rwx): ORIGIN = 0x10000+0x2000, LENGTH = 136k-0x2000-0x100
 }
 
 ENTRY(_start);
@@ -21,26 +21,15 @@ SECTIONS {
 	.data : {
 		*(.data)
 		*(.data.*)
-		*(.sdata)
-		*(.sdata.*)
 	} >RAM
 
 	.bss : {
 		_sbss = .;
-		*(.sbss)
-		*(.sbss.*)
-		*(.scommon)
 		*(.bss)
 		*(.bss.*)
 		*(COMMON)
 		_ebss = .;
 	} >RAM
-
-	/*.stack : {
-		. = . + 4096;
-		. = ALIGN(8);
-		__usp = .;
-	} >RAM*/
 
 	end = .;
 };
