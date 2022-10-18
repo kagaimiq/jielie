@@ -252,8 +252,32 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 /*================= USB =================*/
 #define USB_base		0x1E1800
 
+////// FROM BR21, MIGHT BE INCORRECT/INCOMPLETE! //////
+
 #define USB_CON0			0x00	// control 0
+#define 	USB_CON0_phy_on			USB_CON0, 0, 1		// usb phy enable
+#define 	USB_CON0_io_mode		USB_CON0, 1, 1		// usb phy gpio mode
+#define 	USB_CON0_usb_nrst		USB_CON0, 2, 1		// usb reset [assert|release]
+#define 	USB_CON0_tm1			USB_CON0, 3, 1		// "short connect timeout"
+#define 	USB_CON0_cid			USB_CON0, 4, 1		// usb mode [host|device]
+#define 	USB_CON0_vbus			USB_CON0, 5, 1		// ?? vbus control ??
+#define 	USB_CON0_usb_test		USB_CON0, 6, 1		// "usb test"
+#define 	USB_CON0_latsel			USB_CON0, 8, 1		// "reserved"
+#define 	USB_CON0_pdchkdp		USB_CON0, 9, 1		// D+ ext pulldown check en
+#define 	USB_CON0_sof_ie			USB_CON0, 10, 1		// SOF int enable
+#define 	USB_CON0_sie_ie			USB_CON0, 11, 1		// int enable
+#define 	USB_CON0_clr_sofp		USB_CON0, 12, 1		// clear SOF int pending
+#define 	USB_CON0_sof_pnd		USB_CON0, 13, 1		// SOF int pending
+#define 	USB_CON0_sie_pnd		USB_CON0, 14, 1		// int pending (cleared by accessing the USB peripheral)
+#define 	USB_CON0_chk_dpo		USB_CON0, 15, 1		// D+ ext pulldown check status
+#define 	USB_CON0_se_dm			USB_CON0, 16, 1		// single-end D- status
+#define 	USB_CON0_se_dp			USB_CON0, 17, 1		// single-end D+ status
+#define 	USB_CON0_lowp_md		USB_CON0, 18, 1		// low power mode [en|dis]
 #define USB_CON1			0x04	// control 1
+#define 	USB_CON1_mc_dat			USB_CON1, 0, 0xff	// musb reg data
+#define 	USB_CON1_mc_adr			USB_CON1, 8, 0x3f	// musb reg address
+#define 	USB_CON1_mc_rnw			USB_CON1, 14, 1		// musb reg access [write|read]
+#define 	USB_CON1_mc_ack			USB_CON1, 15, 1		// musb reg access done [busy|ready]
 #define EP0_CNT				0x08	// EP0 count
 #define EP1_CNT				0x0C	// EP1 count
 #define EP2_CNT				0x10	// EP2 count
@@ -366,6 +390,8 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define UART0_base		0x1E2000
 #define UART1_base		0x1E2100
 #define UART2_base		0x1E2200
+
+////// FROM BR21, MIGHT BE INCORRECT/INCOMPLETE! //////
 
 #define UARTx_CON0			0x00	// control 0
 #define 	UARTx_CON0_uten			UARTx_CON0, 0, 1	// uart enable
@@ -634,7 +660,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define 	PORTx_INn(n)			PORTx_IN, (n), 1	// 0=low, 1=high
 #define PORTx_DIR			0x08	// port direction reg
 #define 	PORTx_DIRn(n)			PORTx_DIR, (n), 1	// 0=out, 1=in [[MStar OEN]]
-#define PORTx_DIE			0x0C	// port input enable
+#define PORTx_DIE			0x0C	// port digital input enable
 #define 	PORTx_DIEn(n)			PORTx_DIE, (n), 1	// 0=disable, 1=enable
 #define PORTx_PU			0x10	// port pullup enable
 #define 	PORTx_PUn(n)			PORTx_PU, (n), 1	// 0=disable, 1=enable
@@ -647,8 +673,26 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 /*================ USB_IO ===============*/
 #define USBIO_base		0x1E5100
 
+////// FROM BR21, MIGHT BE INCORRECT/INCOMPLETE! //////
+
 #define USBIO_CON0			0x00	// control 0
+#define 	USBIO_CON0_dpout		USBIO_CON0, 0, 1	// D+ output level
+#define 	USBIO_CON0_dmout		USBIO_CON0, 1, 1	// D- output level
+#define 	USBIO_CON0_dpie			USBIO_CON0, 2, 1	// D+ direction [out|in]
+#define 	USBIO_CON0_dmie			USBIO_CON0, 3, 1	// D- direction [out|in]
+#define 	USBIO_CON0_dppd			USBIO_CON0, 4, 1	// D+ pulldown enable
+#define 	USBIO_CON0_dmpd			USBIO_CON0, 5, 1	// D- pulldown enable
+#define 	USBIO_CON0_dppu			USBIO_CON0, 6, 1	// D+ pullup enable
+#define 	USBIO_CON0_dmpu			USBIO_CON0, 7, 1	// D- pullup enable
+#define 	USBIO_CON0_pm			USBIO_CON0, 8, 1	// "for test"
+#define 	USBIO_CON0_dpdie		USBIO_CON0, 9, 1	// D+ digital in enable
+#define 	USBIO_CON0_dmdie		USBIO_CON0, 10, 1	// D- digital in enable
+#define 	USBIO_CON0_usb_io_mode		USBIO_CON0, 11, 1	// io mux mode
+#define 	USBIO_CON0_usb_sr		USBIO_CON0, 12, 1	// slew rate enable
 #define USBIO_CON1			0x04	// control 1
+#define 	USBIO_CON1_dpin			USBIO_CON1, 0, 1	// usb D+ input level
+#define 	USBIO_CON1_dmin			USBIO_CON1, 1, 1	// usb D- input level
+
 
 /*================ WAKEUP ===============*/
 #define WAKEUP_base		0x1E5108
