@@ -98,10 +98,10 @@ __attribute__((naked)) void ExceptionHandler_entry(void) {
 
 void dac_analog_init(void) {
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 4, 1, 0);
-	delay(1000);
+	usleep(1000);
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 14, 1, 1);
-	delay(1000);
+	usleep(1000);
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 22, 1, 1);
 
@@ -157,25 +157,25 @@ void dac_analog_init(void) {
 	reg32_wsmask(ANA_base+ANA_DAA_CON4, 2, 1, 0);
 	reg32_wsmask(ANA_base+ANA_DAA_CON4, 1, 1, 0);
 	reg32_wsmask(ANA_base+ANA_DAA_CON4, 0, 1, 0);
-	delay(200);
+	usleep(200);
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 19, 1, 1);
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 0, 0x1f, 0x00); // %0[1] >> 12 | lpf_isel
-	delay(1000);
+	usleep(1000);
 
 	//......
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 25, 0x7, 0x0); //...
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 22, 1, 1);
-	delay(1000);
+	usleep(1000);
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 22, 1, 1);
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 5, 1, 1);
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 13, 1, 1);
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 24, 1, 1);
 	reg32_wsmask(ANA_base+ANA_DAA_CON0, 6, 1, 1);
-	delay(1000);
+	usleep(1000);
 
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 22, 1, 0);
 	reg32_wsmask(ANA_base+ANA_DAA_CON2, 14, 1, 0);

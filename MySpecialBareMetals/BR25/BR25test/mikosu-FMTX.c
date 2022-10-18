@@ -45,25 +45,27 @@ void IRQ_HANDLER fmtx_isr(void) {
 	static uint32_t t = 0;
 
 	int slice = reg32_rsmask(FM_base+FM_TX_CON0_buffslice);
-	xprintf("!! FMTX irq -> slice=%d, t=%u\n", slice, t);
+	//xprintf("!! FMTX irq -> slice=%d, t=%u\n", slice, t);
 
 	for (int i = 0; i < 1024; i++) {
-		 // ryg 2011-10-10 http://www.youtube.com/watch?v=tCRPUv8V22o 44.1 kHz
+		// ryg 2011-10-10 http://www.youtube.com/watch?v=tCRPUv8V22o 44.1 kHz
 		uint8_t v = ((t*("36364689"[t>>13&7]&15))/12&128)+(((((t>>12)^(t>>12)-2)%11*t)/4|t>>13)&127);
 		t++;
 
 		fmtx_buf[(slice + 1) % 2][i] = (v * 0x01000100) ^ 0x80008000;
 	}
 
+	//xprintf("%08x|%08x\n", fmtx_buf[0][0], fmtx_buf[1][0]);
+
 	reg32_wsmask(FM_base+FM_TX_CON1_cpnd, 1); // clear pending
 }
 
 void fmtx_on(void) {
-	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0x81);
+	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, ~0);
 }
 
 void fmtx_off(void) {
-	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0x00);
+	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0);
 }
 
 void fmtx_init(void) {
@@ -72,7 +74,7 @@ void fmtx_init(void) {
 	reg32_write(FM_base+FM_TX_BASE_ADR, (uint32_t)fmtx_buf);
 
 	// effectively fmtx_on
-	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, 0x81);
+	reg32_wsmask(FM_base+FM_TX_CON0, 0, 0x81, ~0);
 
 	reg32_write(FM_base+FM_TX_MUL,      59);
 	reg32_write(FM_base+FM_TX_PILOT,    166);
@@ -195,26 +197,40 @@ void fmtx_init(void) {
 
 #if 1
 void fmtx_set_freq(int freq) {
-	/*reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 0);
+
+	uint8_t v10 = freq / 4800. + .5;
+	if (v10 > 8) v10 = 8;
+	xprintf("... V10 = %d\n", v10);
+
+	uint32_t v13 = freq * 100 * v10;
+	xprintf("...V13 = %d\n", v13);
+
+	uint32_t v18 = v13 / 1000 / 24. - 2.;
+	xprintf("...V18 = %d\n", v18);
+
+	uint32_t v26 = (v13 / 24. / 1000.) - v18 + -2.; // * 0x4170000000000000ull;
+	xprintf("...V26 = %d\n", v26);
+
+	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 0);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 11, 1, 1);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 22, 0x3, 0x1);
 	reg32_wsmask(ANA_base+ANA_WLA_CON19, 21, 1, 1);
 
 	const char divider[8] = {0x0, 0x4, 0x1, 0x8, 0x2, 0x5, 0x3, 0xC};
-	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON2, 2, 0xf, divider[0]);
+	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON2, 2, 0xf, divider[v10]);
 
 	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON2, 0, 0x3, 0x3);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 24, 0x7, 0x1);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 27, 0x7, 0x3);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 10, 1, 1);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 19, 1, 1);
-	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 1);*/
+	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON1, 31, 1, 1);
 
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 0, 1, 1); // enable
 	delay(150);
 	reg32_wsmask(CLOCK_base+CLOCK_PLL_CON, 1, 1, 1); // release reset
 
-	reg32_write(FM_base+FM_TX_FREQ, (0x15<<24)|0x400000); // (%18 << 24) | %26
+	reg32_write(FM_base+FM_TX_FREQ, (v18<<24)|(v26&0xffffff)); // (%18 << 24) | %26
 	delay(30);
 }
 #endif
@@ -238,64 +254,13 @@ void fm_emitter_init(void) {
 
 
 
-struct JieLi_ExceptFrame {
-	// general purpose
-	uint32_t gpr[16];
-
-	// special function
-	union {
-		uint32_t sfr[16];
-		struct {
-			uint32_t reti, rete, retx, rets;
-			uint32_t sr4,  psr,  cnum, sr7;
-			uint32_t sr8,  sr9,  sr10, icfg;
-			uint32_t usp,  ssp,  sp,   pc;
-		};
-	};
-};
-
-void ExceptionHandler(struct JieLi_ExceptFrame *ef) {
-	xputs("\e[1;33;44m=========== JieLi Crashed! ===========\e[0m\n");
-
-	uint32_t *p;
-
-	xputs("\n---- General purpose regs ----\n");
-	p = ef->gpr;
-	xprintf(" r0: <%08x>   r1: <%08x>   r2: <%08x>   r3: <%08x>\n", p[ 0], p[ 1], p[ 2], p[ 3]);
-	xprintf(" r4: <%08x>   r5: <%08x>   r6: <%08x>   r7: <%08x>\n", p[ 4], p[ 5], p[ 6], p[ 7]);
-	xprintf(" r8: <%08x>   r9: <%08x>  r10: <%08x>  r11: <%08x>\n", p[ 8], p[ 9], p[10], p[11]);
-	xprintf("r12: <%08x>  r13: <%08x>  r14: <%08x>  r15: <%08x>\n", p[12], p[13], p[14], p[15]);
-
-	xputs("\n---- Special function regs ----\n");
-	p = ef->sfr;
-	xprintf("reti: <%08x>  rete: <%08x>  retx: <%08x>  rets: <%08x>\n", p[ 0], p[ 1], p[ 2], p[ 3]);
-	xprintf(" sr4: <%08x>   psr: <%08x>  cnum: <%08x>   sr7: <%08x>\n", p[ 4], p[ 5], p[ 6], p[ 7]);
-	xprintf(" sr8: <%08x>   sr9: <%08x>  sr10: <%08x>  icfg: <%08x>\n", p[ 8], p[ 9], p[10], p[11]);
-	xprintf(" usp: <%08x>   ssp: <%08x>    sp: <%08x>    pc: <%08x>\n", p[12], p[13], p[14], p[15]);
-}
-
-__attribute__((naked)) void ExceptionHandler_entry(void) {
-	// store all the regs - make an exception frame
-	asm ("[--sp] = {pc, sp, ssp, usp, icfg, sr10, sr9, sr8, sr7, cnum, psr, sr4, rets, retx, rete, reti}");
-	asm ("[--sp] = {r15-r0}");
-
-	// pass the pointer to the exception frame
-	asm ("r0 = sp");
-
-	// call the handler
-	asm ("call ExceptionHandler");
-
-	// halt
-	asm ("1: idle\ngoto 1b");
-}
-
-
-
 
 void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
+	reg32_wsmask(CLOCK_base+CLOCK_CLK_CON1, 10, 0x3, 0x0); // uart_clk <- pll_48m?
+
 	// init UART0 on PB5
 	reg32_write(UART0_base+UARTx_CON0, 0);
-	reg32_write(UART0_base+UARTx_BAUD, (24000000 / 4 / 115200) - 1);
+	reg32_write(UART0_base+UARTx_BAUD, (48000000 / 4 / 115200) - 1);
 	reg32_wsmask(UART0_base+UARTx_CON0_uten, 1); // enable
 	reg32_wsmask(IOMAP_base+IOMAP_CON0, 3, 3, 2); // UART0 to PB5
 	reg32_wsmask(IOMAP_base+IOMAP_CON3, 2, 1, 0); // UART0 ... IO SEL -> IOMUX ?
@@ -309,18 +274,8 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	/*==================================================================*/
 
-	irq_attach(1, ExceptionHandler_entry);
-
 	wallclk_init();
-
-	xputs("Start\n");
 
 	fm_emitter_init();
 	fmtx_set_freq(8600); // 86 mhz
-
-	xputs("End\n");
-
-	xputs("Ko");
-	delay(1000);
-	xputs("nata\n");
 }
