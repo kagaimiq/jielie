@@ -15,7 +15,22 @@
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    sodipodi:docname="AC6965A.svg">
   <defs
-     id="defs2" />
+     id="defs2">
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#ff0000;stroke-opacity:1;fill:#ff0000;fill-opacity:1"
+         id="path1206" />
+    </marker>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -23,15 +38,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.2659511"
-     inkscape:cx="708.67909"
-     inkscape:cy="243.44652"
+     inkscape:zoom="1.6329756"
+     inkscape:cx="130.07127"
+     inkscape:cy="579.46203"
      inkscape:document-units="mm"
-     inkscape:current-layer="g3171"
+     inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1600"
-     inkscape:window-height="851"
+     inkscape:window-height="847"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -1419,11 +1434,6 @@
          x="18.798796"
          y="45.195915"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.36837px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.109209">Audio</tspan></text>
-    <path
-       style="fill:#ffffff;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 26.52802,181.39803 5.2622,1.79411 v 23.54829 l -5.12385,-1.48999 -0.0998,-5.22377 -13.09628,-4.7746 0.24373,9.40051 -6.0362301,-2.63042 -0.0433,-14.44985 18.6552601,6.90145 -0.0549,-1.68641 -13.16726,-5.01384 c -8.4653601,-4.18139 -5.0285101,-12.53954 0.0271,-12.02155 l 4.13346,0.43853 -0.0128,4.28095 c -0.27487,-0.1029 -2.03775,-0.33797 -3.18436,-0.13484 -1.20025,0.21263 -1.8016,2.15251 2.25123,3.73365 l 10.26972,3.36619 z"
-       id="path2496-1"
-       sodipodi:nodetypes="cccccccccccccccsccc" />
     <rect
        style="fill:#ffff00;fill-opacity:1;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect3197-8-1-36-7"
@@ -1856,5 +1866,55 @@
          x="257.1308"
          y="142.19817"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">PB5</tspan></text>
+    <rect
+       style="fill:#ffeeaa;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect3197-8-1-36-2-6-36"
+       width="28.697208"
+       height="7.6972094"
+       x="37.283051"
+       y="126.41086" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
+       x="51.502281"
+       y="132.33237"
+       id="text3201-4-5-0-7"><tspan
+         sodipodi:role="line"
+         id="tspan3199-7-9-9-5"
+         x="51.502281"
+         y="132.33237"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">PA1</tspan></text>
+    <path
+       style="fill:none;stroke:#ff0000;stroke-width:0.7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)"
+       d="M 31.462868,161.8611 46.065103,136.56929"
+       id="path1154"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.7819px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';letter-spacing:0px;stroke-width:0.0945478"
+       x="86.36853"
+       y="127.95616"
+       id="text1158"
+       transform="rotate(30)"><tspan
+         sodipodi:role="line"
+         x="86.36853"
+         y="127.95616"
+         style="stroke-width:0.0945478"
+         id="tspan1169">This is confirmed to work,</tspan><tspan
+         sodipodi:role="line"
+         x="86.36853"
+         y="132.68353"
+         style="stroke-width:0.0945478"
+         id="tspan1173">althrough there should be</tspan><tspan
+         sodipodi:role="line"
+         x="86.36853"
+         y="137.4109"
+         style="stroke-width:0.0945478"
+         id="tspan1175">reason that they didn't mention</tspan><tspan
+         sodipodi:role="line"
+         x="86.36853"
+         y="142.13829"
+         style="stroke-width:0.0945478"
+         id="tspan1177">that in the datasheet... </tspan></text>
   </g>
 </svg>
