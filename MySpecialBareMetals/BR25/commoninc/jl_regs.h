@@ -43,6 +43,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SDTAP_KEY			0x04
 
 /*================= MMU =================*/
+// memory management unit
 #define MMU_base		0x100300
 
 #define MMU_CON				0x00	// control
@@ -95,6 +96,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define DEBUG_LSB_SRM_INV_CH		0x44
 
 /*================= FFT =================*/
+// fast fourier transform
 #define FFT_base		0x102000
 
 #define FFT_CON				0x00	// control
@@ -103,6 +105,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define FFT_TEST1			0x0C
 
 /*================= CORE ================*/
+// cpu core regs
 #define CORE_base		0x10F000
 #define COREn_base(n)		(CORE_base + 0x10000 * (n))
 
@@ -156,6 +159,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 /* Low Speed SFR */
 
 /*================ CLOCK ================*/
+// clock stuff
 #define CLOCK_base		0x1E0000
 
 #define CLOCK_PWR_CON			0x00
@@ -174,22 +178,26 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define CLOCK_PLL_CON2			0x58
 
 /*================= RST =================*/
+// reset stuff
 #define RST_base		0x1E00C0
 
 #define RST_SRC				0x00
 
 /*================ MODE =================*/
+// mode stuff
 #define MODE_base		0x1E0100
 
 #define MODE_CON			0x00
 
 /*================ SYSTEM ===============*/
+// system stuff
 #define SYSTEM_base		0x1E0200
 
 #define SYSTEM_CHIP_ID			0x00
 #define SYSTEM_MBIST_CON		0x04
 
 /*================ TIMER ================*/
+// timer
 #define TIMER0_base		0x1E0400
 #define TIMER1_base		0x1E0500
 #define TIMER2_base		0x1E0600
@@ -211,23 +219,26 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define TIMERx_PWM			0x0C	// pwm duty cycle
 
 /*================ PCNT =================*/
+// pulse counter
 #define PCNT_base		0x1E1000
 
 #define PCNT_CON			0x00	// control
 #define PCNT_VAL			0x04	// value
 
-/*================ PCNT =================*/
-#define GPCNT_base		0x1E1000
+/*================ GPCNT ================*/
+// g pulse counter
+#define GPCNT_base		0x1E1100
 
 #define GPCNT_CON			0x00	// control
 #define GPCNT_NUM			0x04	// number
 
 /*================= SD ==================*/
+// sd/mmc host
 #define SD0_base		0x1E1400
 #define SD1_base		0x1E1500
 
 #define SDx_CON0			0x00	// control 0
-#define 	SDx_CON0_firecmd		SDx_CON0, 0, 0x7	// fire a command transfer (5 = 48 bit resp, 6 = 136 bit resp)
+#define 	SDx_CON0_firecmd		SDx_CON0, 0, 0x7	// fire a command transfer (5 = 48 bit resp, 6 = 136 (128) bit resp)
 #define 	SDx_CON0_cpnd_cmd		SDx_CON0, 6, 1		// clear pending int (command)
 #define 	SDx_CON0_pnd_cmd		SDx_CON0, 7, 1		// pending interrupt (command)
 #define 	SDx_CON0_cpnd_dat		SDx_CON0, 14, 1		// clear pending int (data)
@@ -235,9 +246,9 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SDx_CON1			0x04	// control 1
 #define 	SDx_CON1_enable			SDx_CON1, 0, 1		// enable
 #define 	SDx_CON1_idleclken		SDx_CON1, 5, 1		// output clock even when idle
-#define 	SDx_CON1_baud			SDx_CON1, 8, 0xff	// clock divider
+#define 	SDx_CON1_baud			SDx_CON1, 8, 0xff	// clock divider (n-1)
 #define SDx_CON2			0x08	// control 2
-#define 	SDx_CON2_blksize		SDx_CON2, 0, 0x1ff	// block size
+#define 	SDx_CON2_blksize		SDx_CON2, 0, 0x1ff	// block size (n-1)
 #define SDx_CPTR			0x0C	// command buffer address
 #define SDx_DPTR			0x10	// data buffer address
 #define SDx_CTU_CON			0x14	// ctu control
@@ -247,9 +258,10 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define 	SDx_CTU_CON_clr_done		SDx_CTU_CON, 6, 1	// clear done flag
 #define 	SDx_CTU_CON_done		SDx_CTU_CON, 7, 1	// done flag ? wtf ?
 #define 	SDx_CTU_CON_firedat		SDx_CTU_CON, 8, 0x7	// fire a data transfer (5 = tx data, 6 = rx data)
-#define SDx_CTU_CNT			0x18	// ctu count (block count)
+#define SDx_CTU_CNT			0x18	// ctu count (block count n-1)
 
 /*================= USB =================*/
+// usb host/device
 #define USB_base		0x1E1800
 
 ////// FROM BR21, MIGHT BE INCORRECT/INCOMPLETE! //////
@@ -294,6 +306,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define EP4_RADR			0x3C	// EP4 rx data address
 
 /*================= ANA =================*/
+// analog stuff
 #define ANA_base		0x1E1900
 
 #define ANA_WLA_CON0			0x00
@@ -363,6 +376,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define ANA_ADA_CON4			0xF0
 
 /*================= SPI =================*/
+// spi interface
 #define SPI0_base		0x1E1C00
 #define SPI1_base		0x1E1D00
 #define SPI2_base		0x1E1E00
@@ -387,6 +401,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SPIx_CNT			0x10	// dma length (triggers dma)
 
 /*================ UART =================*/
+// uart interface
 #define UART0_base		0x1E2000
 #define UART1_base		0x1E2100
 #define UART2_base		0x1E2200
@@ -428,6 +443,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define UARTx_HRXCNT			0x28	// rx dma received length
 
 /*================= IIC =================*/
+// i2c interface
 #define IIC_base		0x1E2400
 
 #define IIC_CON0			0x00	// control 0
@@ -436,6 +452,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define IIC_CON1			0x0C	// control 1
 
 /*================= PAP =================*/
+// parralel active port
 #define PAP_base		0x1E2800
 
 #define PAP_CON				0x00	// control
@@ -446,6 +463,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define PAP_CNT				0x14	// dma length
 
 /*================= SS ==================*/
+// spdif slave
 #define SS_base			0x1E2B00
 
 #define SS_CON				0x00	// control
@@ -463,6 +481,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SS_CSB5				0x30
 
 /*================ RDEC =================*/
+// r decoder
 #define RDEC0_base		0x1E2C00
 #define RDEC1_base		0x1E4400
 #define RDEC2_base		0x1E4500
@@ -472,6 +491,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define RDECx_SMP			0x08
 
 /*================ PLNK =================*/
+// pdm link
 #define PLNK_base		0x1E2D00
 
 #define PLNK_CON			0x00	// control
@@ -480,6 +500,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define PLNK_LEN			0x0C	// data length
 
 /*================ ALNK =================*/
+// audio link
 #define ALNK0_base		0x1E2E00
 #define ALNK1_base		0x1E3300
 
@@ -494,6 +515,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define ALNK_LEN			0x20	// data length
 
 /*================ AUDIO ================*/
+// audio controller
 #define AUDIO_base		0x1E2F00
 
 #define AUDIO_DAC_CON			0x00	// dac control
@@ -522,6 +544,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define AUDIO_ADC_SRN			0x58
 
 /*================ MCPWM ================*/
+// motor control pwm
 #define MCPWM_base		0x1E3000
 
 #define MCPWM_TMRn_CON(n)		(0x00 + (n) * 0xC)	// timer control
@@ -535,12 +558,24 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define MCPWM_CON0			0xE4			// control
 
 /*================= ADC =================*/
+// analog-digital converter
 #define ADC_base		0x1E3100
 
+////// FROM BR21, MIGHT BE INCORRECT/INCOMPLETE! maybe... //////
+
 #define ADC_CON				0x00	// control
+#define 	ADC_CON_adcbaud			ADC_CON, 0, 0x7		// clock divider [/1|/6|/12|/24|/48|/72|/96|/128] (<= 1MHz)
+#define 	ADC_CON_adcae			ADC_CON, 3, 1		// analog enable
+#define 	ADC_CON_adcen			ADC_CON, 4, 1		// enable
+#define 	ADC_CON_adcie			ADC_CON, 5, 1		// interrupt enable
+#define 	ADC_CON_cpnd			ADC_CON, 6, 1		// clear pending int
+#define 	ADC_CON_pnd			ADC_CON, 7, 1		// interrupt pending
+#define 	ADC_CON_chsel			ADC_CON, 8, 0xf		// channel select [adc0..14, 15=p33]
+#define 	ADC_CON_waittime		ADC_CON, 12, 0xf	// startup delay (in 8x clocks)
 #define ADC_RES				0x04	// result
 
 /*================= IR ==================*/
+// ir decoder
 #define IR_base			0x1E3200
 
 #define IR_RFLT_CON			0x00	// rflt control
@@ -551,6 +586,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define OSA_CON				0x00	// control
 
 /*================= CRC =================*/
+// crc16 ccitt
 #define CRC_base		0x1E3500
 
 #define CRC_FIFO			0x00	// fifo
@@ -569,6 +605,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define EFUSE_ME			0x20
 
 /*================= RAND ================*/
+// random number generator
 #define RAND_base		0x1E3B00
 
 #define RAND_R64L			0x00	// low 32 bits
@@ -590,6 +627,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define P33_SPI_DAT			0x0C	// spi data
 
 /*================= DMA =================*/
+// direct memory access
 #define DMA_base		0x1E3F00
 
 #define DMA_PRI0			0x00
@@ -604,6 +642,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define DMA_WRH				0x34
 
 /*=============== PERIENC ===============*/
+// peripheral encryptor
 #define PERIENC_base		0x1E4100
 
 #define PERIENC_CON			0x00	// control
@@ -615,6 +654,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define PERIENC_ADR			0x08	// "address" (key ^ (ADR >> 2)), something like that
 
 /*================= SBC =================*/
+// subband coding (sbc) codec
 #define SBC_base		0x1E4200
 
 #define SBC_CON0			0x00	// control
@@ -628,6 +668,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SBC_RAM_CFG			0x20
 
 /*================= AES =================*/
+// advanced encryption standard (aes) engine
 #define AES_base		0x1E4300
 
 #define AES_CON				0x00	// control key
@@ -649,6 +690,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define AES_TAGRES3			0x40	// tag result 3
 
 /*================ PORT =================*/
+// gpio port
 #define PORTA_base		0x1E5000
 #define PORTB_base		0x1E5040
 #define PORTC_base		0x1E5080
@@ -671,6 +713,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define PORTx_DIEH			0x20
 
 /*================ USB_IO ===============*/
+// usb gpio port
 #define USBIO_base		0x1E5100
 
 ////// FROM BR21, MIGHT BE INCORRECT/INCOMPLETE! //////
@@ -693,8 +736,8 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define 	USBIO_CON1_dpin			USBIO_CON1, 0, 1	// usb D+ input level
 #define 	USBIO_CON1_dmin			USBIO_CON1, 1, 1	// usb D- input level
 
-
 /*================ WAKEUP ===============*/
+// gpio wakeup
 #define WAKEUP_base		0x1E5108
 
 #define WAKEUP_CON0			0x00	// control 0
@@ -703,6 +746,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define WAKEUP_CON3			0x0C	// control 3
 
 /*================ IOMAP ================*/
+// port io map
 #define IOMAP_base		0x1E5118
 
 #define IOMAP_CON0			0x00
@@ -730,6 +774,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define IOMAP_CON5			0x14
 
 /*================ PLED =================*/
+// pwm led
 #define PLED_base		0x1E5200
 
 #define PLED_CON0			0x00	// control
@@ -750,6 +795,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define PLED_CNT_RD			0x3C	// counter read
 
 /*================= LCD =================*/
+// liquid crystal display (lcd) controller
 #define LCD_base		0x1E5300
 
 #define LCD_CON0			0x00	// control
@@ -760,6 +806,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 /* High Speed SFR */
 
 /*================= SFC =================*/
+// serial/spi flash controller
 #define SFC_base		0x1F0200
 
 #define SFC_CON				0x00	// control
@@ -771,6 +818,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SFC_QUCNT			0x10
 
 /*=============== SFCENC ================*/
+// sfc encryptor
 #define SFCENC_base		0x1F0300
 
 #define SFCENC_CON			0x00	// control
@@ -783,6 +831,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SFCENC_LENC_ADRL		0x14
 
 /*================ PSRAM ================*/
+// spi psram controller (ABSENT!)
 #define PSRAM_base		0x1F0500
 
 #define PSRAM_CON			0x00	// control
@@ -796,6 +845,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define DCP_ADR				0x04	// address
 
 /*================= EQ ==================*/
+// equalizer
 #define EQ_base			0x1F1500
 
 #define EQ_CON0				0x00	// control 0
@@ -806,6 +856,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define EQ_FLT_ADR			0x14	// flt address
 
 /*================= SRC =================*/
+// sample rate converter
 #define SRC_base		0x1F1600
 
 #define SRC_CON0			0x00	// control 0
@@ -819,6 +870,7 @@ static inline uint32_t reg32_rsmask(uint32_t addr, int shift, uint32_t mask) {
 #define SRC_FLTB_ADR			0x20	// fltb address
 
 /*================= FM ==================*/
+// fm radio
 #define FM_base			0x1F1700
 
 #define FM_CON				0x00	// control

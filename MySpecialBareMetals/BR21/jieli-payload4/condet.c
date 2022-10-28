@@ -677,7 +677,7 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 	reg32_wsmask(AUDIO_BASE+AUDIO_DAC_CON_DACEN, 1); // en
 
 	static FIL fil;
-	xprintf("f_open->%d\n", f_open(&fil, "0:BREATHE.U8", FA_READ));
+	xprintf("f_open->%d\n", f_open(&fil, "0:BREATHE.U8", FA_READ)); // THE PRODIGY
 
 	char led = 0;
 	uint32_t okeys = 0;

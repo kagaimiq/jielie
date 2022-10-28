@@ -4,9 +4,9 @@ OBJS = \
 	head.o \
 	neko.o
 
-CFLAGS  = -Werror -O2
+CFLAGS  = -Werror -O2 -mcpu=r3
 ASFLAGS = -c
-LDFLAGS = -Tlink.ld -lc
+LDFLAGS = -Tlink.ld -lc -lm -lcompiler-rt --plugin-opt=mcpu=r3 --plugin-opt=mattr=+fprev1
 
 CFLAGS  += -I ../commoninc
 LDFLAGS += -T ../commoninc/maskrom_stuff.ld

@@ -21,6 +21,11 @@ void wallclk_init(void) {
 	irq_attach(3, TickerTimer);
 }
 
+void wallclk_deinit(void) {
+	irq_detach(3);
+	reg32_wsmask(CORE_base+CORE_TTMR_CON_enable, 0);
+}
+
 
 uint64_t micros(void) {
 	return (msecs * 1000ull) + (reg32_read(CORE_base+CORE_TTMR_CNT) / (PERIOD_1MS / 1000));

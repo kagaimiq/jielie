@@ -6,6 +6,7 @@
 #define USLEEP_1SEC	1000000
 
 void wallclk_init();
+void wallclk_deinit();
 
 uint64_t micros();
 void usleep(uint32_t us);

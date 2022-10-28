@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <jl_regs.h>
-
+#include <maskrom_stuff.h>
 
 struct usb_msc_cbw {
 	uint32_t sign;		// 0x55534243 "USBC"
@@ -86,7 +86,7 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 
 	// process
 	switch (cmd[0]) {
-	case 0xE1 ... 0xEF: // raw spi transfer
+	case 0xE1 ... 0xEF: // raw spi transfer (Custom command!)
 		sflash_sel(1);
 
 		for (int i = 1; i <= (cmd[0] & 0xf); i++)
@@ -105,12 +105,12 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 		sflash_sel(0);
 		return 1;
 
-	case 0xF5: // dunno
+	case 0xF5: // dunno (BR25 isd tool calls this...)
 		memset(buffer, 0x55, len);
 		largs->msd_send(buffer, len);
 		return 1;
 
-	case 0xFB:
+	case 0xFB: // "Flash write"
 		switch (cmd[1]) {
 		case 0x00: // Erase flash block
 		case 0x01: // Erase flash sector
@@ -184,7 +184,7 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 		}
 		break;
 
-	case 0xFC:
+	case 0xFC: // "Other"
 		switch (cmd[1]) {
 		case 0x09: // Get chip key
 			if (len < 16) break;
@@ -194,8 +194,20 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 			buffer[1] = cmd[1];
 
 			// chip key
-			buffer[6] = 0x5b; // 0x5BD0 gives 0xFFFF encryption key
-			buffer[7] = 0xd0;
+			{
+				uint16_t chipkey;
+
+				// read efuse : bank1, byte0 & byte1
+				p33_tx_1byte(0xb0, (1<<6));
+				p33_tx_1byte(0xb1, (0<<2) | (1<<7)|(1<<1)); chipkey |= p33_rx_1byte(0xb2) << 0;
+				p33_tx_1byte(0xb1, (1<<2) | (1<<7)|(1<<1)); chipkey |= p33_rx_1byte(0xb2) << 8;
+				p33_tx_1byte(0xb1, 0);
+
+				CrcDecode(&chipkey, 2);
+
+				buffer[6] = chipkey >> 8;
+				buffer[7] = chipkey >> 0;
+			}
 
 			largs->msd_send(buffer, 16);
 			return 1;
@@ -220,10 +232,45 @@ int KonaHook(struct usb_msc_cbw *cbw) {
 
 			largs->msd_send(buffer, 16);
 			return 1;
+
+		case 0x13: // Flash CRC16
+			if (len < 16) break;
+
+			memset(buffer, 0, sizeof(buffer));
+			buffer[0] = cmd[0];
+			buffer[1] = cmd[1];
+
+			{
+				uint32_t addr = (cmd[2] << 24) | (cmd[3] << 16) | (cmd[4] << 8) | cmd[5];
+				int qlen = (cmd[6] << 8) | cmd[7];
+
+				// TODO!!!
+			}
+
+			largs->msd_send(buffer, 16);
+			return 1;
+
+		case 0x14: // Flash max page size
+			if (len < 16) break;
+
+			memset(buffer, 0, sizeof(buffer));
+			buffer[0] = cmd[0];
+			buffer[1] = cmd[1];
+
+			{
+				uint32_t tmp = sizeof(buffer);
+				buffer[2] = tmp >> 24;
+				buffer[3] = tmp >> 16;
+				buffer[4] = tmp >> 8;
+				buffer[5] = tmp >> 0;
+			}
+
+			largs->msd_send(buffer, 16);
+			return 1;
 		}
 		break;
 
-	case 0xFD:
+	case 0xFD: // "Flash read"
 		switch (cmd[1]) {
 		case 0x05: // Read flash
 			{

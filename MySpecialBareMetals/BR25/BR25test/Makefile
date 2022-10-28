@@ -2,7 +2,7 @@ TARGET = BR25test1
 
 OBJS = \
 	pre.o \
-	mikosu4.o
+	mikosu5.o
 
 CFLAGS  = -Werror -O2 -mcpu=r3
 ASFLAGS = -c
@@ -53,6 +53,8 @@ $(TARGET).elf: $(OBJS)
 $(TARGET).bin: $(TARGET).elf
 	$(OBJCOPY) -O binary $< $@
 
+JL_ARG ?= 0x4777
+
 run: $(TARGET).bin
 	python3 ../../../../jl-uboot-tool/the-tool/jlrunner.py \
-		--device /dev/sg2 0x12000 $<
+		--device $(JL_DEVICE) 0x12000 $< --arg $(JL_ARG)
