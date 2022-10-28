@@ -439,46 +439,7 @@ void JieLi(uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 		D14S__D|D14S__K|D14S__M,
 	};
 
-	const char text[] = "NOW PLAYING: KaSa / Satan @ 0:/ZoranLtd/kona/(11) KaSa - Satan.mp3 || JL JIELI TECH!";
-	/*
-	"Kagami Hiiragi (?? ??????, Hiiragi Kagami)\n"
-"    Voiced by: Ami Koshimizu (old drama CD, NDS video game),\n"
-"               Emiri Katou (anime, radio, PS2 and PSP video game, new drama CD, Miyakawa-ke no K??fuku anime and drama CD),\n"
-"               Kari Wahlgren (English)\n"
-"\n"
-"Kagami is the older fraternal twin sister of Tsukasa Hiiragi.\n"
-"In school, her grades are excellent, as she studies very hard,[11]"
-"and she was elected class president in her first year.\n"
-"She is in a different class than Konata Izumi and Tsukasa, but she frequently comes to their class during lunch time to eat with Tsukasa.\n"
-"Additionally, Kagami chose the humanities stream in her second year, so that she could be with her friends,[12] but she was the only one separated into a different classroom; the same occurred in her third year.\n"
-"Kagami, occasionally referred to as \"Kagamin\" (oh shit) by Konata, is very boyish, a bit egotistical, and not as good a cook as Tsukasa.[12]\n"
-"Konata loves to irritate her, and their arguments act as one of the main factors of comic relief throughout the series.\n"
-"Kagami is usually annoyed by Konata's constant references to her otaku interests, but usually has an idea on what she is saying.\n"
-"\n"  
-"Kagami's physique is average, but she is flat chested like her twin and Konata.\n"
-"Though Kagami is a tough tomboy, she has a very girly side.\n"
-"She is usually concerned about her weight, counting every kilogram she gains or loses.\n"
-"Kagami likes to eat sweet food and she is often seen eating sweet food at night, such as chocolate Pocky sticks.\n"
-"Despite her concern about her weight, she has no willpower controlling her eating habit, being the tomboy she is, resulting in an \"eat now, fret later\" attitude.[6]\n"
-"She has long, purple hair with a ribbon tied into bunches,[13] and unlike Tsukasa, has sharp tsurime eyes.\n"
-"Kagami is the quintessential \"tsundere\";[13] she on one side can be the straight and intolerant type however, \e[35;1mshe is prone to become shy and lonely at times.\n"
-"Kagami is constantly attempting to hide the fact that she has a deep sense of attachment to her friends, especially Konata.[13]\n"
-"She also seems to take a twisted delight in mocking Konata's smaller-than-average physique, her lack of motivation and her tendency to be a troublemaker, which usually results in Konata becoming very defensive.\n"
-"In spite of all this, she \e[31;1mreally does care about Konata, and is almost always willing to go places or do favors for her.\n"
-"\n"
-"Similarly to Konata, Kagami is a tomboy who likes video games, but plays a different genre than Konata: scrolling shooters.[7]\n"
-"She loves to read light novels, but is lonely, as no one around her has the same interests as her (though she is implied to have a knack for anime, since a \e[31mstuffed Bonta-kun doll from Full Metal Panic! can be seen in her room).\n"
-"Both Kagami and Tsukasa are left-handed.\n"
-"Kagami shares the name of her creator, Kagami Yoshimizu, and according to the creator, Kagami was his pen name in his school days, and had her personality thought out long ago.\n"
-"Kagami became the 2008 Anime Saimoe Tournament's champion with her sister Tsukasa being runner-up.\n"
-"\n"
-"[6] from LS4\n"
-"[7] from LS9\n"
-"[11] https://web.archive.org/web/20080725115818/http://lucky-star.bandai-ent.com/characters/kagami.php (archvied)\n"
-"[12] from LS7\n"
-"[13] from LS8\n"
-"\n";
-	*/
+	const char text[] = "JieLi AC6965A drives the ABOV MC5502 DisplayDriver in the LG's LAC2900N's front panel";
 
 	for (int off = 0;;off++) {
 		wdt_clr();
