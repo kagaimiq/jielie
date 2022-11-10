@@ -2,7 +2,7 @@
 
 Just an bluetooth audio board like the XY-BT-MINI, etc.
 
-- MCU: AC6965A
+- SoC: [AC6965A](../../chips/br25/index.md#ac6965a)
 
 ![hw-770 and hw-221](20220707_172552.jpg)
 

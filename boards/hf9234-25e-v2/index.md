@@ -1,10 +1,12 @@
-# HF9234-25E-V2
+# Boomsbox mini (HF9234-25E-V2 board)
 
 **I don't have this thing anymore because it wasn't mine at all.**
 
-A board from some blue JBL-ish speaker/boombox.
+Some JBL-ish bluetooth speaker...
 
-- MCU: AC6925E
+- SoC: [AC6925E](../../chips/br21/index.md#ac6925e)
+
+![The speaker](speaker.jpg)
 
 ![Board top](20220606_215005.jpg)
 
