@@ -1,5 +1,10 @@
 # BR23
 
+The **AC695N** and **AC635N** chip series.
+
+- CPU Core: [Pi32v2](../../cpu/index.md#pi32)
+- SRAM: 136k
+
 [IO map](iomap.md) | [IRQ map](irq.md) | [Memory map](memmap.md)
 
 ## Chips
