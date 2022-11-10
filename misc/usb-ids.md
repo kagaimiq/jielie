@@ -2,6 +2,7 @@
 
 | VID  | PID  | Device                                 |
 |------|------|----------------------------------------|
+| 14B4 | 2714 | DV12 (AC520N) app, **MAYBE - obtained via bruteforcing the corrupted firmware dump...** |
 | 4C4A | 2342 | BR23 UBOOT 1.00                        |
 | 4C4A | 2542 | BR25 UBOOT 1.00                        |
 | 4C4A | 4155 | BR25 app / UAC Demo v1.0               |
