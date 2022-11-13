@@ -1,7 +1,5 @@
 # JieLi STUFF
 
-![ZHUHAI_JIELI_TEHNALAGI_KO_ELTEDE](http://www.zh-jieli.com/upload/201703/1490110856.jpg)
-
 ![JL_TECH_CHIP_DELITE_DA_WORLD](https://doc.zh-jieli.com/static/image/logo.png)
 
 **JieLi Technology - Chips Delight the World.**
