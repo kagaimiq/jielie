@@ -7,9 +7,11 @@ I was *really* shocked when i saw that there was an **JIE LI** chip inside!!
 
 - SoC: [AC5204A](../../chips/dv12/index.md#ac5204a)
 - Flash: 32 Mbit (4 MiB) SPI flash (in my case, Pm25LQ032)
-- Camera: GC0307 (640x480)
+- Sensor: GC0307 (640x480) - the right choice for the 4K camera!!
 - Display: ILI9341(?) TFT display (~220x176, 208x176 used)
 - Wi-Fi: RTL8189ES
+- External display: **Fake** micro-HDMI connector
+- USB: Charging & USB device (MSD + UVC + UAC)
 
 ![Kinda in action](20190222_200456.jpg)
 
@@ -24,20 +26,11 @@ I was *really* shocked when i saw that there was an **JIE LI** chip inside!!
 The image sensor that was used in it is the GalaxyCore's GC0307.
 It has an resolution of **640x480**. Yeah.... That's the 4K quality we want!
 
-...TODO describe all the story...
+Pinout: (labels as per GC0307 datasheet, on order that appears when looking at its back side)
 
-![The sensor](IMG_20201018_214557.jpg)
-
-![Breakout cardboard front](IMG_20201019_031732.jpg)
-![Breakout cardboard back](IMG_20201019_031804.jpg)
-
-Pinout: (labels as per GC0307 datasheet)
-
-|  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |  # | Name   |
-|----|--------|----|--------|----|--------|----|--------|----|--------|----|--------|----|--------|----|--------|
-|  1 | PCLK   |  2 | GND    |  3 | HSYNC  |  4 | VSYNC  |  5 | D7     |  6 | D6     |  7 | D5     |  8 | D4     |
-|  9 | D3     | 10 | D2     | 11 | D1     | 12 | D0     | 13 |        | 14 |        | 15 | GND    | 16 | IN_CLK |
-| 17 | GND    | 18 | PWDN   | 19 |        | 20 | SBCL   | 21 | SBDA   | 22 |        | 23 | VDD    | 24 |        |
+| 24 | 23  | 22 | 21   | 20   | 19 | 18   | 17  | 16     | 15  | 14 | 13 | 12 | 11 | 10 | 9  | 8  | 7  | 6  | 5  | 4     | 3     | 2   | 1    |
+|----|-----|----|------|------|----|------|-----|--------|-----|----|----|----|----|----|----|----|----|----|----|-------|-------|-----|------|
+|    | VDD |    | SBDA | SBCL |    | PWDN | GND | IN_CLK | GND |    |    | D0 | D1 | D2 | D3 | D4 | D5 | D6 | D7 | VSYNC | HSYNC | GND | PCLK |
 
 --------------------------------------------------------------------------------------------
 
