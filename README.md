@@ -24,7 +24,3 @@ and the "nonsense" markings like "AB1526CG3X1F.1-82E", "AC1631097294-04A", etc.
 - [CPU cores](cpu/index.md) - Information about the CPU cores
 - [Misc info](misc/index.md) - Various information that doesn't really belong to any category...
 - [Special links](specilinks.md)
-
--------------------------------------
-
-![JieLi / NichiJou](jljou.svg)
