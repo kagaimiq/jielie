@@ -12,12 +12,12 @@ offsets 580..5FF and 500..57F (yes, the first 128 bytes are put into high part, 
 
 ## OpenRISC
 
-Seems like they did use it in some "MC01" thing...
+The OpenRISC!
 
-As their toolchain package installs the "mc01-uclinux" thingy...
-They wanted to run Linux too???
+Seems to be present in the AC4100 SoC... so probably this is *the* first 32-bit MCU core they used.
 
-This also might explain why the compiled elf file in e.g. AC690N SDK has an '.or32' extension (or32 is the old name for OpenRISC, now it is called or1k)
+This might explain why the generated ELF binary ends with "or32" (or32 is the old name for OpenRISC, now it's called "or1k")
+What a leftover...
 
 ## Blackfin
 
