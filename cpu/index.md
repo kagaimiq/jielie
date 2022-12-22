@@ -29,6 +29,8 @@ Their own arch, which is heavily based off (inspired by?) the Blackfin.
 
 I thought that they based off the ARM (thumb) but actually it's not...
 
+[More...](pi32.md)
+
 ### Pi32v2
 
 A second version, introduced the 48-bit instructions (i.e. 3x 16-bit words), which can hold
