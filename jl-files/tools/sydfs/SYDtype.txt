@@ -1,9 +1,0 @@
-00:	ui.apu, res.res, audlogo.res		<misc>
-01:	uboot.boot				<uboot.boot -- bootloader>
-02:	user.app				<user.app   -- uncompressed app?>
-03:	cmd_zone, __zone2.zon, _____.____2	<zones>
-04:	sdram.apu				<sdram.apu  -- compressed app?>
-05:	ver.bin					<version file>
-06:	sys.cfg					<system config>
-07:	spc.aer					<special area definitions>
-08:	chip_key.bin				<chip key>

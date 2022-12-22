@@ -1,5 +1,0 @@
-r3dq
-konata.elf
-thing.wav
-install_linux
-123
