@@ -4,10 +4,15 @@
 
 ## Families
 
-### By family name
+### By chip family
 
+- AC4100 (AC410N)
+- BT15 (AC460N)
+- BC51 (AC461N)
 - [DV12 (AC520N)](dv12/index.md)
-- BD19 (AC632N, AC693N?)
+- DV15 (AC5?1N)
+- DV16 (AC54xx, AC56xx)
+- BD19 (AC632N)
 - BD29 (AC630N)
 - [BR17 (AC690N)](br17/index.md)
 - BR20 (AC691N)
@@ -24,11 +29,12 @@
 - SH54 (AD14N, AD104N)
 - SH55 (AD15N, AD105N)
 
-### By chip family
+### By chip name
 
 ... or rather a "master" chip (the one that has all the pins of the die, essentially)
 
-- AC410N (CD03?)
+- AC109N (CD002)
+- AC410N (CD03? AC4100)
 - AC460N (BT15)
 - AC461N (BC51?)
 - [AC520N (DV12)](dv12/index.md)
@@ -40,7 +46,7 @@
 - [AC690N (BR17)](br17/index.md)
 - AC691N (BR20)
 - [AC692N (BR21)](br21/index.md)
-- AC693N (BR22 or BD19??)
+- AC693N (BR22)
 - [AC695N (BR23)](br23/index.md)
 - [AC696N (BR25)](br25/index.md)
 - AC697N (BR30)
@@ -78,8 +84,6 @@
 
 - DV10
 
-- DV15
-
 - BR16
 
 ------------------------------------------------------------------------------
@@ -88,6 +92,8 @@
 
 It is well-known that JieLi uses completely nonsense chip markings
 instead of pointing out the real chip name (except maybe in the AC63XX series).
+
+
 
 ### Full list
 
@@ -103,9 +109,9 @@ Others are scaped off random resources.
 | AB1828CH2G0Q.1-82E      | AC1082       | year 2018                      |
 | AD1431CF5243.1-83EM     | AC1083       | year 2014                      |
 | **AB1819CK1Y11.1-87**   | AC1187       | year 2018                      |
-| ADDEF438-01B            | AC4x01B?     |                                |
+| ADDEF438-01B            | AC4?01B?     |                                |
 | AC19DH4502-01           | AC4601       | year 2019, from [there](https://esp8266.ru/forum/threads/jl-soc.5500/post-88589) |
-| **AC1631097294-04A**    | AC5204A      | year 2016                      |
+| **AC1631D97294-04A**    | AC5204A      | year 2016                      |
 | AC19AP22917-1A4         | AC5401A?     | year 2019, 4 == ?!             |
 | AC21BP0A908             | AC690        | year 2021                      |
 | AC20AP2J262-1A8         | AC6901A      | year 2020, 8 Mbit flash        |
@@ -122,4 +128,3 @@ Others are scaped off random resources.
 | AS21BP03721-55F4        | AC6955F      | year 2021, 4 Mbit flash        |
 | **AC20BP05193-65A4**    | AC6965A      | year 2020, 4 Mbit flash        |
 | AS21BP0B847-65A4        | AC6965A      | year 2021, 4 Mbit flash        |
-
