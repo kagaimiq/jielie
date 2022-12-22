@@ -13,10 +13,9 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 }
 ```
 
-At some point (e.g. in BR23) there was now two such blocks: PERIENC (for peripherals like SPI or SD),
-and SFCENC (for the SFC).
+## Registers
 
-## Registers (ENC)
+- ENC:
 
 | Name       | Offset | Description        |
 |------------|--------|--------------------|
@@ -26,25 +25,7 @@ and SFCENC (for the SFC).
 | UNENC_ADRH | 0x0C   |                    |
 | UNENC_ADRL | 0x10   |                    |
 
-### CON
-
-| Bits  | R/W | Default | Description                                          |
-|-------|-----|---------|------------------------------------------------------|
-| 31:8  | /   | /       | /                                                    |
-| 7     | W   |         | Reset key shift register                             |
-| 6:3   | /   | /       | /                                                    |
-| 2     | R/W | 0       | ?? Enable ENC for SD0 DATA transfers ??              |
-| 1     | R/W | 0       | ?? Enable ENC for SFC ??                             |
-| 0     | R/W | 0       | Enable ENC for SPI0 DMA transfers                    |
-
-### KEY
-
-| Bits  | R/W | Default | Description                                          |
-|-------|-----|---------|------------------------------------------------------|
-| 31:16 | /   | /       | /                                                    |
-| 15:0  | W   |         | Key register value                                   |
-
-## Registers (PERIENC)
+- PERIENC:
 
 | Name     | Offset | Description        |
 |----------|--------|--------------------|
@@ -52,25 +33,7 @@ and SFCENC (for the SFC).
 | KEY      | 0x04   | Key register       |
 | ADR      | 0x08   | "Address" register |
 
-### CON
-
-| Bits  | R/W | Default | Description                                          |
-|-------|-----|---------|------------------------------------------------------|
-| 31:8  | /   | /       | /                                                    |
-| 7     | W   | 0       | Reset key shift register                             |
-| 6:3   | /   | /       | /                                                    |
-| 2     | R/W | 0       | Enable ENC for SD0 DATA transfers                    |
-| 1     | R/W | 0       |                                                      |
-| 0     | R/W | 0       | Enable ENC for SPI0 DMA transfers                    |
-
-### KEY
-
-| Bits  | R/W | Default | Description                                          |
-|-------|-----|---------|------------------------------------------------------|
-| 31:16 | /   | /       | /                                                    |
-| 15:0  | W   |         | Key register value                                   |
-
-## Registers (SFCENC)
+- SFCENC:
 
 | Name       | Offset | Description        |
 |------------|--------|--------------------|
@@ -83,12 +46,23 @@ and SFCENC (for the SFC).
 
 ### CON
 
+- ENC, PERIENC:
+
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
 | 31:8  | /   | /       | /                                                    |
-| 7     | W   | 0       | Reset key shift register                             |
-| 6:1   | /   | /       | /                                                    |
-| 0     | R/W | 0       | Enable ENC                                           |
+| 7     | W   |         | Reset key shift register                             |
+| 6:3   | /   | /       | /                                                    |
+| 2     | R/W | 0       | Enable ENC for SD0 DATA transfers                    |
+| 1     | R/W | 0       | Enable ENC for SFC?                                  |
+| 0     | R/W | 0       | Enable ENC for SPI0 DMA transfers                    |
+
+- SFCENC:
+
+| Bits  | R/W | Default | Description                                          |
+|-------|-----|---------|------------------------------------------------------|
+| 31:1  | /   | /       | /                                                    |
+| 0     | R/W | 0       | Enable ENC for SFC                                   |
 
 ### KEY
 
@@ -96,4 +70,3 @@ and SFCENC (for the SFC).
 |-------|-----|---------|------------------------------------------------------|
 | 31:16 | /   | /       | /                                                    |
 | 15:0  | W   |         | Key register value                                   |
-
