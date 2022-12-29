@@ -1,6 +1,6 @@
 # UART
 
-UART (Universal Asychronous Receiver-Transmitter) interface
+UART (Universal Asynchronous Receiver-Transmitter) interface
 
 ## Registers
 
