@@ -23,15 +23,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="593.78644"
-     inkscape:cy="449.44622"
+     inkscape:zoom="0.5"
+     inkscape:cx="843.66673"
+     inkscape:cy="689.7758"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1600"
-     inkscape:window-height="851"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -321,64 +321,6 @@
          y="17.57868"
          style="fill:#000000;stroke-width:0.135759"
          id="tspan4754">This is merely a guess!</tspan></text>
-    <rect
-       style="fill:#00ffff;fill-opacity:1;stroke:#000000;stroke-width:0.558189;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4169-2"
-       width="144.02235"
-       height="19.133099"
-       x="4.6752973"
-       y="187.39339" />
-    <ellipse
-       style="fill:#0066ff;fill-opacity:1;stroke:#000000;stroke-width:0.578001;stroke-miterlimit:4;stroke-dasharray:none"
-       id="path4857"
-       cx="13.709416"
-       cy="196.49585"
-       rx="7.0952196"
-       ry="6.9505515" />
-    <circle
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.405612;stroke-miterlimit:4;stroke-dasharray:none"
-       id="path4734-2"
-       cx="-13.756925"
-       cy="-193.45773"
-       r="1.1129816"
-       transform="scale(-1)" />
-    <text
-       xml:space="preserve"
-       style="font-size:5.43035px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans';fill:#000000;stroke-width:0.135759"
-       x="24.247639"
-       y="195.03323"
-       id="text4746-9"><tspan
-         sodipodi:role="line"
-         x="24.247639"
-         y="195.03323"
-         style="fill:#000000;stroke-width:0.135759"
-         id="tspan4754-4">This pinout is for a firmware that is in like 99.999%</tspan><tspan
-         sodipodi:role="line"
-         x="24.247639"
-         y="201.82117"
-         style="fill:#000000;stroke-width:0.135759"
-         id="tspan4865">of the MP3 nuggets that use this chip!</tspan></text>
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.578001;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4859"
-       width="1.991962"
-       height="4.9992909"
-       x="12.735425"
-       y="195.6234" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.578001;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4861"
-       width="4.2420001"
-       height="0.64499253"
-       x="11.584828"
-       y="200.37698" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.578001;stroke-miterlimit:4;stroke-dasharray:none"
-       id="rect4863"
-       width="1.9943449"
-       height="0.71425611"
-       x="11.932355"
-       y="195.6234" />
     <g
        id="g3171"
        transform="matrix(1.0082942,0,0,1.0082942,15.852577,22.733829)">
@@ -570,23 +512,23 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.01369"
+       x="100.06661"
        y="71.78833"
        id="text3201-61-1"><tspan
          sodipodi:role="line"
          id="tspan3199-32-1"
-         x="100.01369"
+         x="100.06661"
          y="71.78833"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">SDDAT</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.01797"
+       x="100.1841"
        y="82.074768"
        id="text3201-4-5-5"><tspan
          sodipodi:role="line"
          id="tspan3199-7-9-9"
-         x="100.01797"
+         x="100.1841"
          y="82.074768"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">SDCMD</tspan></text>
     <rect
@@ -744,12 +686,12 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
        x="100.14895"
-       y="122.8422"
+       y="122.84219"
        id="text3201-40-1-6"><tspan
          sodipodi:role="line"
          id="tspan3199-6-4-1"
          x="100.14895"
-         y="122.8422"
+         y="122.84219"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">USBDM</tspan></text>
     <rect
        style="fill:#ffff00;fill-opacity:1;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -761,12 +703,12 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.06075"
+       x="100.06074"
        y="133.12149"
        id="text3201-9-1-1"><tspan
          sodipodi:role="line"
          id="tspan3199-0-0-5"
-         x="100.06075"
+         x="100.06074"
          y="133.12149"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">USBDP</tspan></text>
     <rect
@@ -779,13 +721,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.00194"
-       y="143.42538"
+       x="100.36799"
+       y="143.42537"
        id="text3201-6-9-3"><tspan
          sodipodi:role="line"
          id="tspan3199-93-6-0"
-         x="100.00194"
-         y="143.42538"
+         x="100.36799"
+         y="143.42537"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">VCOM</tspan></text>
     <rect
        style="fill:#00ffff;stroke:#000000;stroke-width:0.300736;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -978,12 +920,12 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
        x="200.56126"
-       y="112.71254"
+       y="112.71255"
        id="text3201-03-8"><tspan
          sodipodi:role="line"
          id="tspan3199-9-5"
          x="200.56126"
-         y="112.71254"
+         y="112.71255"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">VDDIO</tspan></text>
     <rect
        style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -995,13 +937,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="200.42896"
-       y="91.801865"
+       x="200.19667"
+       y="92.370789"
        id="text3201-8"><tspan
          sodipodi:role="line"
          id="tspan3199-05"
-         x="200.42896"
-         y="91.801865"
+         x="200.19667"
+         y="92.370789"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">LDO5V</tspan></text>
     <rect
        style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1009,17 +951,17 @@
        width="28.697208"
        height="7.6972094"
        x="186.08182"
-       y="127.33626" />
+       y="117.00853" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="200.31575"
-       y="133.25777"
+       x="200.3231"
+       y="122.93002"
        id="text3201-8-6-0"><tspan
          sodipodi:role="line"
          id="tspan3199-05-4-4"
-         x="200.31575"
-         y="133.25777"
+         x="200.3231"
+         y="122.93002"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">DACR</tspan></text>
     <rect
        style="fill:#00ff00;fill-opacity:1;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1027,17 +969,17 @@
        width="28.697208"
        height="7.6972094"
        x="186.08182"
-       y="117.00854" />
+       y="127.33831" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="200.33487"
-       y="122.92855"
+       x="200.2834"
+       y="133.25981"
        id="text3201-8-6-2"><tspan
          sodipodi:role="line"
          id="tspan3199-05-4-6"
-         x="200.33487"
-         y="122.92855"
+         x="200.2834"
+         y="133.25981"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">DACL</tspan></text>
     <rect
        style="fill:#e9afaf;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
@@ -1067,13 +1009,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.01369"
-       y="92.243187"
+       x="100.03427"
+       y="91.616913"
        id="text3201-61-1-0"><tspan
          sodipodi:role="line"
          id="tspan3199-32-1-30"
-         x="100.01369"
-         y="92.243187"
+         x="100.03427"
+         y="91.616913"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">Keys1</tspan></text>
     <rect
        style="fill:#000000;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -1085,12 +1027,12 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="200.56126"
+       x="200.32162"
        y="143.55974"
        id="text3201-3-78-0"><tspan
          sodipodi:role="line"
          id="tspan3199-1-57-5"
-         x="200.56126"
+         x="200.32162"
          y="143.55974"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;fill:#ffffff;stroke-width:0.150542">DACVSS</tspan></text>
     <rect
@@ -1103,13 +1045,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="200.56126"
-       y="102.57556"
+       x="200.48628"
+       y="102.5741"
        id="text3201-03-8-4"><tspan
          sodipodi:role="line"
          id="tspan3199-9-5-7"
-         x="200.56126"
-         y="102.57556"
+         x="200.48628"
+         y="102.5741"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">VBAT</tspan></text>
     <rect
        style="fill:#e9afaf;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
@@ -1121,13 +1063,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.01369"
-       y="102.60238"
+       x="100.03868"
+       y="102.00697"
        id="text3201-61-1-0-5"><tspan
          sodipodi:role="line"
          id="tspan3199-32-1-30-4"
-         x="100.01369"
-         y="102.60238"
+         x="100.03868"
+         y="102.00697"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">Keys2</tspan></text>
     <rect
        style="fill:#e9afaf;stroke:#000000;stroke-width:0.302791;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
@@ -1139,13 +1081,13 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;line-height:1.25;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.150542"
-       x="100.01368"
-       y="112.71503"
+       x="100.03133"
+       y="112.71504"
        id="text3201-61-1-0-1"><tspan
          sodipodi:role="line"
          id="tspan3199-32-1-30-2"
-         x="100.01368"
-         y="112.71503"
+         x="100.03133"
+         y="112.71504"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.02167px;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;text-anchor:middle;stroke-width:0.150542">SDCLK</tspan></text>
   </g>
 </svg>
