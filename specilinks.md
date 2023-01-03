@@ -47,3 +47,4 @@ and btw, **ewogs30** and **kagaimiq868m** is actually me! just for sure.
 ### Somewhat alive
 
 - [ESP8266](https://esp8266.ru/forum/threads/jl-soc.5500)
+- [USMI](https://usmi.mybb.ru/viewtopic.php?id=4)
