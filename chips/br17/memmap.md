@@ -10,7 +10,8 @@
 | 0x00048000 | 6k     | SFC cache tag         |
 | 0x00049800 | 256    | MMU tag0              |
 | 0x00049900 | 25.75k | reserved              |
-| 0x00050000 | 64k    | MaskROM maybe ?!      |
+| 0x00050000 | 10k    | MaskROM               |
+| 0x00052800 | 54k    | reserved              |
 | 0x00060000 | 64k    | LSB peripherals       |
 | 0x00070000 | 64k    | HSB peripherals       |
 | 0x00080000 | 128k   | MMU mapping           |
