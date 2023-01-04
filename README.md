@@ -6,7 +6,7 @@
 
 ## Who is the JieLi?
 
-JieLi (杰理) "JL"/"Jerry" was based in 2010 in the ZhuHai city of Guangdong, China.
+JieLi (杰理) "JL"/"Jerry" is a company that was based in 2010 in the ZhuHai city of Guangdong, China.
 
 Their chips can be found in various cheap MP3 players, Bluetooth speakers, Bluetooth/MP3 modules,
 dash cams, etc.
@@ -14,7 +14,7 @@ dash cams, etc.
 If not them, then maybe from some other companies like Buildwin/Appotech, Actions Semi, Bluetrum, RDA, Beken...
 
 The chips can be identified by them having an slanted "JL"/"π" logo,
-and the "nonsense" markings like "AB1526CG3X1F.1-82E", "AC1631097294-04A", etc.
+and the "nonsense" markings like "AB1526CG3X1F.1-82E", "AC1631D97294-04A", etc.
 
 ## Contents
 
