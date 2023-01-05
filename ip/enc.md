@@ -46,7 +46,19 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 
 ### CON
 
-- ENC, PERIENC:
+- ENC:
+
+| Bits  | R/W | Default | Description                                          |
+|-------|-----|---------|------------------------------------------------------|
+| 31:8  | /   | /       | /                                                    |
+| 7     | W   |         | Reset key shift register                             |
+| 6:3   | /   | /       | /                                                    |
+| 3     | R/W | 0       | Enable ENC for SFC                                   |
+| 2     | R/W | 0       | Enable ENC for SD0 DATA transfers                    |
+| 1     | R/W | 0       | Enable ENC for something?                            |
+| 0     | R/W | 0       | Enable ENC for SPI0 DMA transfers                    |
+
+- PERIENC:
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
@@ -54,7 +66,7 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 | 7     | W   |         | Reset key shift register                             |
 | 6:3   | /   | /       | /                                                    |
 | 2     | R/W | 0       | Enable ENC for SD0 DATA transfers                    |
-| 1     | R/W | 0       | Enable ENC for SFC?                                  |
+| 1     | R/W | 0       | Enable ENC for something?                            |
 | 0     | R/W | 0       | Enable ENC for SPI0 DMA transfers                    |
 
 - SFCENC:
