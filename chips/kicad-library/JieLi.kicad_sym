@@ -32,7 +32,7 @@
         (number "11" (effects (font (size 1.27 1.27))))
       )
       (pin power_in line (at 13.97 -1.27 180) (length 2.54)
-        (name "LCD5V" (effects (font (size 1.27 1.27))))
+        (name "LDO5V" (effects (font (size 1.27 1.27))))
         (number "12" (effects (font (size 1.27 1.27))))
       )
       (pin power_in line (at 13.97 1.27 180) (length 2.54)
