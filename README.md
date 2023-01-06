@@ -4,17 +4,16 @@
 
 **JieLi Technology - Chips Delight the World.**
 
-## Who is the JieLi?
+--------------------------------------------------------------------------------
 
-JieLi (杰理) "JL"/"Jerry" is a company that was based in 2010 in the ZhuHai city of Guangdong, China.
+JieLi (杰理, "π", "JL", "Jerry", "jelly", 光) is a company that was based in year 2010 in the ZhuHai city of Guangdong province, China.
 
-Their chips can be found in various cheap MP3 players, Bluetooth speakers, Bluetooth/MP3 modules,
-dash cams, etc.
+Their chips can be found in various cheap MP3 players, Bluetooth speakers, Bluetooth/MP3 modules, dash cams, and so on.
 
-If not them, then maybe from some other companies like Buildwin/Appotech, Actions Semi, Bluetrum, RDA, Beken...
-
-The chips can be identified by them having an slanted "JL"/"π" logo,
-and the "nonsense" markings like "AB1526CG3X1F.1-82E", "AC1631D97294-04A", etc.
+Their chips can be identified by them having a slanted "JL"/"π" logo,
+and a misleading/nonsense marking that doesn't tell the real chip name right away,
+e.g. "AB1526CG3X1F.1-82E" (AC1082), "AB1819CK1Y11.1-87" (AC1187), "AC1631D97294-04A" (AC5204A), "AC20BP05193-65A4" (AC6965A), to name a few.
+[look here](chips/chip-marks.md)
 
 ## Contents
 
@@ -23,4 +22,4 @@ and the "nonsense" markings like "AB1526CG3X1F.1-82E", "AC1631D97294-04A", etc.
 - [IP blocks](ip/index.md) - Information about the IP blocks
 - [CPU cores](cpu/index.md) - Information about the CPU cores
 - [Misc info](misc/index.md) - Various information that doesn't really belong to any category...
-- [Special links](specilinks.md)
+- [Some links](specilinks.md) - You get it. Some links to some places related to JieLi.
