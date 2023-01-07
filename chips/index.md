@@ -84,6 +84,8 @@
 
 ## Chip families
 
+Or a *design name* or a project name...
+
 - AC4100 (AC410N)
 - BT15 (AC460N)
 - BC51 (AC461N)
@@ -139,3 +141,9 @@
 - **BR17 => AC690N**
 - FT33
 - **DV16 => AC54xx/AC56xx**
+- BR18
+- UC02
+- CD07
+- WL30
+- WM31
+- FR66 (fm receiver)
