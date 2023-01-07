@@ -14,13 +14,13 @@
 
 ### Generic Audio
 
-- AC109N (CD002)
+- AC109N (CD002 / CD02?)
   - AC1082
   - AC1083
   - AC1085
   - AC1094
 - AC119N (CD005 / CDN5)
-  - AC1187, seems like
+  - AC1187
 - AC209N
 - AC309N
 - AC608N
@@ -80,7 +80,7 @@
 - AD156N
 - AD158N
 - AD159N
-- AI800X
+- AI800N
 
 ## Chip families
 
@@ -109,5 +109,33 @@
 
 ### to be determined
 
-- DV10
+- HB001
+- HB002
+- HB003
+- MC001 - that OpenRISC thing?
+- CD01
+- CD02
+- MC002
+- CDN2
+- MV01
+- CDN3
+- CDN4
+- SH50
+- RA13
+- RA14
+- DV10 - maybe something like AC51xx? Blackfin arch
+- SH60 - where the uboot.boot's "UBOOT2.00" originated from?
+- **CDN5 => AC119N : AC1187**
+- **BT15 => AC460N**
+- HC02
+- CDN6
+- DV11
+- **DV12 => AC520N**
+- **BC51 => AC461N**
+- AV10
+- SH52
 - BR16
+- F93
+- **BR17 => AC690N**
+- FT33
+- **DV16 => AC54xx/AC56xx**
