@@ -28,14 +28,14 @@ Just a list of some chips...
 | AD1431CF5243.1-83EM     | AC1083       | year 2014                      |        |
 | **AB1819CK1Y11.1-87**   | AC1187       | year 2018                      | myself |
 | ADDEF438-01B            | AC4?01B      |                                |        |
-| AC19DH4502-01           | AC4601       | year 2019, from                | [esp8266](https://esp8266.ru/forum/threads/jl-soc.5500/post-88589) |
+| AC19DH4502-01           | AC4601       | year 2019                      | [esp8266](https://esp8266.ru/forum/threads/jl-soc.5500/post-88589) |
 | **AC1631D97294-04A**    | AC5204A      | year 2016                      | myself |
 | AC19AP22917-1A4         | AC5401A?     | year 2019, 4 == 4 Mbit flash?? |        |
 | AC21BP0A908             | AC690        | year 2021                      |        |
 | AC20AP2J262-1A8         | AC6901A      | year 2020, 8 Mbit flash        |        |
 | AS21BP0A909-5A8         | AC6905A      | year 2021, 8 Mbit flash        |        |
 | **AS18AP16368-8C4**     | AC6908C      | year 2018, 4 Mbit flash        | myself |
-| AC1835E8P348-9A4        | AC6909A      | year 2018,                     | [EEVblog #1330](https://youtu.be/gj70jpdVMPY?t=702) |
+| AC1835E8P348-9A4        | AC6909A      | year 2018                      | [EEVblog #1330](https://youtu.be/gj70jpdVMPY?t=702) |
 | AC19AP1S079-25A4        | AC6925A      | year 2019, 4 Mbit flash        |        |
 | AC20BP09548-25A4        | AC6925A      | year 2020, 4 Mbit flash        |        |
 | AS20BP03306-25C4        | AC6925C      | year 2020, 4 Mbit flash        |        |
