@@ -8,4 +8,4 @@ The **AC520N** chip series for video cameras (mainly dashcams, but [not quite](.
 
 ### AC5204A
 
-- Package: LQFP88
+- Package: LQFP80
