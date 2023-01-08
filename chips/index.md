@@ -30,12 +30,12 @@
 - AC410N (AC4100)
 - AC460N (BT15)
 - AC461N (BC51?)
-- [AC690N (BR17)](br17/index.md)
+- [AC690N (BR17)](br17/index.md#ac690n)
 - AC691N (BR20)
-- [AC692N (BR21)](br21/index.md)
+- [AC692N (BR21)](br21/index.md#ac692n)
 - AC693N (BR22)
-- [AC695N (BR23)](br23/index.md)
-- [AC696N (BR25)](br25/index.md)
+- [AC695N (BR23)](br23/index.md#ac695n)
+- [AC696N (BR25)](br25/index.md#ac696n)
 - AC697N (BR30)
 - AC700N (BR36)
 - AC701N (BR28)
@@ -48,14 +48,14 @@
 - AC630N (BD29)
 - AC631N
 - AC632N (BD19)
-- [AC635N (BR23)](br23/index.md)
-- [AC636N (BR25)](br25/index.md)
+- [AC635N (BR23)](br23/index.md#ac635n)
+- [AC636N (BR25)](br25/index.md#ac636n)
 - AC637N
 - AC638N (BR34)
 
 ### Video
 
-- [AC520N (DV12)](dv12/index.md)
+- [AC520N (DV12)](dv12/index.md#ac520n)
 - AC521N
 - AC5?1N (DV15)
 - AC540N (DV16)
