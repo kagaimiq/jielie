@@ -9,7 +9,7 @@ The **AC690N** chip series. Originated from the AC46xx series...
 
 ## Chips
 
-### AC690N
+### AC690
 
 - Package: LQFP80
 
