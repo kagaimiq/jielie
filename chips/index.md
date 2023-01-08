@@ -57,8 +57,8 @@
 
 - [AC520N (DV12)](dv12/index.md)
 - AC5?1N (DV15)
-- AC54xx (DV16)
-- AC56xx (DV16)
+- AC540N (DV16)
+- AC560N (DV16)
 
 ### Wireless wi-fi or something like that idk
 
@@ -91,7 +91,7 @@ Or a *design name* or a project name...
 - BC51 (AC461N)
 - [DV12 (AC520N)](dv12/index.md)
 - DV15 (AC5?1N)
-- DV16 (AC54xx, AC56xx)
+- DV16 (AC540N, AC560N)
 - BD19 (AC632N)
 - BD29 (AC630N)
 - [BR17 (AC690N)](br17/index.md)
@@ -139,8 +139,8 @@ Or a *design name* or a project name...
 - BR16
 - F93
 - **BR17 => AC690N**
-- FT33
-- **DV16 => AC54xx/AC56xx**
+- FT33 (?fm transmitter?)
+- **DV16 => AC540N/AC560N**
 - BR18
 - UC02
 - CD07
