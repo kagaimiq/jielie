@@ -56,9 +56,12 @@
 ### Video
 
 - [AC520N (DV12)](dv12/index.md)
+- AC521N
 - AC5?1N (DV15)
 - AC540N (DV16)
 - AC560N (DV16)
+- AC570N
+- AC571N
 
 ### Wireless wi-fi or something like that idk
 
@@ -67,7 +70,15 @@
 
 ### to be determined
 
+- AD13N
+- AC61N
+- AC64N
+- AC81N
+- AC91N
+- AC104N
 - AC812N
+- AC889N
+- AC890N
 - AC897N
 - AC951N
 - AC961N
