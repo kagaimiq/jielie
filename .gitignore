@@ -1,5 +1,7 @@
 *.swp
 *~
 
+*.bak
+
 __pycache__
 *.pyc
