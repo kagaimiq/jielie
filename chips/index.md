@@ -56,8 +56,7 @@
 ### Video
 
 - [AC520N (DV12)](dv12/index.md#ac520n)
-- AC521N
-- AC5?1N (DV15)
+- AC521N (DV12)
 - AC540N (DV16)
 - AC560N (DV16)
 - AC570N
@@ -101,7 +100,7 @@ Or a *design name* or a project name...
 - BT15 (AC460N)
 - BC51 (AC461N)
 - [DV12 (AC520N)](dv12/index.md)
-- DV15 (AC5?1N)
+- DV15 (AC521N)
 - DV16 (AC540N, AC560N)
 - BD19 (AC632N)
 - BD29 (AC630N)
