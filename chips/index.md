@@ -56,7 +56,7 @@
 ### Video
 
 - [AC520N (DV12)](dv12/index.md#ac520n)
-- AC521N (DV12)
+- AC521N (DV15)
 - AC540N (DV16)
 - AC560N (DV16)
 - AC570N
