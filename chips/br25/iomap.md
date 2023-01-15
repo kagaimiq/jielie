@@ -19,7 +19,7 @@
 | PB7   | SD0_CLK.BF |              | SPI2_DO.A   | IIC_SDA.C | ADC9  | PWM5    | UART1_RX.A |            | AMUX1R     |              |             |
 | PC2   |            | SPI0_DI.B    |             |           | ADC10 | CAP5    | UART1_RX.B |            |            |              | ALNK_MCLK.B |
 | PC3   | SD0_DAT0.A | SPI0_DAT2.B  | SPI1_DI.B   |           |       | CAP2    | UART0_TX.D | UART0_RX.D |            |              |             |
-| PC4   | SD0_CMD.A  | SPI0_DAT3.AB | SPI1_CLK.B  | IIC_SCL.B | ADC11 | PWM1    | UART2_RX.D |            |            |              |             |
+| PC4   | SD0_CMD.A  | SPI0_DAT3.AB | SPI1_CLK.B  | IIC_SCL.B | ADC11 | PWM1    | UART2_TX.D |            |            |              |             |
 | PC5   | SD0_CLK.AE |              | SPI1_DO.B   | IIC_SDA.B | ADC12 | TMR1    | UART2_RX.D |            |            |              |             |
 | PD0   |            | *SPI0_CLK.A* | *SFC_CLK.A* |           |       |         |            |            |            |              |             |
 | PD1   |            | *SPI0_DO.A*  | *SFC_DO.A*  |           |       |         |            |            |            |              |             |
