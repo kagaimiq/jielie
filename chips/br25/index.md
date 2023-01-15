@@ -21,8 +21,8 @@ The **AC696N** and **AC636N** chip series.
 | AC6966B | QFN32 4x4mm |          | stereo |
 | AC6968A | SOP8        |          | none   |
 | AC6969A | SOP16       | 2 Mbit   | stereo |
-| AC6969D | SOP16       | 4 Mbit   |        |
-| AC6969E | SOP16       | 2 Mbit   |        |
+| AC6969D | SOP16       | 4 Mbit   | mono   |
+| AC6969E | SOP16       | 2 Mbit   | mono   |
 | AC6969H | SOP16       | 4 Mbit   |        |
 
 ## Chips
@@ -66,10 +66,14 @@ The **AC696N** and **AC636N** chip series.
 ### AC6969D
 
 - Package: SOP16
+- [Datasheet](https://www.lenzetech.com/public/store/pdf/jsggs/AC6969D%C2%A0Datasheet%C2%A0V1.0.pdf)
+- Mono DAC
 
 ### AC6969E
 
 - Package: SOP16
+- [Datasheet](https://www.lenzetech.com/public/store/pdf/jsggs/AC6969E%C2%A0Datasheet%C2%A0V1.0.pdf)
+- Mono DAC
 
 ### AC6969H
 
