@@ -2,36 +2,40 @@
 
 ## 8051
 
-An 8051-compatible core, actually might be in some connection with
-the Appotech's (Buildwin's) 8051 core...
+An 8051-compatible core, which also has a 16-bit DSP extension put on the 0xA5 (reserved) opcode.
 
-e.g. AX225 USB Card reader chip blob has an 8051 core that has the XDATA and CODE spaces
-connected together, and the 8051's internal RAM (DATA/IDATA) is actually mapped into the
-offsets 580..5FF and 500..57F (yes, the first 128 bytes are put into high part, and then goes into lower part for some reason)
--- not mentioning that the B register is absent, and so the MUL/DIV instructions are essentailly a NOP...
+Might be in some connection with the Appotech's 8051-compatible core.
 
 ## OpenRISC
 
-The OpenRISC!
+The OpenRISC 1000, all in its glory.
+Probably this is the first 32-bit core that JieLi ever used...
 
-Seems to be present in the AC4100 SoC... so probably this is *the* first 32-bit MCU core they used.
+Seems to be used in the AC410N series, as well as in the 'MC001' thing...
 
-This might explain why the generated ELF binary ends with "or32" (or32 is the old name for OpenRISC, now it's called "or1k")
-What a leftover...
+This might explain the '.or32' extension on the compiled ELF binary in the SDK, as "or32" is an old name for OpenRISC,
+before they renamed it to "or1k", or something like that. -- that's an leftover!!
 
 ## Blackfin
 
-The Analog Device's Blackfin, in its glory.
+Analog Devices' Blackfin, all in its glory.
 
-## Pi32
+Was used in chip series like AC460N, AC520N, etc.
 
-Their own arch, which is heavily based off (inspired by?) the Blackfin.
+This is what the pi32 arch seems to be heavily based off.
 
-I thought that they based off the ARM (thumb) but actually it's not...
+## pi32
+
+A custom architecture, heavily based off (or inspired by?) the Blackfin.
+
+First might be seen in the AC461N series, and from now on it the main arch they use in their chips.
 
 [More...](pi32.md)
 
-### Pi32v2
+## pi32v2
 
-A second version, introduced the 48-bit instructions (i.e. 3x 16-bit words), which can hold
-an 32-bit constant, eliminating the need for the load low/high instructions (a leftover from Blackfin).
+A second version of pi32
+
+## q32s
+
+Q32s --- 
