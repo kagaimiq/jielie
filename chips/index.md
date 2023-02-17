@@ -9,6 +9,7 @@
 
 - AD14N (SH54)
 - AD15N (SH55)
+- AD16N (UC03)
 - AD104N (SH54)
 - AD105N (SH55)
 
@@ -149,7 +150,7 @@ Or a *design name* or a project name...
 - BR16
 - F93
 - **BR17 => AC690N**
-- FT33 (?fm transmitter?)
+- FT33 (fm transmitter - AC3433)
 - **DV16 => AC540N/AC560N**
 - BR18
 - UC02
