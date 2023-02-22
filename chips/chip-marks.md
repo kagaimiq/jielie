@@ -8,9 +8,36 @@ Althrough they are not the only ones that do that...
 - Bluetrum (the 'AB' chips) does that too..
 - Buildwin/Appotech is no exception. However they have so many similarities to JieLi that i doubt that's just a coincidence...
 
-But i digress. What's going on?
+## What's going on.
 
-dunno
+The chips do actually have some meaning in their markings, althrough this depends on the chip series in question.
+But even then, it only tells a part of the information needed to know what exact chip you've got.
+
+So let's see some chip markings and break them apart:
+
+| Marking             | A  | B  | C  | D        | a  | b | c | Actual name      |
+|---------------------|----|----|----|----------|----|---|---|------------------|
+| AB1526CG3X1F.1-82E  | AB | 15 | 26 | CG3X1F.1 | 82 | E |   | AC1082E          |
+| AB1819CK1Y11.1-87   | AB | 18 | 19 | CK1Y11.1 | 87 |   |   | AC1087           |
+| AC19DH4502-01       | AC | 19 |    | DH4502   | 01 |   |   | AC4601           |
+| ADDEF438-01B        | AD |    |    | DEF438   | 01 | B |   | AC4x01B          |
+| AC1631D97294-04A    | AC | 16 | 31 | D97294   | 04 | A |   | AC5204A          |
+| AC19AP22917-1A4     | AC | 19 | A  | P22917   | 1  | A | 4 | AC5x01A          |
+| AC21BP0A908         | AC | 21 | B  | P0A908   |    |   |   | AC690N           |
+| AC20AP2J262-1A8     | AC | 20 | A  | P2J262   | 1  | A | 8 | AC6901A          |
+| AS18AP16368-8C4     | AS | 18 | A  | P16368   | 8  | C | 4 | AC6908C          |
+| AC19AP26102-25E4    | AC | 19 | A  | P26102   | 25 | E | 4 | AC6925E          |
+| BP09766-26A4        |    |    | B  | P09766   | 26 | A | 4 | AC6926A          |
+| EA9395-26LC         |    |    |    | EA9395   | 26 | L | C | AC6926L          |
+| AC20BP05193-65A4    | AC | 20 | B  | P05193   | 65 | A | 4 | AC6965A          |
+| AC1135D22731        | AC | 11 | 35 | D22731   |    |   |   | AC2092 (indeed!) |
+| AC1245H7A935        | AC | 12 | 45 | H7A935   |    |   |   | AC2092           |
+| AC1536CG4A3C-E      | AC | 15 | 36 | CG4A3C   |    | E |   | AC2092E          |
+| AB225H77028         | AB | 2  | 25 | H77028   |    |   |   | ACx09N           |
+
+Here we can see the marking that's on the chip, and its parts on columns A,B,C,D (before dash) and a,b,c (after dash).
+
+... TODO
 
 ----------------------------------------------------------------------------
 
@@ -20,13 +47,16 @@ Just a list of some chips...
 
 | Chip marking            | Actual name  | Some details                   | Source |
 |-------------------------|--------------|--------------------------------|--------|
-| AB225H77028             | ????         |                                |        |
+| AB225H77028             | AC309N??     |                                |        |
 | AC1520CFA813.1-82E      | AC1082       | year 2015                      |        |
 | **AB1526CG3X1F.1-82E**  | AC1082       | year 2015                      | myself |
 | AC1626CG9278.1-82E      | AC1082       | year 2016                      |        |
 | AB1828CH2G0Q.1-82E      | AC1082       | year 2018                      |        |
 | AD1431CF5243.1-83EM     | AC1083       | year 2014                      |        |
 | **AB1819CK1Y11.1-87**   | AC1187       | year 2018                      | myself |
+| AC1135D22731            | AC2092       | year 2011, it has the marking!!| [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
+| AC1245H7A935            | AC2092       | year 2012                      | [radioskot](https://cxemi.ru/forum/11-14227-396258-16-1539715165) |
+| AC1536CG4A3C-E          | AC2092E      | year 2015                      | [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
 | ADDEF438-01B            | AC4?01B      |                                |        |
 | AC19DH4502-01           | AC4601       | year 2019                      | [esp8266](https://esp8266.ru/forum/threads/jl-soc.5500/post-88589) |
 | **AC1631D97294-04A**    | AC5204A      | year 2016                      | myself |
