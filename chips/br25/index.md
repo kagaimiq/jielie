@@ -5,8 +5,7 @@ The **AC696N** and **AC636N** chip series.
 - Series: **AC636N**, **AC696N**
 - CPU Core: [Pi32v2](../../cpu/index.md#pi32)
 - SRAM: 136k
-
-[IO map](iomap.md) | [IRQ map](irq.md) | [Memory map](memmap.md)
+- [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC696N

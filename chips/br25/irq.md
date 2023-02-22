@@ -1,68 +1,70 @@
 # IRQ map of BR25
 
-|  # |   Name    |
-|----|-----------|
-|  0 | EMUEXCPT  |
-|  1 | EXCEPTION |
-|  2 | SYSCALL   |
-|  3 | TICK_TMR  |
-|  4 | TIMER0    |
-|  5 | TIMER1    |
-|  6 | TIMER2    |
-|  7 | TIMER3    |
-|  8 | USB_SOF   |
-|  9 | USB_CTRL  |
-| 10 | RTC_WDT   |
-| 11 | ALINK0    |
-| 12 | AUDIO     |
-| 13 | PORT      |
-| 14 | SPI0      |
-| 15 | SPI1      |
-| 16 | SD0       |
-| 17 | SD1       |
-| 18 | UART0     |
-| 19 | UART1     |
-| 20 | UART2     |
-| 21 | PAP       |
-| 22 | IIC       |
-| 23 | SARADC    |
-| 24 | PDM_LINK  |
-| 25 | RDEC0     |
-| 26 | LRCT      |
-| 27 | BREDR     |
-| 28 | BT_CLKN   |
-| 29 | BT_BDG    |
-| 30 | WL_LOFC   |
-| 31 | SRC       |
-| 32 | FFT       |
-| 33 | EQ        |
-| 34 | LP_TIMER0 |
-| 35 | LP_TIMER1 |
-| 36 | ALINK1    |
-| 37 | OSA       |
-| 38 | BLE_RX    |
-| 39 | BLE_EVENT |
-| 40 | AES       |
-| 41 | MCTMRX    |
-| 42 | CHX_PWM   |
-| 43 | FMRX      |
-| 44 | SPI2      |
-| 45 | SBC       |
-| 46 | GPC       |
-| 47 | FMTX      |
-| 48 | DCP       |
-| 49 | RDEC1     |
-| 50 | RDEC2     |
-| 51 | SPDIF     |
-| 52 | PWM_LED   |
-| 53 | CTM       |
-| 54 | TIMER4    |
-| 55 | TIMER5    |
-| 56 |           |
-| 57 |           |
-| 58 |           |
-| 59 |           |
-| 60 | SOFT0     |
-| 61 | SOFT1     |
-| 62 | SOFT2     |
-| 63 | SOFT3     |
+- Vector table is at **0x31F00**
+
+| #  | Vector  | SDK name  | Source                    |
+|----|---------|-----------|---------------------------|
+|  0 | 0x31F00 | EMUEXCPT  | EMU exception ..?         |
+|  1 | 0x31F04 | EXCEPTION | CPU exception             |
+|  2 | 0x31F08 | SYSCALL   | System call ..?           |
+|  3 | 0x31F0C | TICK_TMR  | Tick timer                |
+|  4 | 0x31F10 | TIMER0    | Timer 0                   |
+|  5 | 0x31F14 | TIMER1    | Timer 1                   |
+|  6 | 0x31F18 | TIMER2    | Timer 2                   |
+|  7 | 0x31F1C | TIMER3    | Timer 3                   |
+|  8 | 0x31F20 | USB_SOF   | USB (SOF)                 |
+|  9 | 0x31F24 | USB_CTRL  | USB (control)             |
+| 10 | 0x31F28 | RTC_WDT   | P33 RTC/Watchdog          |
+| 11 | 0x31F2C | ALINK0    | ALNK0                     |
+| 12 | 0x31F30 | AUDIO     | AUDIO                     |
+| 13 | 0x31F34 | PORT      | .                         |
+| 14 | 0x31F38 | SPI0      | SPI0                      |
+| 15 | 0x31F3C | SPI1      | SPI1                      |
+| 16 | 0x31F40 | SD0       | SD0                       |
+| 17 | 0x31F44 | SD1       | SD1                       |
+| 18 | 0x31F48 | UART0     | UART0                     |
+| 19 | 0x31F4C | UART1     | UART1                     |
+| 20 | 0x31F50 | UART2     | UART2                     |
+| 21 | 0x31F54 | PAP       | PAP                       |
+| 22 | 0x31F58 | IIC       | IIC                       |
+| 23 | 0x31F5C | SARADC    | SAR ADC                   |
+| 24 | 0x31F60 | PDM_LINK  | PLNK                      |
+| 25 | 0x31F64 | RDEC0     | RDEC0                     |
+| 26 | 0x31F68 | LRCT      |                           |
+| 27 | 0x31F6C | BREDR     | Bluetooth (BREDR)         |
+| 28 | 0x31F70 | BT_CLKN   | Bluetooth (clkn)          |
+| 29 | 0x31F74 | BT_BDG    | Bluetooth (bdg)           |
+| 30 | 0x31F78 | WL_LOFC   | Bluetooth (lofc)          |
+| 31 | 0x31F7C | SRC       | SRC                       |
+| 32 | 0x31F80 | FFT       | FFT                       |
+| 33 | 0x31F84 | EQ        | EQ                        |
+| 34 | 0x31F88 | LP_TIMER0 | P33 Timer 0               |
+| 35 | 0x31F8C | LP_TIMER1 | P33 Timer 1               |
+| 36 | 0x31F90 | ALINK1    | ALNK1                     |
+| 37 | 0x31F94 | OSA       |                           |
+| 38 | 0x31F98 | BLE_RX    | Bluetooth (BLE RX)        |
+| 39 | 0x31F9C | BLE_EVENT | Bluetooth (BLE event)     |
+| 40 | 0x31FA0 | AES       | AES                       |
+| 41 | 0x31FA4 | MCTMRX    | MCTMRx                    |
+| 42 | 0x31FA8 | CHX_PWM   | CHx PWM                   |
+| 43 | 0x31FAC | FMRX      | FM RX                     |
+| 44 | 0x31FB0 | SPI2      | SPI2                      |
+| 45 | 0x31FB4 | SBC       | SBC                       |
+| 46 | 0x31FB8 | GPC       | GPCNT                     |
+| 47 | 0x31FBC | FMTX      | FM TX                     |
+| 48 | 0x31FC0 | DCP       |                           |
+| 49 | 0x31FC4 | RDEC1     | RDEC1                     |
+| 50 | 0x31FC8 | RDEC2     | RDEC2                     |
+| 51 | 0x31FCC | SPDIF     | SS                        |
+| 52 | 0x31FD0 | PWM_LED   | PWM LED                   |
+| 53 | 0x31FD4 | CTM       | CTMU                      |
+| 54 | 0x31FD8 | TIMER4    | Timer 4                   |
+| 55 | 0x31FDC | TIMER5    | Timer 5                   |
+| 56 | 0x31FE0 |           |                           |
+| 57 | 0x31FE4 |           |                           |
+| 58 | 0x31FE8 |           |                           |
+| 59 | 0x31FEC |           |                           |
+| 60 | 0x31FF0 | SOFT0     | SDK soft irq 0 (`swi 60`) |
+| 61 | 0x31FF4 | SOFT1     | SDK soft irq 1 (`swi 61`) |
+| 62 | 0x31FF8 | SOFT2     | SDK soft irq 2 (`swi 62`) |
+| 63 | 0x31FFC | SOFT3     | SDK soft irq 3 (`swi 63`) |
