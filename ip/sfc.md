@@ -1,11 +1,39 @@
 # SFC
 
-SFC (Serial/SPI/System Flash Controller) maps the SPI flash into memory so that the code from it
-could be executed.
+## Overview
 
-Together with [ENC/SFC_ENC](enc.md),
-the encrypted data is decrypted in 32-byte blocks (which seems to be the icache's line size),
-with the key being XORed with the current offset shifted 2 times right, i.e. `key ^ (addr >> 2)`.
+SFC (Serial/SPI Flash Controller) is a dedicated SPI flash controller,
+which supports SPI/DSPI/QSPI modes, and essentially allows to map an arbitrary flash location into memory.
+
+```
+mem
+||                                                            _____........._
+||                                 _____                     |     SPI flash |
+||      ________       _____      |     | ---> CLK ========> | CLK           |
+||     |        |     |     |     |     | <--> DO (DAT0) ==> | DI    - IO0   |
+|| <== | icache | <== | ENC | <== | SFC | <--> DI (DAT1) ==> | DO    - IO1   |
+||     |________|     |_____|     |     | <--> DAT2 =======> | /WP   - IO2   |
+||        |      \                |     | <--> DAT3 =======> | /HOLD - IO3   |
+||      __|__   __\___            |_____| ---> CS =========> | /CS           |
+||     |_tag_| | sram |                                      |_____........._|
+||             |_16k__|
+```
+
+### Memory map
+
+The SFC is mapped into memory through the icache, which ultimately speeds up the flash access time (except when a cache miss happens).
+
+The icache is usually an 16 KiB 4-way set-associative cache, with a 32-byte line size.
+
+### Decryption
+
+The contents it reads also can be decrypted with the ENC block
+(a separate peripheral or an embedded block depending on the SFC variant).
+
+Since the icache line size is 32 bytes, the encrypted block is respectively 32 bytes long.
+
+Moreover, the key that's used for decryption is the set key that's XORed with the current offset shifted right by 2 (i.e. `keydec = key ^ (off >> 2)`).
+This also means that since the key is 16 bits long, after each 262144 bytes the key will be the same as on the offset 0.
 
 ## Registers
 
@@ -22,24 +50,37 @@ with the key being XORed with the current offset shifted 2 times right, i.e. `ke
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
 | 31:26 | /   | /       | /                                                    |
-| 25    | R/W |         | If set, then the JEDEC ID is read out (via cmd 0x9F) |
+| 25    | R/W |         | Read the JEDEC ID via opcode 0x9F                    |
 | 24    | /   | /       | /                                                    |
-| 23:20 |     |         |                                                      |
+| 23:20 |     |         | ? set to 2                                           |
 | 19:16 | R/W |         | Dummy bit count                                      |
 | 15:12 | /   | /       | /                                                    |
-| 11:8  |     |         |                                                      |
-| 7     |     |         |                                                      |
+| 11:8  |     |         | SPI mode                                             |
+| 7     |     |         | ? set to 1                                           |
 | 6:4   | /   | /       | /                                                    |
-| 3     | R/W |         | Combines DI and DO                                   |
+| 3     | R/W |         | Swap DO/DI on the DO input path                      |
 | 2:1   | /   | /       | /                                                    |
 | 0     | R/W | 0       | Enable SFC                                           |
+
+- SPI mode:
+
+| Mode | Opcode | Command | Address | Data | Note             |
+|------|--------|---------|---------|------|------------------|
+| 0    | 0x03   | SPI     | SPI     | SPI  | Read             |
+| 1    | 0x0B   | SPI     | SPI     | SPI  | Fast read        |
+| 2    | 0x3B   | SPI     | SPI     | DSPI | Dual output read |
+| 3    | 0x6B   | SPI     | SPI     | QSPI | Quad output read |
+| 4    | 0xBB   | SPI     | DSPI    | DSPI | Dual I/O read    |
+| 5    | 0xEB   | SPI     | QSPI    | QSPI | Quad I/O read    |
+| 6    | 0xBB?  | DSPI?   | DSPI    | DSPI | Probably for the full DSPI cmd/addr/data cycle |
+| 7    | 0xEB?  | QSPI?   | QSPI    | QSPI | Probably for the full QSPI cmd/addr/data cycle |
 
 ### BAUD
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
 | 31:8  | /   | /       | /                                                    |
-| 7:0   | W   |         | Clock divider (n-1)                                  |
+| 7:0   | W   |         | Clock divider (Fspi = Fsfc / (n+1))                  |
 
 ### BASE_ADR
 
@@ -117,7 +158,7 @@ reg32_wsmask(SFC_base+SFC_CON, 0, 0x6ff0f88, 0x0280280);
 
 reg32_write(SFC_base+SFC_BASE_ADR, 0x1000);
 
-reg32_write(SFCENC_base+SFCENC_CON, 0); //b0 = enable, b1=?
+reg32_write(SFCENC_base+SFCENC_CON, 0); //b0 = enable, b1 = enable unenc/lenc
 reg32_write(SFCENC_base+SFCENC_KEY, 0x077A);
 reg32_write(SFCENC_base+SFCENC_UNENC_ADRH, 0x0000);
 reg32_write(SFCENC_base+SFCENC_UNENC_ADRL, 0x0000);
@@ -125,6 +166,7 @@ reg32_write(SFCENC_base+SFCENC_LENC_ADRH,  0x0000);
 reg32_write(SFCENC_base+SFCENC_LENC_ADRL,  0x0000);
 reg32_wsmask(SFCENC_base+SFCENC_CON_enable, 0);
 
+// 0xfc000 for BR25, 0x48000 for BR17/BR21
 reg32_wsmask(DSP_base+DSP_CON, 8, 1, 0); // disable sfc map
 memset((void *)0xfc000, 0x00, 0x1c00);   // clear sfc cache tags
 reg32_wsmask(DSP_base+DSP_CON, 8, 1, 1); // enable sfc map
