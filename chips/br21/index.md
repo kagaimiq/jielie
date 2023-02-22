@@ -5,8 +5,7 @@ The **AC692N** chip series.
 - Series: **AC692N**
 - CPU Core: [Pi32](../../cpu/index.md#pi32)
 - SRAM: 64k + 64k (128k total), last 16k of SRAM1 is reserved for the icache.
-
-[IO map](iomap.md) | [IRQ map](irq.md) | [Memory map](memmap.md)
+- [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC692N
