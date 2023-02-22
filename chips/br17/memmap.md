@@ -32,6 +32,7 @@
 | 0x0060018 | SYSCFG - IOMC         |
 | 0x0060040 | SYSCFG - PWR          |
 | 0x0060044 | SYSCFG - CLK          |
+| 0x0060080 | SYSCFG - PLL          |
 | 0x0060084 | SYSCFG - LDO          |
 | 0x0060088 | SYSCFG - LVD          |
 | 0x006008C | SYSCFG - WDT          |
