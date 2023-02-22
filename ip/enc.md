@@ -1,8 +1,22 @@
 # ENC
 
-ENC (ENCrypter?) is used to (de)crypt the data from the [SFC](sfc.md), SPI, SD, etc.
+## Overview
 
-The algorithm is actually pretty basic, they just used the CRC16 shift register logic for that...
+This peripheral implements a simple "encryption" (or rather obfuscation) algorithm,
+which can be tied to SD0's DATA transfers, SPI0's DMA transfer and the SFC fetches.
+
+### Other ENCs
+
+It used to handle both the SPI0/SD0 and the SFC, but after some time
+it was split into two separate peripherals, PERIENC and SFCENC,
+which handle SPI0/SD0 and SFC separately.
+
+And after some more time the SFCENC essentially became a part of SFC itself.
+
+### Algorithm
+
+The algorithm it uses is basically the CRC16-CCITT shift register logic,
+which is updated on each byte, and its value is XORed onto a data byte prior to the register update.
 
 ```c
 void jl_crypt(uint8_t *data, int len, uint16_t key) {
@@ -17,13 +31,13 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 
 - ENC:
 
-| Name       | Offset | Description        |
-|------------|--------|--------------------|
-| CON        | 0x00   | Control register   |
-| KEY        | 0x04   | Key register       |
-| ADR        | 0x08   | "Address" register |
-| UNENC_ADRH | 0x0C   |                    |
-| UNENC_ADRL | 0x10   |                    |
+| Name       | Offset | Description            |
+|------------|--------|------------------------|
+| CON        | 0x00   | Control register       |
+| KEY        | 0x04   | Key register           |
+| ADR        | 0x08   | "Address" register     |
+| UNENC_ADRH | 0x0C   | Unencrypted area end   |
+| UNENC_ADRL | 0x10   | Unencrypted area start |
 
 - PERIENC:
 
@@ -35,14 +49,14 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 
 - SFCENC:
 
-| Name       | Offset | Description        |
-|------------|--------|--------------------|
-| CON        | 0x00   | Control register   |
-| KEY        | 0x04   | Key register       |
-| UNENC_ADRH | 0x08   |                    |
-| UNENC_ADRL | 0x0C   |                    |
-| LENC_ADRH  | 0x10   |                    |
-| LENC_ADRL  | 0x14   |                    |
+| Name       | Offset | Description            |
+|------------|--------|------------------------|
+| CON        | 0x00   | Control register       |
+| KEY        | 0x04   | Key register           |
+| UNENC_ADRH | 0x08   | Unencrypted area end   |
+| UNENC_ADRL | 0x0C   | Unencrypted area start |
+| LENC_ADRH  | 0x10   | Lenc area end          |
+| LENC_ADRL  | 0x14   | Lenc area start        |
 
 ### CON
 
@@ -53,6 +67,7 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 | 31:8  | /   | /       | /                                                    |
 | 7     | W   |         | Reset key shift register                             |
 | 6:3   | /   | /       | /                                                    |
+| 4     | R/W | 0       | Enable UNENC area                                    |
 | 3     | R/W | 0       | Enable ENC for SFC                                   |
 | 2     | R/W | 0       | Enable ENC for SD0 DATA transfers                    |
 | 1     | R/W | 0       | Enable ENC for something?                            |
@@ -74,6 +89,7 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
 | 31:1  | /   | /       | /                                                    |
+| 1     | R/W | 0       | Enable UNENC/LENC areas                              |
 | 0     | R/W | 0       | Enable ENC for SFC                                   |
 
 ### KEY
