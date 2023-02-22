@@ -21,5 +21,5 @@ e.g. "AB1526CG3X1F.1-82E" (AC1082), "AB1819CK1Y11.1-87" (AC1187), "AC1631D97294-
 - [Boards and devices](boards/index.md) - Information about some boards and devices
 - [IP blocks](ip/index.md) - Information about the IP blocks
 - [CPU cores](cpu/index.md) - Information about the CPU cores
-- [Misc info](misc/index.md) - Various information that doesn't really belong to any category...
-- [Some links](specilinks.md) - You get it. Some links to some places related to JieLi.
+- [Some links](specilinks.md) - Some links to some JieLi-related stuff.
+- [USB IDs](usb-ids.md) - A list of some USB VIDs/PIDs that JieLi used.
