@@ -2,19 +2,19 @@
 
 ## IIC
 
-I<sup>2</sup>C interface
+I<sup>2</sup>C bus controller
 
 [More info](iic.md)
 
 ## SPI
 
-SPI interface
+SPI bus controller
 
 [More info](spi.md)
 
 ## UART
 
-UART interface
+UART interface controller
 
 [More info](uart.md)
 
@@ -48,7 +48,7 @@ SD/MMC host controller
 
 ## CRC
 
-CRC16 calcultator
+CRC16 calculator
 
 | Name | Offset | Description     |
 |------|--------|-----------------|
