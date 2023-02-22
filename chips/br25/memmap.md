@@ -32,9 +32,14 @@
 
 | Address   | Name                  |
 |-----------|-----------------------|
-| 0x01E0000 | SYSCFG                |
+| 0x01E0000 | SYSCFG - PWR          |
+| 0x01E0004 | SYSCFG - HTC          |
+| 0x01E0008 | SYSCFG - CLOCK        |
+| 0x01E0040 | SYSCFG - PLL          |
+| 0x01E00C0 | SYSCFG - RST          |
 | 0x01E0100 | MODE                  |
-| 0x01E0200 | SYSTEM                |
+| 0x01E0200 | SYSTEM - CHIP_ID      |
+| 0x01E0204 | SYSTEM - MBIST        |
 | 0x01E0400 | TIMER0                |
 | 0x01E0500 | TIMER1                |
 | 0x01E0600 | TIMER2                |
