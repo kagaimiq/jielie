@@ -16,8 +16,8 @@
 
 | Address   | Name                  |
 |-----------|-----------------------|
-| 0x3F801C0 | IO - IOMC / IOMAP     |
-| 0x3F801D0 | IO - WKUP / WAKEUP    |
+| 0x3F801C0 | IO - IOMC             |
+| 0x3F801D0 | IO - WKUP             |
 | 0x3F80400 | UART0                 |
 | 0x3F80440 | UART1                 |
 | 0x3F80480 | UART2                 |
@@ -34,8 +34,8 @@
 | 0x3F810C0 | TIMER3                |
 | 0x3F81400 | FUSB                  |
 | 0x3F81800 | LS_HUSB               |
-| 0x3F81C00 | ADDA / AUDIO          |
-| 0x3F82000 | CLK / CLOCK           |
+| 0x3F81C00 | ADDA                  |
+| 0x3F82000 | CLK                   |
 | 0x3F82400 | LS_OTH - HTC          |
 | 0x3F82404 | LS_OTH - LDO          |
 | 0x3F82408 | LS_OTH - LVD          |
@@ -44,7 +44,7 @@
 | 0x3F82418 | LS_OTH - CRC0         |
 | 0x3F82420 | LS_OTH - WDT          |
 | 0x3F82424 | LS_OTH - CHIP_ID      |
-| 0x3F82428 | LS_OTH - IRFLT / IR   |
+| 0x3F82428 | LS_OTH - IRFLT        |
 | 0x3F8242C | LS_OTH - IIC0         |
 | 0x3F82444 | LS_OTH - IIC1         |
 | 0x3F8245C | LS_OTH - PWM8         |
@@ -54,7 +54,7 @@
 | 0x3F82484 | LS_OTH - MPU          |
 | 0x3F82498 | LS_OTH - PLCNT        |
 | 0x3F824A0 | LS_OTH - CS           |
-| 0x3F824B4 | LS_OTH - RAND         |
+| 0x3F824B4 | LS_OTH - RAND64       |
 | 0x3F824BC | LS_OTH - ETH          |
 | 0x3F824C0 | LS_OTH - SHA1         |
 | 0x3F82500 | LS_OTH - CRC1         |

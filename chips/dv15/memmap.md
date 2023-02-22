@@ -23,8 +23,8 @@
 | 0x0F60140 | IO - PORTF            |
 | 0x0F60180 | IO - PORTG            |
 | 0x0F601C0 | IO - PORTH            |
-| 0x0F60200 | IO - IOMC / IOMAP     |
-| 0x0F60214 | IO - WKUP / WAKEUP    |
+| 0x0F60200 | IO - IOMC             |
+| 0x0F60214 | IO - WKUP             |
 | 0x0F60400 | UART0                 |
 | 0x0F60440 | UART1                 |
 | 0x0F60480 | UART2                 |
@@ -41,8 +41,8 @@
 | 0x0F61100 | PWM                   |
 | 0x0F61400 | FUSB                  |
 | 0x0F61800 | HUSB                  |
-| 0x0F61C00 | ADDA / AUDIO          |
-| 0x0F62000 | CLK / CLOCK           |
+| 0x0F61C00 | ADDA                  |
+| 0x0F62000 | CLK                   |
 | 0x0F62400 | LS_OTH - HTC          |
 | 0x0F62404 | LS_OTH - LDO          |
 | 0x0F62408 | LS_OTH - LVD          |
@@ -51,7 +51,7 @@
 | 0x0F62418 | LS_OTH - CRC0         |
 | 0x0F62420 | LS_OTH - WDT          |
 | 0x0F62424 | LS_OTH - CHIP_ID      |
-| 0x0F62428 | LS_OTH - IRFLT / IR   |
+| 0x0F62428 | LS_OTH - IRFLT        |
 | 0x0F6242C | LS_OTH - IIC          |
 | 0x0F62444 | LS_OTH - PWM8         |
 | 0x0F62448 | LS_OTH - PAP          |
@@ -60,7 +60,7 @@
 | 0x0F62470 | LS_OTH - MPU          |
 | 0x0F62484 | LS_OTH - PLCNT        |
 | 0x0F6248C | LS_OTH - CS           |
-| 0x0F624A0 | LS_OTH - RAND         |
+| 0x0F624A0 | LS_OTH - RAND64       |
 | 0x0F624A8 | LS_OTH - GPADC        |
 | 0x0F62800 | ALNK                  |
 | 0x0F68000 | HUSB0                 |
