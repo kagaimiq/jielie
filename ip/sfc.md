@@ -30,10 +30,11 @@ The icache is usually an 16 KiB 4-way set-associative cache, with a 32-byte line
 The contents it reads also can be decrypted with the ENC block
 (a separate peripheral or an embedded block depending on the SFC variant).
 
-Since the icache line size is 32 bytes, the encrypted block is respectively 32 bytes long.
+Since the icache line size is 32 bytes, the encrypted block is also 32 bytes long.
 
-Moreover, the key that's used for decryption is the set key that's XORed with the current offset shifted right by 2 (i.e. `keydec = key ^ (off >> 2)`).
-This also means that since the key is 16 bits long, after each 262144 bytes the key will be the same as on the offset 0.
+Moreover, the key that's used for decryption is XORed with the current offset shifted right by 2 (i.e. `keydec = key ^ (off >> 2)`).
+This also means that after 262144 bytes has been passed, the key will be same as in offset 0,
+as the key is 16-bit long and the offset allows for 4 times bigger value, thus resuling in 262144 byte range instead of 65536.
 
 ## Registers
 
