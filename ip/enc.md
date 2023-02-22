@@ -2,16 +2,17 @@
 
 ## Overview
 
-This peripheral implements a simple "encryption" (or rather obfuscation) algorithm,
-which can be tied to SD0's DATA transfers, SPI0's DMA transfer and the SFC fetches.
+This peripheral implements a simple "encryption" (or rather, an obfuscation) algorithm,
+which can be tied to SD0's DATA transfers, SPI0's DMA transfers and the SFC fetches.
 
 ### Other ENCs
 
-It used to handle both the SPI0/SD0 and the SFC, but after some time
-it was split into two separate peripherals, PERIENC and SFCENC,
-which handle SPI0/SD0 and SFC separately.
+There was a single ENC peripheral that did both the SPI0/SD0 and SFC de/encryption.
 
-And after some more time the SFCENC essentially became a part of SFC itself.
+But at some point it was split into two peripherals, PERIENC and SFCENC, which handled them separately.
+PERIENC was for SPI0 and SD0, while SFCENC obviously was for SFC.
+
+And after some time the SFCENC eventually became a part of the SFC itself.
 
 ### Algorithm
 
