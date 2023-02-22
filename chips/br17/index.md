@@ -5,8 +5,7 @@ The **AC690N** chip series. Originated from the AC46xx series...
 - Series: **AC690N**
 - CPU Core: [Pi32](../../cpu/index.md#pi32)
 - SRAM: 104k + 24k (128k total)
-
-[IO map](iomap.md) | [IRQ map](irq.md) | [Memory map](memmap.md)
+- [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC690N
