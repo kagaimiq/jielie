@@ -26,6 +26,7 @@ So let's see some chip markings and break them apart:
 | AC21BP0A908         | AC | 21 | B  | P0A908   |    |   |   | AC690N           |
 | AC20AP2J262-1A8     | AC | 20 | A  | P2J262   | 1  | A | 8 | AC6901A          |
 | AS18AP16368-8C4     | AS | 18 | A  | P16368   | 8  | C | 4 | AC6908C          |
+| AC1835E8P348-9A4    | AC | 18 | 35 | E8P348   | 9  | A | 4 | AC6909A          |
 | AC19AP26102-25E4    | AC | 19 | A  | P26102   | 25 | E | 4 | AC6925E          |
 | BP09766-26A4        |    |    | B  | P09766   | 26 | A | 4 | AC6926A          |
 | EA9395-26LC         |    |    |    | EA9395   | 26 | L | C | AC6926L          |
