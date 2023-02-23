@@ -18,7 +18,7 @@ So let's see some chip markings and break them apart:
 | Marking             | A  | B  | C  | D        | a  | b | c | Actual name      |
 |---------------------|----|----|----|----------|----|---|---|------------------|
 | AB1526CG3X1F.1-82E  | AB | 15 | 26 | CG3X1F.1 | 82 | E |   | AC1082E          |
-| AB1819CK1Y11.1-87   | AB | 18 | 19 | CK1Y11.1 | 87 |   |   | AC1087           |
+| AB1819CK1Y11.1-87   | AB | 18 | 19 | CK1Y11.1 | 87 |   |   | AC1187           |
 | AC19DH4502-01       | AC | 19 |    | DH4502   | 01 |   |   | AC4601           |
 | ADDEF438-01B        | AD |    |    | DEF438   | 01 | B |   | AC4x01B          |
 | AC1631D97294-04A    | AC | 16 | 31 | D97294   | 04 | A |   | AC5204A          |
