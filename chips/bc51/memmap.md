@@ -3,7 +3,7 @@
 | Address               | Size   | Usage                 |
 |-----------------------|--------|-----------------------|
 | 0x0000000 - 0x0017FFF | 96k    | RAM0                  |
-| 0x0018000 - 0x001BFFF | 16k    | + icache data?        |
+| 0x0018000 - 0x001BFFF | 16k    | + icache data         |
 | 0x001C000 - 0x001C1FF | 512b   | + interrupt vectors   |
 | 0x0020000 - 0x003FFFF | 128k   | alias 0x00000~0x1FFFF |
 | 0x0040000 - 0x00427FF | 10k    | RAM1                  |
