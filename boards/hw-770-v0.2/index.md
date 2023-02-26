@@ -37,12 +37,14 @@ Some extra function pins...
 
 The pullup resistor resistance is ~10k (uses the chip's internal pullup)
 
-| Resistance     | Key        | < long press |
-|----------------|------------|--------------|
-| 0R .. 1k2      | Prev       | Vol-         |
-| 2k2 .. 4k3     | Play/Pause | Mode         |
-| 4k7 .. 6k8     | Next       | Vol+         |
-| 30k .. 33k     | EQ         |              |
-| 47k .. 68k     | Vol+       | <-           |
-| 100k .. 120k   | Vol-       | <-           |
+| Resistance | Key        | < long press |
+|------------|------------|--------------|
+| 0R         | Prev       | Vol-         |
+| 3k         | Play/Pause | Mode         |
+| 6k2        | Next       | Vol+         |
+| 9k1        | Mode       |              |
+| 24k        | Repeat     |              |
+| 33k        | EQ         |              |
+| 51k        | Vol+       | Vol+         |
+| 100k       | Vol-       | Vol-         |
 
