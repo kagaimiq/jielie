@@ -35,7 +35,7 @@ Some extra function pins...
 
 #### ADKEY
 
-The pullup resistor resistance is ~10k (uses the chip's internal pullup)
+The pullup resistor resistance is 22k (the '223' resistor on the board)
 
 | Resistance | Key        | < long press |
 |------------|------------|--------------|
