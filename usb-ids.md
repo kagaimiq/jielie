@@ -14,4 +14,4 @@
 | E2B7 | 0812 | CD005 (AC1187) app                     |
 | E2B8 | 0811 | another CD002 app                      |
 | E3B5 | 2305 | BR17/BR21 "SH60" UBOOT 2.00            |
-| E5B7 | 0811 | BR21 app                               |
+| E5B7 | 0811 | BR17/BR21 app                          |
