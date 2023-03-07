@@ -3,14 +3,14 @@
 It is well-known that JieLi chips have some completely nonsense markings that
 doesn't point out the real chip name (at least, at the first glance).
 
-Althrough they are not the only ones that do that...
+Although they are not the only ones that do that...
 
 - Bluetrum (the 'AB' chips) does that too..
 - Buildwin/Appotech is no exception. However they have so many similarities to JieLi that i doubt that's just a coincidence...
 
 ## What's going on.
 
-The chips do actually have some meaning in their markings, althrough this depends on the chip series in question.
+The chips do actually have some meaning in their markings, although this depends on the chip series in question.
 But even then, it only tells a part of the information needed to know what exact chip you've got.
 
 So let's see some chip markings and break them apart:
