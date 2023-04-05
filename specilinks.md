@@ -37,6 +37,7 @@ Yes, you got it right. They are on GitHub!! But .. of course there are a lot of 
 - [qqq5127/AC6966B](https://github.com/qqq5127/AC6966B) - SDK for BR25 (AC696N), particulary for AC6966B? - incomplete
 - [jiang20082233/AC6966B-JBD](https://github.com/jiang20082233/AC6966B-JBD) - SDK for BR25 (AC696N) - complete!!
 - [cxy19880915/buxinyun](https://github.com/cxy19880915/buxinyun) - SDK for AC54xx (DV16)
+- [xjg1005/nes](https://github.com/xjg1005/nes) - SDK for AC520N (DV12) ?! .. NES emulator??
 
 ## Forums
 
