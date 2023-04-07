@@ -1,19 +1,17 @@
 # Chip markings explained
 
-It is well-known that JieLi chips have some completely nonsense markings that
-doesn't point out the real chip name (at least, at the first glance).
+_I might've misused terminology for "part number" and "serial number" in this context.._
 
-Although they are not the only ones that do that...
+It is well-known that JieLi's chips have completely nonsense/misleading markings, which does not tell the chip's part number right away, at least at the first glance.
 
-- Bluetrum (the 'AB' chips) does that too..
-- Buildwin/Appotech is no exception. However they have so many similarities to JieLi that i doubt that's just a coincidence...
+Sometimes the part number does actually present on the chip, however this is the case either on very early chips (e.g. 2011 era AC2092) or seemingly on very recent chips too.
+Most of the time the (part of a) part number is hidden into the chip's serial number after the dash (e.g. -04A, -5A8, -65A4), or might be completely absent in some cases (e.g. AC209N/AC309N chips, AC690N "master" chip).
 
-## What's going on.
+Here you consider a bunch of other factors to determine the rest of the part number correctly, I mean: application (e.g. bluetooth speaker, MP3 player, dash cam), package (e.g. in AC69xx the '5' chips come in SSOP24 package: AC6905, AC6925, AC6965; and the '6' come in QFN32: AC6926, AC6966, AC6976), design date (e.g. a recent design won't use some ancient chip series in favor of the recent one), etc.
 
-The chips do actually have some meaning in their markings, although this depends on the chip series in question.
-But even then, it only tells a part of the information needed to know what exact chip you've got.
+## Explaining the marking
 
-So let's see some chip markings and break them apart:
+Let's look at some chip markings and break them apart to understand the parts that make up the marking:
 
 | Marking             | A  | B  | C  | D | E        | f  | g | h | Actual name      |
 |---------------------|----|----|----|---|----------|----|---|---|------------------|
@@ -37,9 +35,34 @@ So let's see some chip markings and break them apart:
 | EA9395-26LC         |    |    |    |   | EA9395   | 26 | L | C | AC6926L          |
 | AC20BP05193-65A4    | AC | 20 |    | B | P05193   | 65 | A | 4 | AC6965A          |
 
-Here we can see the marking that's on the chip, and its parts on columns A,B,C,D,E (before dash) and f,g,h (after dash).
+The parts written in uppercase letters (ABCDE) is the serial number, which comes before the dash, while the parts wrtten in lowercase (fgh) is the part number itself.
 
-... TODO
+### Serial number:
+
+- Part 'A': Letters 'AB', 'AC', 'AD', 'AS', etc.
+- Part 'B': Manufacturing year
+  * usually truncates the first two digits of the year, so '12' means year 2012
+  * but sometimes it can truncate even further into the third digit, so '2' means year 2012 too.
+  * Can be omitted, together with the week code.
+- Part 'C': Manufacturing week/something like that
+  * Can be omitted (e.g. mostly in recent chips), never present without the year code.
+- Part 'D': Letters 'A', 'B', etc.
+  * Probably a part of the factory batch code, but idk
+- Part 'E': Factory batch code
+  * Sometimes (e.g. for AC109N chips the '.1' suffix is intact, so this can be used to distinguish from e.g. AC608N chips)
+  * Never omitted
+
+So, to save space on some tiny packages (e.g. QFN32), several parts of the serial number might be omitted from the marking.
+
+### Part number:
+
+- Part 'f': Chip's part number (or a part of it)
+  * e.g. '5', '9', '25', '65', 'JL6976'
+- Part 'g': Chip variant
+  * e.g. 'A', 'B', 'C', ...
+- Part 'h': Misc info
+  * e.g. size of the chip's flash in Mbits
+  * can also define the series (e.g. the '-9A0' means the OTP AC6919A, not AC6909A)
 
 ----------------------------------------------------------------------------
 
@@ -56,7 +79,7 @@ Just a list of some chips...
 | AB1828CH2G0Q.1-82E      | AC1082       | year 2018                      |        |
 | AD1431CF5243.1-83EM     | AC1083       | year 2014                      |        |
 | **AB1819CK1Y11.1-87**   | AC1187       | year 2018                      | myself |
-| AC1135D22731            | AC2092       | year 2011, it has the marking!!| [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
+| AC1135D22731            | AC2092       | year 2011, it has the part number!!| [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
 | AC1245H7A935            | AC2092       | year 2012                      | [radioskot](https://cxemi.ru/forum/11-14227-396258-16-1539715165) |
 | AC1536CG4A3C-E          | AC2092E      | year 2015                      | [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
 | ADDEF438-01B            | AC4601B      |                                |        |
@@ -80,3 +103,4 @@ Just a list of some chips...
 | AS21BP03721-55F4        | AC6955F      | year 2021, 4 Mbit flash        |        |
 | **AC20BP05193-65A4**    | AC6965A      | year 2020, 4 Mbit flash        | myself |
 | AS21BP0B847-65A4        | AC6965A      | year 2021, 4 Mbit flash        |        |
+| BP15698TKE JL6976M4     | JL6976M      | 4 Mbit flash, it has the part number! | [Julian Ilett](https://youtu.be/Ww3OU6scz1A?t=148) |
