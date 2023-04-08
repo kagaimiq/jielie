@@ -2,7 +2,7 @@
 
 ## 8051
 
-An 8051-compatible core, which also has a 16-bit DSP extension put on the 0xA5 (reserved) opcode.
+An 8051-compatible core, which also has a 16-bit DSP-like extension mapped to the opcode 0xA5 (reserved in plain 8051)
 
 Might be in some connection with the Appotech's 8051-compatible core.
 
@@ -10,39 +10,41 @@ Might be in some connection with the Appotech's 8051-compatible core.
 
 ## OpenRISC
 
-The OpenRISC 1000, all in its glory.
-Probably this is the first 32-bit core that JieLi ever used...
+The OpenRISC 1000 (or1k), all in its glory.
 
-Seems to be used in the AC410N series, as well as in the 'MC001' thing...
+It might be the first 32-bit CPU core that JieLi has ever used (and deployed).
 
-This might explain the '.or32' extension on the compiled ELF binary in the SDK, as "or32" is an old name for OpenRISC,
-before they renamed it to "or1k", or something like that. -- that's an leftover!!
+This architecture can be seen used e.g. in the AC4100 (CD003) chip.
 
 ## Blackfin
 
 Analog Devices' Blackfin, all in its glory.
 
-Was used in chip series like AC460N, AC520N, etc.
+The vendor's toolchain package provides two separate compilers: dv10 and dv12.
+So either there are some custom additions and changes to this architecture, or idk.
 
-This is what the pi32 arch seems to be heavily based off.
+At least, they both produce an ELF file which tells that this is the "Analog Devices Blackfin" machine,
+and the flags are zero in both cases.
 
 ## pi32
 
-A custom architecture, heavily based off (or inspired by?) the Blackfin.
+The JieLi's custom architecture to be Independent and Free /as in freedom/!!
 
-First might be seen in the AC461N series, and from now on it the main arch they use in their chips.
+Seemingly this is heavily based off (or inspired by) the Analog Devices' Blackfin.
+This can be seen in the instruction encoding scheme (although I've thought that this was like the ARM Thumb.. but no!),
+the algebraic notation in the assembly language, etc!
 
 [More info](pi32.md)
 
 ## pi32v2
 
-A second version of pi32
+Second generation of the pi32 architecture.
 
 [More info](pi32v2.md)
 
 ## q32s
 
-...
+[More info](q32s.md)
 
 ## f59
 
