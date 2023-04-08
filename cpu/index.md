@@ -6,6 +6,8 @@ An 8051-compatible core, which also has a 16-bit DSP extension put on the 0xA5 (
 
 Might be in some connection with the Appotech's 8051-compatible core.
 
+[More info](8051.md)
+
 ## OpenRISC
 
 The OpenRISC 1000, all in its glory.
@@ -30,12 +32,22 @@ A custom architecture, heavily based off (or inspired by?) the Blackfin.
 
 First might be seen in the AC461N series, and from now on it the main arch they use in their chips.
 
-[More...](pi32.md)
+[More info](pi32.md)
 
 ## pi32v2
 
 A second version of pi32
 
+[More info](pi32v2.md)
+
 ## q32s
 
-Q32s --- 
+...
+
+## f59
+
+[More info](f59.md)
+
+## f95
+
+[More info](f95.md)
