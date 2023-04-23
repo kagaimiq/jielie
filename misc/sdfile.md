@@ -46,17 +46,19 @@
   * Excluding this field
 - u16: Burner size
 - u8[4]: Version ID (vid)
-  * Stored unencrypted
+  * Appears as unencrypted - if the header is going to be encrypted,
+    then this is stored encrypted so that when the header gets encrypted, this will appear as decrypted.
 - u32: Flash size
 - u8: FS version
   * 0 = BR18
   * 1 = BR22
-- u8: "Block align modulus"
+- u8: Block alignment ("block align modulus")
+  * In 256-byte units
 - u8: (reserved)
-  * Seemingly this is stored unencrypted too.
+  * same encryption deal
 - u8: Special option flag
 - u8[16]: Product ID (pid)
-  * Stored unencrypted
+  * same encryption deal
 
 ### File header
 
