@@ -68,37 +68,37 @@ A table of part names... lots of them
 
 ## AC521N
 
-| Part     | Package     | Flash  | sheet |
-|----------|-------------|--------|-------|
-| AC5212B4 | LQFP80      | 4 Mbit | 5     |
-| AC5213B4 | LQFP64      | 4 Mbit | 3     |
-| AC5219B4 | LQFP64      | 4 Mbit | 7     |
+| Part     | Package     | sheet |
+|----------|-------------|-------|
+| AC5212B4 | LQFP80      | 5     |
+| AC5213B4 | LQFP64      | 3     |
+| AC5219B4 | LQFP64      | 7     |
 
 ## AC540N
 
-| Part     | Package     | Flash  | sheet |
-|----------|-------------|--------|-------|
-| AC5401A  | eLQFP128    | ext?   | 4     |
-| AC5401B4 | eLQFP128    | 4 Mbit | 4     |
+| Part     | Package     | sheet |
+|----------|-------------|-------|
+| AC5401A  | eLQFP128    | 4     |
+| AC5401B4 | eLQFP128    | 4     |
 
 ## AC560N
 
-| Part     | Package     | Flash  | sheet |
-|----------|-------------|--------|-------|
-| AC5601A4 | eLQFP128    | 4 Mbit | 4     |
+| Part     | Package     | sheet |
+|----------|-------------|-------|
+| AC5601A4 | eLQFP128    | 4     |
 
 ## AC570N
 
-| Part     | Package     | Flash  | sheet |
-|----------|-------------|--------|-------|
-| AC5701A8 | eLQFP128    | 8 Mbit | 4     |
-| AC5701C8 | eLQFP128    | 8 Mbit | 4     |
+| Part     | Package     | sheet |
+|----------|-------------|-------|
+| AC5701A8 | eLQFP128    | 4     |
+| AC5701C8 | eLQFP128    | 4     |
 
 ## AC571N
 
-| Part     | Package     | Flash  | sheet |
-|----------|-------------|--------|-------|
-| AC5711A4 | eLQFP128    | 4 Mbit | 4     |
+| Part     | Package     | sheet |
+|----------|-------------|-------|
+| AC5711A4 | eLQFP128    | 4     |
 
 ## AC608N
 
