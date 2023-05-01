@@ -95,7 +95,7 @@
 
 ## Chip families
 
-Or a *design name* or a project name...
+Or a *design name*, or a project name...
 
 - AC4100 (AC410N)
 - BT15 (AC460N)
@@ -119,6 +119,11 @@ Or a *design name* or a project name...
 - WL82 (AC791N)
 - SH54 (AD14N, AD104N)
 - SH55 (AD15N, AD105N)
+
+## Misc chips
+
+- [AV10](misc/av10.md) - CVBS (PAL/NTSC .. no SECAM!) video decoder
+- FT33 (AC3433) - FM transmitter
 
 ### to be determined
 
@@ -145,7 +150,7 @@ Or a *design name* or a project name...
 - DV11
 - **DV12 => AC520N**
 - **BC51 => AC461N**
-- AV10
+- AV10 (- PAL/NTSC video decoder chip?!)
 - SH52
 - BR16
 - F93
