@@ -32,8 +32,6 @@ Serial/SPI Flash Controller
 
 [More info](sfc.md)
 
----------------------------------------------------------
-
 ## SD
 
 SD/MMC host controller
@@ -45,6 +43,11 @@ SD/MMC host controller
 | BR21   | 1       |
 | BR23   | 2       |
 | BR25   | 2       |
+| ...    | tbd     |
+
+[More info](sd.md)
+
+---------------------------------------------------------
 
 ## CRC
 
@@ -87,7 +90,7 @@ LCD controller
 
 ## AUDIO
 
-Audio codec
+Audio codec (DAC+LADC)
 
 ## ALNK
 
@@ -115,7 +118,7 @@ Pulse counter 2
 
 ## GPCNT
 
-?? pulse counter
+gated pulse counter
 
 ## PD
 
