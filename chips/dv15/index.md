@@ -1,7 +1,8 @@
 # DV15
 
 - Series: **AC521N**
-- CPU core: [Pi32](../../cpu/index.md#pi32)
+- CPU core: [Pi32v2](../../cpu/index.md#pi32)
+  - Rated clock: 200 MHz
 - SRAM: 64 KiB at least
 - SDRAM: 8 MiB seems like
 - [Memory map](memmap.md)
