@@ -24,7 +24,7 @@
   - AC1187
 - AC209N
 - AC309N
-- AC608N
+- [AC608N (BR25)](br25/index.md#ac608n)
 
 ### Bluetooth Audio
 
@@ -110,7 +110,7 @@ Or a *design name*, or a project name...
 - [BR21 (AC692N)](br21/index.md)
 - BR22 (AC693N)
 - [BR23 (AC695N, AC635N)](br23/index.md)
-- [BR25 (AC696N, AC636N)](br25/index.md)
+- [BR25 (AC696N, AC636N, AC608N)](br25/index.md)
 - BR28 (AC701N)
 - BR30 (AC697N, AC897N, AD697N)
 - BR34 (AD698N, AC638N)

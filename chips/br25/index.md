@@ -1,8 +1,6 @@
 # BR25
 
-The **AC696N** and **AC636N** chip series.
-
-- Series: **AC636N**, **AC696N**
+- Series: **AC636N**, **AC696N**, **AC608N**
 - CPU Core: [Pi32v2](../../cpu/index.md#pi32)
 - SRAM: 136k (probably 128k + 8k)
 - [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
