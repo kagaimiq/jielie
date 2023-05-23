@@ -3203,7 +3203,7 @@
         (number "11" (effects (font (size 1.27 1.27))))
       )
       (pin power_in line (at -24.13 -13.97 0) (length 2.54)
-        (name "VDDIO" (effects (font (size 1.27 1.27))))
+        (name "VSSIO" (effects (font (size 1.27 1.27))))
         (number "12" (effects (font (size 1.27 1.27))))
       )
       (pin input line (at -13.97 -24.13 90) (length 2.54)
