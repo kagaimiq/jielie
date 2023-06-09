@@ -8,10 +8,10 @@ or by sending a special signal on the USB lines, which seems to be called "USB_K
 
 ## Details
 
-The key is a 16-bit number 0x16EF (0001 0110 1110 1111), which is sent over USB with D+ being clock and D- being data.
+The key is a 16-bit value 0x16EF (0001 0110 1110 1111), which is sent over USB with D+ being clock and D- being data.
 The data is latched at the clock's rising edge, and is received MSB-first.
 
-This is how it looks:
+This is how it looks on the USB lines itself:
 
 ```
 D+ _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-...
@@ -51,10 +51,10 @@ So either consider using more strong pullups or apply power to the chip before s
 
 ## Enviroment
 
-To be able to use the USB download mode this way, you should have an XTAL connected to the chip,
-whose frequency is autodetected so it doesn't have to be an 24 MHz crystal.
+The USB download mode in the ROM depends on an external crystal (connected to BT_OSC, supposedly the RTC one works too, at least the high-frequency one),
+whose frequency doesn't have to be exactly 24 MHz (for BT_OSC), as its frequency is auto-detected.
 
-The system clock becomes 48 MHz (the minimum required for the USB core to work)
+The system clock here usually becomes 48 MHz (the clock frequency required by the USB core to work properly)
 
-So with these requirements, in some cases (e.g. crystal-less chips like AC608N) you should use some other
-method like [ISP_KEY](isp-key.md)
+So with these requirements in mind, sometimes the USB_KEY won't be possible to do on some chips which e.g. lack a crystal oscillator (pins), such as the AC608N series.
+In this case, the [ISP_KEY](isp-key.md) is used to enter the USB download mode, which can configure the chip to run off the internal LRC oscillator instead of an crystal oscillator.
