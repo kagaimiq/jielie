@@ -2,6 +2,25 @@
 
 SD/MMC card host controller.
 
+## Some details
+
+### Command buffer
+
+Contrary to any other ordinary SD/MMC host, like SDHCI, MSDC, SMHC, etc. there is no such things as the "command register", "argument register" and "response register(s)".
+
+Instead, the command handing is done via a portion of the system memory, which contains the raw bits that is transferred on the CMD line.
+
+The first 6 bytes is the 48 bits of the command that is sent to the card,
+whose last byte is replaced with the actual CRC so it is basically ignored.
+
+So the first byte is `0x40 | command` (a start bit =0, a transmission bit =1, and 6 opcode bits),
+then the next four bytes is the argument (in big endian), and the last one is the dummy byte which is replaced with the actual CRC of the command.
+
+Then the next 6 or 16 bytes is the raw response from the card (for 48 or 136 bit response, respectively).
+Note that in a 136-bit response the last 8 bits are ignored (or not received?) so you loose its CRC..
+
+If there is no response specified, then obviously there is no response received and stored.
+
 ## Registers
 
 - Variant 1:
@@ -42,7 +61,7 @@ SD/MMC card host controller.
 | 5     | r   | 0       | Command timed out?                                   |
 | 4     | r/w | 0       | ?? set to 1, cleared after cmd was xferred           |
 | 3     | r   | 0       | Command CRC error?                                   |
-| 2     | r/w | 0       | . set together with [1:0], usually 1 but might be 0 for cmd3, cmd12    |
+| 2     | r/w | 0       | . set together with [1:0], usually 1 but might be 0 for CMD3 or CMD12  |
 | 1:0   | r/w | 0       | Fire command transfer (1 = 48-bit resp, 2 = 136-bit resp, 3 = no resp) |
 
 ### CON1
@@ -65,13 +84,13 @@ SD/MMC card host controller.
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
-|       | w   | /       | Address of the command buffer                        |
+| x:0   | w   | /       | Address of the command buffer                        |
 
 ### DPTR
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
-|       | w   | /       | Address of the data buffer                           |
+| x:0   | w   | /       | Address of the data buffer                           |
 
 ### CTU_CON
 
@@ -93,4 +112,4 @@ SD/MMC card host controller.
 |-------|-----|---------|------------------------------------------------------|
 | 15:0  | r/w | /       | Block count (n-1)                                    |
 
-Note: the data transfer via CTU is finally started when this register is written
+**Note:** the data transfer via CTU is finally started when this register is written
