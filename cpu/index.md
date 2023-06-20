@@ -44,6 +44,10 @@ Second generation of the pi32 architecture.
 
 ## q32s
 
+A cut-down variant of pi32v2 (or rather, based on its architecturical decisions).
+
+At least it's used on the BD19 (AC632N) and BD29 (AC630N) series.
+
 [More info](q32s.md)
 
 ## f59
