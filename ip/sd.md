@@ -105,14 +105,14 @@ to store a bunch of upscaled JPEGs at 30 FPS with an 16-bit LPCM mono track at 8
 | 12    | r/w | 0       | ?? cleared on data xfer                              |
 | 11    | r   | 0       | Data CRC error                                       |
 | 10    | r/w | 0       | . set together with [9:8] - usually 1                |
-| 9:8   | r/w | 0       | Fire data transfer (1 = send, 2 = receive)           |
+| 9:8   | r/w | 0       | Fire data transfer (0 = nop, 1 = send, 2 = receive)  |
 | 7     | r   | 0       | Command interrupt pending                            |
 | 6     | w   | /       | Clear pending command interrupt                      |
 | 5     | r   | 0       | Command timed out?                                   |
 | 4     | r/w | 0       | ?? set to 1, cleared after cmd was xferred           |
 | 3     | r   | 0       | Command CRC error?                                   |
-| 2     | r/w | 0       | ? set together with [1:0], usually 1 but on CMD3 or CMD12 it's set to 0 |
-| 1:0   | r/w | 0       | Fire command transfer (1 = 48-bit resp, 2 = 136-bit resp, 3 = no resp) |
+| 2     | r/w | 0       | ? set together with [1:0], usually 1 but on CMD7 or CMD12 it's set to 0 |
+| 1:0   | r/w | 0       | Fire command transfer (0 = nop, 1 = 48-bit resp, 2 = 136-bit resp, 3 = no resp) |
 
 ### CON1
 
@@ -147,7 +147,7 @@ to store a bunch of upscaled JPEGs at 30 FPS with an 16-bit LPCM mono track at 8
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
 | 10    | r/w | 0       | ? set together with [9:8] - always 1                 |
-| 9:8   | r/w | 0       | Fire data transfer (1 = send, 2 = receive)           |
+| 9:8   | r/w | 0       | Fire data transfer (0 = nop, 1 = send, 2 = receive)  |
 | 7     | r   | 0       | Flag 2                                               |
 | 6     | w   | /       | Clear flag 2                                         |
 | 5     | r   | 0       | Flag 1                                               |
