@@ -18,7 +18,10 @@ The first 6 bytes are the 48 command bits that are shifted out of the CMD line a
 except for the last byte, which is replaced with a valid CRC7 of this command frame.
 
 Then the next 6 or 16 bytes hold the bits shifted in from the CMD line after it noticed a start bit,
-for a 48 or 136-bit response. Out of the 136 bits only 128 bits are received (or stored?) for some reason..
+for a 48 or 136-bit response.
+
+Only first 128 bits of response is stored in the buffer, which means that we are loosing the CRC7 field, which is more useful than the first 8 bits which
+usually doesn't contain any useful data, so the conventional hosts usually store the last 128 bits to be able to still fit into four 32-bit wide registers.
 
 Here's an example of the buffer contents on a SEND_CSD (CMD9) command with a 136-bit response:
 ```
@@ -26,43 +29,47 @@ Here's an example of the buffer contents on a SEND_CSD (CMD9) command with a 136
 3f 8c 0e 01 2a 0f f9 81 e9 f6 d9 01 e1 8a 40 00
 ```
 
-Here, the first byte is the opcode with the start bit (always 0), a transmission bit (1 for host-to-card),
-and opcode bits (9 is obviously CMD9). The next 4 bytes is the argument field,
-which in this case contains an RCA in top 16 bits. Then comes a dummy byte, which is replaced with a proper CRC7.
+The first byte is the data sent out to the card, where the first byte contains the start bit (alwasys 0), the transmission bit (1 for host-to-card), and the command opcode (CMD9).
+The next four bytes is the argument, which is 0x00010000 in this case (the top 16 bits contain the card address to read the CSD from).
+Then the last byte is the dummy byte where the valid CRC7 is inserted by the hardware.
 
-Then, the next 16 bytes is the first 128 bits of a 136-bit response, where the first one again has
-a start bit, a transmission bit (0 for card-to-host), and reserved bits, which are always 1.
-Remaining 15 bytes is the CSD register itself. (and yes, that's a 16 MB MMC card, just so you know)
-The byte that we lost there is the CRC7 of the response.
+Next goes 16 bytes (128 bits) of the 136-bit response, with the first byte being useless as it doesn't contain any useful information - just a start bit (0),
+a transmission bit (0 for card-to-host), and reserved bits.. And the next 15 bytes is the CSD itself. (yes, that's an 16 MB MMC card)
+
+Here's another example, this time on a READ_SINGLE_BLOCK (CMD17) command with a 48-bit response:
+```
+51 00 00 72 00 00
+11 00 00 09 00 67
+```
+
+The first 6 bytes means the same as before - CMD17, argument 0x00007200, dummy CRC..
+
+Next goes 6 bytes of the 48-bit response, where the first byte now carries the command code (per protocol),
+4 bytes of response (0x00000900) and a CRC7 of the response (this time we're not loosing it!)
 
 ### Data transfers
 
-Again, contrary to any host controller, it doesn't handle data transmission in one go.
-Instead, the command and data transfers are handled more-or-less independently.
+Again, contrary to any usual host, which handle the data transfers right after you write into a command register,
+this is not the same.
 
-So this means that to send data to card, one need to send the command first, and then configure
-the data transmission part to send a block of data.
+The command and data transfer parts are more-or-less independent, and so they're setup independently too.
 
-While to receive data from card, one need to initialize the data transmission part *first*,
-then send a command, and then wait for the data to be received.
-This is because the card may transmit data well before (or right when) sending the response of the command,
-so it's better to prepare to early rather than too late, as otherwise it might receive wrong data.
-(and likely signal a data CRC error too)
+So, to send data to card you need to send a command first, and then setup the data transfer block to send data.
 
-The size of a data block is configurable well from 1 byte up to 512 bytes.
+But to receive data from card you need to setup the data transfer block *first*, then send the command, and finally wait for data to arrive.
+This is because card may transmit data well before (or right when) sending a (successful) response to command.
 
 ### CTU
 
 The CTU (Continuous Transfer Unit?) is used to do multiple-block transfers at once.
 
-Presumeably this was first available in SoC series like AC520N, AC521N, etc.
-which by nature of their intended application required high-bandwidth data transfers with lowest overhead
-to store a bunch of upscaled (that is, from 640x480 to 1920x1088) JPEGs at 30 FPS with an 16-bit LPCM mono track at 8000 Hz,
-something like this.
+While chip series like AC410N, AC460N, AC690N, etc. didnt't require that much bandwidth to simply play an MP3,
+their SD hosts were without the CTU, and thus to do multiblock transfers needed to be made separately. (or they're not made at all)
+However starting with AC695N (or even AC693N?) the SD hosts now include the CTU.
 
-While chip series like AC410N, AC460N, AC690N, etc. doesn't require all that bandwidth to simply play an MP3,
-so their SD controller blocks were (left off) without CTU, but in AC695N (or even in AC693N?) and newer,
-their SD controllers got the CTU too.
+Presumeably this was first available in SoC series like AC520N, AC521N, etc.
+which by nature of their intended application required high bandwidth transfers with lowest overhead
+to store a bunch of upscaled JPEGs at 30 FPS with an 16-bit LPCM mono track at 8000 Hz, something like this.
 
 ## Registers
 
@@ -104,7 +111,7 @@ their SD controllers got the CTU too.
 | 5     | r   | 0       | Command timed out?                                   |
 | 4     | r/w | 0       | ?? set to 1, cleared after cmd was xferred           |
 | 3     | r   | 0       | Command CRC error?                                   |
-| 2     | r/w | 0       | . set together with [1:0], usually 1 but might be 0 for CMD3 or CMD12  |
+| 2     | r/w | 0       | ? set together with [1:0], usually 1 but on CMD3 or CMD12 it's set to 0 |
 | 1:0   | r/w | 0       | Fire command transfer (1 = 48-bit resp, 2 = 136-bit resp, 3 = no resp) |
 
 ### CON1
@@ -127,19 +134,19 @@ their SD controllers got the CTU too.
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
-| x:0   | w   | /       | Address of the command buffer                        |
+| x:2   | w   | /       | Address of the command buffer                        |
 
 ### DPTR
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
-| x:0   | w   | /       | Address of the data buffer                           |
+| x:2   | w   | /       | Address of the data buffer                           |
 
 ### CTU_CON
 
 | Bits  | R/W | Default | Description                                          |
 |-------|-----|---------|------------------------------------------------------|
-| 10    | r/w | 0       | . set together with [9:8] - usually 1                |
+| 10    | r/w | 0       | ? set together with [9:8] - always 1                 |
 | 9:8   | r/w | 0       | Fire data transfer (1 = send, 2 = receive)           |
 | 7     | r   | 0       | Flag 2                                               |
 | 6     | w   | /       | Clear flag 2                                         |
