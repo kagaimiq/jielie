@@ -1,15 +1,19 @@
 # Chip markings explained
 
-_I might've misused terminology for "part number" and "serial number" in this context.._
+It is well-known that JieLi's chips mostly have completely nonsense/misleading markings, which does not tell the chip's name right away, at least at the first glance.
 
-It is well-known that JieLi's chips have completely nonsense/misleading markings, which does not tell the chip's part number right away, at least at the first glance.
+Sometimes the actual name is presnt on the chip, however this is the case either on early chips (like 2011 era AC2092), or on some recent chips too. (JL700N, JL697N, etc.)
 
-Sometimes the part number does actually present on the chip, however this is the case either on very early chips (e.g. 2011 era AC2092) or seemingly on very recent chips too.
-Most of the time the (part of a) part number is hidden into the chip's serial number after the dash (e.g. -04A, -5A8, -65A4), or might be completely absent in some cases (e.g. AC209N/AC309N chips, AC690N "master" chip).
+But most of the time the chip's name is hidden into the chip's serial number, in the part that goes after a dash.
+However sometimes even this might be absent, for example on AC209N/AC309N chips or the AC690N master chip.
 
-Here you consider a bunch of other factors to determine the rest of the part number correctly, I mean: application (e.g. bluetooth speaker, MP3 player, dash cam), package (e.g. in AC69xx the '5' chips come in SSOP24 package: AC6905, AC6925, AC6965; and the '6' come in QFN32: AC6926, AC6966, AC6976), design date (e.g. a recent design won't use some ancient chip series in favor of the recent one), etc.
+In this case, to determine the actual chip name you need to consider a bunch of factors, namely:
+ - Application: bluetooth speaker, MP3 player, dash cam, microscope, etc.
+ - Package: e.g. in AC69xx the 'AC69x5' chips come in a SSOP24 package, the 'AC69x6' chips come in QFN32, and the 'AC69x1' come in LQFP48.
+ - Design date: usually a recent design won't use some ancient chip series in favour of the recent ones
+ - Chip's internal details: e.g. AC690N and AC691N series are marked the same way, but they're still different: BR17 and BR20. AC540N and AC560N are both DV16 but they differ by the SDRAM type used: former uses DDR2 but the latter uses DDR1 instead.
 
-## Explaining the marking
+## Marking explaination
 
 Let's look at some chip markings and break them apart to understand the parts that make up the marking:
 
@@ -35,57 +39,56 @@ Let's look at some chip markings and break them apart to understand the parts th
 | EA9395-26LC         |    |    |    |   | EA9395   | 26 | L | C | AC6926L          |
 | AC20BP05193-65A4    | AC | 20 |    | B | P05193   | 65 | A | 4 | AC6965A          |
 
-The parts written in uppercase letters (ABCDE) is the serial number, which comes before the dash, while the parts wrtten in lowercase (fgh) is the part number itself.
+The parts in uppercase (ABCDE) is the 'serial number', while the parts in lowercase (fgh) is the 'part number', which comes after a dash.
 
-### Serial number:
+### Serial number
 
-- Part 'A': Letters 'AB', 'AC', 'AD', 'AS', etc.
-- Part 'B': Manufacturing year
-  * usually truncates the first two digits of the year, so '12' means year 2012
-  * but sometimes it can truncate even further into the third digit, so '2' means year 2012 too.
-  * Can be omitted, together with the week code.
-- Part 'C': Manufacturing week/something like that
-  * Can be omitted (e.g. mostly in recent chips), never present without the year code.
-- Part 'D': Letters 'A', 'B', etc.
-  * Probably a part of the factory batch code, but idk
-- Part 'E': Factory batch code
-  * Sometimes (e.g. for AC109N chips the '.1' suffix is intact, so this can be used to distinguish from e.g. AC608N chips)
-  * Never omitted
+- **A**: Letters 'AB', 'AC', 'AD', 'AS', ..
+  * The first letter is always 'A'
+  * May be omitted
+- **B**: Manufacturing year
+  * Usually it represent the last two digits of the year, e.g. '18' is year 2018, but sometimes it's truncated even further: '2' means 2012 (probably)
+  * May be omitted
+- **C**: Manufacturing week
+  * Usually omitted on newer chips, but sometimes it might present.
+  * Never present without the year code
+- **D**: Letters 'A', 'B', ..
+  * probably that's a part of the lot number
+- **E**: Lot number
+  * Sometimes it can be used to distinguish between e.g. AC109N and AC608N: the former has the '.1' suffix, the latter lacks it.
 
-So, to save space on some tiny packages (e.g. QFN32), several parts of the serial number might be omitted from the marking.
+In some cases, some parts of the serial number may be omitted to fit into tiny packages like QFN32 (in that case only the lot number is present).
 
-### Part number:
+### Part number
 
-- Part 'f': Chip's part number (or a part of it)
-  * e.g. '5', '9', '25', '65', 'JL6976'
-- Part 'g': Chip variant
-  * e.g. 'A', 'B', 'C', ...
-- Part 'h': Misc info
-  * e.g. size of the chip's flash in Mbits
-  * can also define the series (e.g. the '-9A0' means the OTP AC6919A, not AC6909A)
+- **f**: Chip series variant (i.e. AC690**1**, AC690**2**, AC69**65**)
+- **g**: Chip variant letter (A, B, C, D, etc.)
+- **h**: Additional information (e.g. flash size, sdram size, psram size..)
+  * Flash size is expressed in megabits (e.g. 8 means 8 Mb = 1 MB)
+  * Chips without any flash put '0' here (e.g. AC691N without flash) or what's more relevant to them (e.g. SDRAM size)
+
+*This also applies to the full chip marking too, with the first part now being the actual chip name (JL6976, JL700N, etc.)*
 
 ----------------------------------------------------------------------------
 
 # Some chip lists
 
-Just a list of some chips...
-
 | Chip marking            | Actual name  | Some details                   | Source |
 |-------------------------|--------------|--------------------------------|--------|
-| AB225H77028             | AC309N??     |                                |        |
+| AB225H77028             | AC309N??     | year 2012                      |        |
 | AC1520CFA813.1-82E      | AC1082       | year 2015                      |        |
 | **AB1526CG3X1F.1-82E**  | AC1082       | year 2015                      | myself |
 | AC1626CG9278.1-82E      | AC1082       | year 2016                      |        |
 | AB1828CH2G0Q.1-82E      | AC1082       | year 2018                      |        |
 | AD1431CF5243.1-83EM     | AC1083       | year 2014                      |        |
 | **AB1819CK1Y11.1-87**   | AC1187       | year 2018                      | myself |
-| AC1135D22731            | AC2092       | year 2011, it has the part number!!| [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
+| AC2092 AC1135D22731     | AC2092       | year 2011                      | [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
 | AC1245H7A935            | AC2092       | year 2012                      | [radioskot](https://cxemi.ru/forum/11-14227-396258-16-1539715165) |
 | AC1536CG4A3C-E          | AC2092E      | year 2015                      | [radioskot](https://cxemi.ru/forum/11-14227-412259-16-1553886662) |
-| ADDEF438-01B            | AC4601B      |                                |        |
+| ADDEF438-01B            | AC4601B      | - I guess                      |        |
 | AC19DH4502-01           | AC4601       | year 2019                      | [esp8266](https://esp8266.ru/forum/threads/jl-soc.5500/post-88589) |
 | **AC1631D97294-04A**    | AC5204A      | year 2016                      | myself |
-| AC19AP22917-1A4         | AC5401A?     | year 2019, 4 == 4 Mbit flash?? |        |
+| AC19AP22917-1A4         | AC5x01A      | year 2019, 4 = ??              |        |
 | AC21BP0A908             | AC690        | year 2021                      |        |
 | AC20AP2J262-1A8         | AC6901A      | year 2020, 8 Mbit flash        |        |
 | AS1707AP0Y11Q-5A8       | AC6905A      | year 2017, 8 Mbit flash        |        |
@@ -103,4 +106,4 @@ Just a list of some chips...
 | AS21BP03721-55F4        | AC6955F      | year 2021, 4 Mbit flash        |        |
 | **AC20BP05193-65A4**    | AC6965A      | year 2020, 4 Mbit flash        | myself |
 | AS21BP0B847-65A4        | AC6965A      | year 2021, 4 Mbit flash        |        |
-| BP15698TKE JL6976M4     | JL6976M      | 4 Mbit flash, it has the part number! | [Julian Ilett](https://youtu.be/Ww3OU6scz1A?t=148) |
+| BP15698TKE JL6976M4     | JL6976M      |                                | [Julian Ilett](https://youtu.be/Ww3OU6scz1A?t=148) |
