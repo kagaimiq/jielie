@@ -6,20 +6,63 @@ SD/MMC card host controller.
 
 ### Command buffer
 
-Contrary to any other ordinary SD/MMC host, like SDHCI, MSDC, SMHC, etc. there is no such things as the "command register", "argument register" and "response register(s)".
+Contrary to any ordinary SD/MMC host like SDHCI, MSDC, SMHC and alike, this controller does not
+have a concept of a command register, argument register, response registers or such.
 
-Instead, the command handing is done via a portion of the system memory, which contains the raw bits that is transferred on the CMD line.
+Instead, it has an `CPTR` register, which specifies an address of a memory region where the *raw bits*
+of the command transfer is stored to.
 
-The first 6 bytes is the 48 bits of the command that is sent to the card,
-whose last byte is replaced with the actual CRC so it is basically ignored.
+Nevertheless, it *is* capable of generating a proper CRC7, as well as checking it.
 
-So the first byte is `0x40 | command` (a start bit =0, a transmission bit =1, and 6 opcode bits),
-then the next four bytes is the argument (in big endian), and the last one is the dummy byte which is replaced with the actual CRC of the command.
+The first 6 bytes are the 48 command bits that are shifted out of the CMD line as is,
+except for the last byte, which is replaced with a valid CRC7 of this command frame.
 
-Then the next 6 or 16 bytes is the raw response from the card (for 48 or 136 bit response, respectively).
-Note that in a 136-bit response the last 8 bits are ignored (or not received?) so you loose its CRC..
+Then the next 6 or 16 bytes hold the bits shifted in from the CMD line after it noticed a start bit,
+for a 48 or 136-bit response. Out of the 136 bits only 128 bits are received (or stored?) for some reason..
 
-If there is no response specified, then obviously there is no response received and stored.
+Here's an example of the buffer contents on a SEND_CSD (CMD9) command with a 136-bit response:
+```
+49 00 01 00 00 00
+3f 8c 0e 01 2a 0f f9 81 e9 f6 d9 01 e1 8a 40 00
+```
+
+Here, the first byte is the opcode with the start bit (always 0), a transmission bit (1 for host-to-card),
+and opcode bits (9 is obviously CMD9). The next 4 bytes is the argument field,
+which in this case contains an RCA in top 16 bits. Then comes a dummy byte, which is replaced with a proper CRC7.
+
+Then, the next 16 bytes is the first 128 bits of a 136-bit response, where the first one again has
+a start bit, a transmission bit (0 for card-to-host), and reserved bits, which are always 1.
+Remaining 15 bytes is the CSD register itself. (and yes, that's a 16 MB MMC card, just so you know)
+The byte that we lost there is the CRC7 of the response.
+
+### Data transfers
+
+Again, contrary to any host controller, it doesn't handle data transmission in one go.
+Instead, the command and data transfers are handled more-or-less independently.
+
+So this means that to send data to card, one need to send the command first, and then configure
+the data transmission part to send a block of data.
+
+While to receive data from card, one need to initialize the data transmission part *first*,
+then send a command, and then wait for the data to be received.
+This is because the card may transmit data well before (or right when) sending the response of the command,
+so it's better to prepare to early rather than too late, as otherwise it might receive wrong data.
+(and likely signal a data CRC error too)
+
+The size of a data block is configurable well from 1 byte up to 512 bytes.
+
+### CTU
+
+The CTU (Continuous Transfer Unit?) is used to do multiple-block transfers at once.
+
+Presumeably this was first available in SoC series like AC520N, AC521N, etc.
+which by nature of their intended application required high-bandwidth data transfers with lowest overhead
+to store a bunch of upscaled (that is, from 640x480 to 1920x1088) JPEGs at 30 FPS with an 16-bit LPCM mono track at 8000 Hz,
+something like this.
+
+While chip series like AC410N, AC460N, AC690N, etc. doesn't require all that bandwidth to simply play an MP3,
+so their SD controller blocks were (left off) without CTU, but in AC695N (or even in AC693N?) and newer,
+their SD controllers got the CTU too.
 
 ## Registers
 
