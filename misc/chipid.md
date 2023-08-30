@@ -1,11 +1,13 @@
 # Chip IDs
 
-- Top 8 bits from the `JL_SYSTEM->CHIP_ID` which is also sent e.g. on the [ISP_KEY](isp-key.md) handshake.
+- Top 8 bits from the `JL_SYSTEM->CHIP_ID`, which is also retreived by the [ISP](isp.md)'s "read chip id" command.
 
 |  ID  | Family |
 |------|--------|
+| 0x20 | CD02   |
 | 0x53 | BR17   |
-| 0x5B | ?      |
+| 0x5A | BR21   |
+| 0x5B | BR22?  |
 | 0x5E | BR23   |
 | 0x5F | BR25   |
 | 0x67 | ?      |
