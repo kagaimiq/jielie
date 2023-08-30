@@ -58,6 +58,7 @@
 
 - [AC520N (DV12)](dv12/index.md#ac520n)
 - [AC521N (DV15)](dv15/index.md#ac521n)
+- AC530N (DV11)
 - [AC540N (DV16)](dv16/index.md#ac540n)
 - [AC560N (DV16)](dv16/index.md#ac560n)
 - AC570N
@@ -91,21 +92,26 @@
 - AD156N
 - AD158N
 - AD159N
-- AI800N
+- AI800N (BR18)
 
 ## Chip families
 
 Or a *design name*, or a project name...
 
+- HB01 (AC209N)
+- HB02 (AC309N)
+- HB03 (AC329N)
 - AC4100 (AC410N)
 - BT15 (AC460N)
 - [BC51 (AC461N)](bc51/index.md)
+- DV11 (AC530N)
 - [DV12 (AC520N)](dv12/index.md)
 - [DV15 (AC521N)](dv15/index.md)
 - [DV16 (AC540N, AC560N)](dv16/index.md)
 - BD19 (AC632N)
 - BD29 (AC630N)
 - [BR17 (AC690N)](br17/index.md)
+- BR18 (AI800N)
 - BR20 (AC691N)
 - [BR21 (AC692N)](br21/index.md)
 - BR22 (AC693N)
@@ -127,22 +133,22 @@ Or a *design name*, or a project name...
 
 ### to be determined
 
-- HB001
-- HB002
-- HB003
+- HB001 - AC209N
+- HB002 - AC309N
+- HB003 - AC329N
 - MC001 - that OpenRISC thing?
 - CD01
-- CD02
+- CD02 - AC109N
 - MC002
 - CDN2
 - MV01
 - CDN3
 - CDN4
-- SH50
+- SH50 - AD100
 - RA13
 - RA14
 - DV10 - maybe something like AC51xx? Blackfin arch
-- SH60 - where the uboot.boot's "UBOOT2.00" originated from?
+- SH60 - AD200 - where the uboot.boot's "UBOOT2.00" originated from?
 - **CDN5 => AC119N : AC1187**
 - **BT15 => AC460N**
 - HC02
@@ -151,14 +157,14 @@ Or a *design name*, or a project name...
 - **DV12 => AC520N**
 - **BC51 => AC461N**
 - AV10 (- PAL/NTSC video decoder chip?!)
-- SH52
+- SH52 - AD300
 - BR16
 - F93
 - **BR17 => AC690N**
 - FT33 (fm transmitter - AC3433)
 - **DV16 => AC540N/AC560N**
-- BR18
-- UC02
+- BR18 - AI800N
+- UC02 - AC12N
 - CD07
 - WL30
 - WM31
