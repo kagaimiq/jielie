@@ -8,7 +8,8 @@
 | 0x3F90000 - 0x3F97FFF | 32k    | HSB peripherals       |
 | 0x3F98000 - 0x3F9FFFF | 32k    | EVA peripherals       |
 | 0x3FA0000 - 0x3FC87FF | 162k   | VRAM                  |
-| 0x4000000 - 0x5FFFFFF | 32M    | SDRAM                 |
+| 0x4000000 - 0x7FFFFFF | 64M    | SDRAM                 |
+| 0x8000000 - 0x??????? | ??     | SDRAM (uncached)      |
 
 ## Peripherals
 
