@@ -2,22 +2,21 @@
 
 ## Overview
 
-This peripheral implements a simple "encryption" (or rather, an obfuscation) algorithm,
-which can be tied to SD0's DATA transfers, SPI0's DMA transfers and the SFC fetches.
+This block implements a simple LFSR-based stream cipher algorithm,
+which can be tied to SD0's DATA transfers, SPI0's DMA transfers and SFC reads.
 
-### Other ENCs
+### ENC variants
 
-There was a single ENC peripheral that did both the SPI0/SD0 and SFC de/encryption.
+Initially there was a single ENC peripheral that was both responsible for "peripherals" (SPI0, SD0) and the [SFC](sfc.md).
 
-But at some point it was split into two peripherals, PERIENC and SFCENC, which handled them separately.
-PERIENC was for SPI0 and SD0, while SFCENC obviously was for SFC.
-
-And after some time the SFCENC eventually became a part of the SFC itself.
+Then, at some point the peripheral and SFC ENC's were split into independent PERIENC and SFCENC blocks,
+and finally the SFCENC became a part of the SFC block itself.
 
 ### Algorithm
 
-The algorithm it uses is basically the CRC16-CCITT shift register logic,
-which is updated on each byte, and its value is XORed onto a data byte prior to the register update.
+The LFSR logic used is basically the one of a CRC16-CCITT.
+The lower 8 bits of the key is XORed with the data byte, and then the key is scrambled,
+then the same is done for any subsequent bytes.
 
 ```c
 void jl_crypt(uint8_t *data, int len, uint16_t key) {
@@ -27,6 +26,11 @@ void jl_crypt(uint8_t *data, int len, uint16_t key) {
     }
 }
 ```
+
+### UNENC area
+
+The UNENC_ADR[H|L] registers define the area which is going to be passed as-is (i.e. no decryption is performed)
+when this area is accessed in the SFC map, thus these registers only exist on the SFC ENC blocks.
 
 ## Registers
 
