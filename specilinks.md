@@ -16,10 +16,18 @@ Yes, you got it right. They are on GitHub!! But .. of course there are a lot of 
 - [JieLi-Tech](https://github.com/Jieli-Tech) - the organization, look there!!
 - [JieLiTech](https://github.com/JieliTech)
 
-## SDKs 'n' stuff like that
+### Something else
+
+- [christian-kramer/JieLi-AC690X-Familiarization](https://github.com/christian-kramer/JieLi-AC690X-Familiarization)
+- [jl-uboot-tool](https://github.com/kagaimiq/jl-uboot-tool)
+- [jl-misctools](https://github.com/kagaimiq/jl-misctools)
+- [jl-msbm](https://github.com/kagaimiq/jl-msbm)
+- [ghidra-jieli](https://github.com/kagaimiq/ghidra-jieli)
+
+## SDKs and alike
 
 ### Official
-  
+
 - [AD15N SDK](https://github.com/Jieli-Tech/fw-AD15N)
 - [AD16N SDK](https://github.com/Jieli-Tech/fw-AD16N)
 - [AC63xx SDK (bluetooth)](https://github.com/Jieli-Tech/fw-AC63_BT_SDK)
@@ -36,15 +44,12 @@ Yes, you got it right. They are on GitHub!! But .. of course there are a lot of 
 - [qqq5127/AC6951](https://github.com/qqq5127/AC6951) - SDK for BR23 (AC695N), particulary for AC6951?
 - [qqq5127/AC6966B](https://github.com/qqq5127/AC6966B) - SDK for BR25 (AC696N), particulary for AC6966B? - incomplete
 - [jiang20082233/AC6966B-JBD](https://github.com/jiang20082233/AC6966B-JBD) - SDK for BR25 (AC696N) - complete!!
-- [cxy19880915/buxinyun](https://github.com/cxy19880915/buxinyun) - SDK for AC54xx (DV16)
 - [xjg1005/nes](https://github.com/xjg1005/nes) - SDK for AC520N (DV12) ?! .. NES emulator??
+- [cxy19880915/buxinyun](https://github.com/cxy19880915/buxinyun) - SDK for AC54xx (DV16)
+- [USMI-Tech/AC690X-SDK](https://github.com/USMI-Tech/AC690X-SDK) - Some AC690N SDKs
+- [USMI-Tech/AC692X-SDK](https://github.com/USMI-Tech/AC692X-SDK) - Some AC692N SDKs
 
 ## Forums
-
-**Warning: all (or most) of them are Russian! if you have some struggle then it's not my fault... maybe**
-
-and btw, **ewogs30** and **kagaimiq868m** is actually me! just for sure.
-Later maybe you'll see me as **kagamatiq**??
 
 ### Still around
 
