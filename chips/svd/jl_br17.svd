@@ -1,0 +1,3259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device schemaVersion="1.3" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd" >
+  <vendor>JieLi</vendor>
+  <vendorID>JL</vendorID>
+  <name>AC690N</name>
+  <series>BR17</series>
+  <version>1.0</version>
+  <description>JieLi AC690N Bluetooth Audio series (BR17)</description>
+
+  <cpu>
+    <name>PI32</name>
+    <revision>r1</revision>
+    <endian>little</endian>
+    <mpuPresent>false</mpuPresent>
+    <fpuPresent>false</fpuPresent>
+    <nvicPrioBits>2</nvicPrioBits>
+    <deviceNumInterrupts>64</deviceNumInterrupts>
+  </cpu>
+
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+
+  <!-- defaults -->
+  <size>16</size>       <!-- registers are usually 16-bit wide out there -->
+  <access>read-write</access>
+  <resetValue>0x00000000</resetValue>
+  <resetMask>0xFFFFFFFF></resetMask>
+
+  <peripherals>
+    <!-- ================================>
+    |   Low-speed bus (0x60000-0x6FFFF)  |
+    <================================= -->
+
+    <peripheral>
+      <name>SYSCFG</name>
+      <description>System configuration and like</description>
+      <groupName>SYSCFG</groupName>
+      <baseAddress>0x60000</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <!-- JL_SYSTEM -->
+        <register>
+          <name>CHIP_ID</name>   <!-- CHIP_ID -->
+          <description>Chip ID</description>
+          <addressOffset>0x00</addressOffset>
+          <access>read-only</access>
+        </register>
+        <register>
+          <name>MODE_CON</name>   <!-- MODE_CON -->
+          <description>Operating mode control</description>
+          <addressOffset>0x04</addressOffset>
+          <size>8</size>
+        </register>
+
+        <!-- JL_WAKEUP -->
+        <register>
+          <name>WKUP_CON0</name>   <!-- WKUP_CON0 -->
+          <description>Wakeup control register 0</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+        <register>
+          <name>WKUP_CON1</name>   <!-- WKUP_CON1 -->
+          <description>Wakeup control register 1</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+        <register>
+          <name>WKUP_CON2</name>   <!-- WKUP_CON2 -->
+          <description>Wakeup control register 2</description>
+          <addressOffset>0x10</addressOffset>
+        </register>
+        <register>
+          <name>WKUP_CON3</name>   <!-- WKUP_CON3 -->
+          <description>Wakeup control register 3</description>
+          <addressOffset>0x14</addressOffset>
+        </register>
+
+        <!-- JL_IOMAP | IOMC0-3 = CON0-3 -->
+        <register>
+          <name>IOMC0</name>   <!-- IOMC0 -->
+          <description>IO map control register 0</description>
+          <addressOffset>0x18</addressOffset>
+          <fields>
+            <field>
+              <name>SD0CKEN</name>
+              <access>read-write</access>
+              <bitRange>[0:0]</bitRange>
+              <description>SD0 clock line enable</description>
+            </field>
+            <field>
+              <name>SD0DTEN</name>
+              <access>read-write</access>
+              <bitRange>[1:1]</bitRange>
+              <description>SD0 data lines enable</description>
+            </field>
+
+            <field>
+              <name>SD1CKEN</name>
+              <access>read-write</access>
+              <bitRange>[2:2]</bitRange>
+              <description>SD1 clock line enable</description>
+            </field>
+            <field>
+              <name>SD1DTEN</name>
+              <access>read-write</access>
+              <bitRange>[3:3]</bitRange>
+              <description>SD1 data lines enable</description>
+            </field>
+
+            <field>
+              <name>SD1IOS</name>
+              <access>read-write</access>
+              <bitRange>[4:4]</bitRange>
+              <description>SD1 I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: CLK=PC5, CMD=PC4, DAT[0-3]={PA3/2/1/0}</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: CLK=PB2, CMD=PB1, DAT[0-3]={PB0/3/4/5}</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>UT0IOS</name>
+              <access>read-write</access>
+              <bitRange>[7:6]</bitRange>
+              <description>UART0 I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: TX=PA5, RX=PA6</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: TX=PB6, RX=PB7</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_c</name>
+                  <value>2</value>
+                  <description>Map C: TX=PC2, RX=PC3</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_d</name>
+                  <value>3</value>
+                  <description>Map D: TX=PA14, RX=PA15</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>IRFLTOS</name>
+              <access>read-write</access>
+              <bitRange>[10:8]</bitRange>
+              <description>IRFLT output select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>timer0</name>
+                  <value>4</value>
+                  <description>IRFLT output connected to Timer0 capture</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>timer1</name>
+                  <value>5</value>
+                  <description>IRFLT output connected to Timer1 capture</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>timer2</name>
+                  <value>6</value>
+                  <description>IRFLT output connected to Timer2 capture</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>timer3</name>
+                  <value>7</value>
+                  <description>IRFLT output connected to Timer3 capture</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>ALNKIOS</name>
+              <access>read-write</access>
+              <bitRange>[11:11]</bitRange>
+              <description>ALNK I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: SCLK=PA9, LRCK=PA10, MCLK=PA15, DAT[0-3]={PA11/12/13/14}</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: SCLK=PB0, LRCK=PB1, MCLK=PB6, DAT[0-3]={PB2/3/4/5}</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>PAPWEN</name>
+              <access>read-write</access>
+              <bitRange>[12:12]</bitRange>
+              <description>PAP write line enable</description>
+            </field>
+            <field>
+              <name>PAPREN</name>
+              <access>read-write</access>
+              <bitRange>[13:13]</bitRange>
+              <description>PAP read line enable</description>
+            </field>
+            <field>
+              <name>PAPDEN</name>
+              <access>read-write</access>
+              <bitRange>[14:14]</bitRange>
+              <description>PAP data lines enable</description>
+            </field>
+
+            <field>
+              <name>SD0IOS</name>
+              <access>read-write</access>
+              <bitRange>[15:15]</bitRange>
+              <description>SD0 I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: CLK=PA13, CMD=PA12, DAT[0-3]={PA11/10/9/8}</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: CLK=PA3, CLK=PA2, DAT[0-3]={PA1/0/5/4}</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IOMC1</name>   <!-- IOMC1 -->
+          <description>IO map control register 1</description>
+          <addressOffset>0x1C</addressOffset>
+          <size>32</size>  <!-- what -->
+          <fields>
+             <!-- I think there should be the SPI0IOS field somewhere... -->
+            <field>
+              <name>SPI0_DIDO_MIX</name>
+              <access>read-write</access>
+              <bitRange>[1:1]</bitRange>
+              <description>SPI0 DI/DO line mix</description>
+            </field>
+
+            <field>
+              <name>UT1IOS</name>
+              <access>read-write</access>
+              <bitRange>[3:2]</bitRange>
+              <description>UART1 I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: TX=PB0, RX=PB1</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: TX=PC0, RX=PC1</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_c</name>
+                  <value>2</value>
+                  <description>Map C: TX=PA1, RX=PA2</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_d</name>
+                  <value>3</value>
+                  <description>Map D: TX=USBDP, RX=USBDM</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>SPI1IOS</name>
+              <access>read-write</access>
+              <bitRange>[4:4]</bitRange>
+              <description>SPI1 I/O map select</description>
+            </field>
+
+            <field>
+              <name>SFCIOS</name>
+              <access>read-write</access>
+              <bitRange>[5:5]</bitRange>
+              <description>SFC I/O map select</description>
+            </field>
+
+            <field>
+              <name>CAPEDS</name>
+              <access>read-write</access>
+              <bitRange>[6:6]</bitRange>
+              <description>Capture mux edge selection</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>rising</name>
+                  <value>0</value>
+                  <description>Rising edge</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>falling</name>
+                  <value>1</value>
+                  <description>Falling edge</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>OUT_CH0S</name>
+              <access>read-write</access>
+              <bitRange>[10:8]</bitRange>
+              <description>ch0 output select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>UT0_TX</name>
+                  <value>0</value>
+                  <description>UART0 TX</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>UT1_TX</name>
+                  <value>1</value>
+                  <description>UART1 TX</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>TMR0_PWM_OUT</name>
+                  <value>2</value>
+                  <description>Timer0 PWM output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>TMR1_PWM_OUT</name>
+                  <value>3</value>
+                  <description>Timer1 PWM output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTC_OSCH</name>
+                  <value>4</value>
+                  <description>rtc_osch / IRTC high-frequency oscilllator</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>BTOSC_CLK</name>
+                  <value>5</value>
+                  <description>btosc_clk / bluetooth oscillator</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PLL_12M</name>
+                  <value>6</value>
+                  <description>pll_12m / PLL 12 MHz output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>UT2_TX</name>
+                  <value>7</value>
+                  <description>UART2 TX</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>OUT_CH1S</name>
+              <access>read-write</access>
+              <bitRange>[13:11]</bitRange>
+              <description>ch1 output select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>UT0_TX</name>
+                  <value>0</value>
+                  <description>UART0 TX</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>UT1_TX</name>
+                  <value>1</value>
+                  <description>UART1 TX</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>TMR2_PWM_OUT</name>
+                  <value>2</value>
+                  <description>Timer2 PWM output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>TMR3_PWM_OUT</name>
+                  <value>3</value>
+                  <description>Timer3 PWM output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IRTCX32K</name>
+                  <value>4</value>
+                  <description>IRTC 32.768 khz crystal</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>OSC_CLK</name>
+                  <value>5</value>
+                  <description>osc_clk / Oscillator clock</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>WLU_TX</name>
+                  <value>6</value>
+                  <description>WLU TX</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PWM4_OUT</name>
+                  <value>7</value>
+                  <description>PWM4 output</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>UT2IOS</name>
+              <access>read-write</access>
+              <bitRange>[15:14]</bitRange>
+              <description>UART2 I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: TX=PA3, RX=PA4</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: TX=PA9, RX=PA10</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_c</name>
+                  <value>2</value>
+                  <description>Map C: TX=PB9, RX=PB10</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_d</name>
+                  <value>3</value>
+                  <description>Map D: TX=PC4, RX=PC5</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>SPI2IOS</name>
+              <access>read-write</access>
+              <bitRange>[16:16]</bitRange>
+              <description>SPI2 I/O map select</description>
+            </field>
+
+            <field>
+              <name>IICIOS</name>
+              <access>read-write</access>
+              <bitRange>[19:18]</bitRange>
+              <description>I2C I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: SDA=USBDP, SCL=USBDM</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: SDA=PC4, SCL=PC5</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_c</name>
+                  <value>2</value>
+                  <description>Map C: SDA=PA14, SCL=PA15</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_d</name>
+                  <value>3</value>
+                  <description>Map D: SDA=PA5, SCL=PA6</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>WLUIOS</name>
+              <access>read-write</access>
+              <bitRange>[21:20]</bitRange>
+              <description>WLU.. wireless-uart? I/O map select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>map_a</name>
+                  <value>0</value>
+                  <description>Map A: TX=PA3, RX=PA4</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_b</name>
+                  <value>1</value>
+                  <description>Map B: TX=PA9, RX=PA10</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_c</name>
+                  <value>2</value>
+                  <description>Map C: TX=PB9, RX=PB10</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>map_d</name>
+                  <value>3</value>
+                  <description>Map D: TX=PC4, RX=PC5</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IOMC2</name>   <!-- IOMC2 -->
+          <description>IO map control register 2</description>
+          <addressOffset>0x20</addressOffset>
+          <size>32</size>
+          <fields>
+            <field>
+              <name>WKUPS</name>
+              <access>read-write</access>
+              <bitRange>[5:0]</bitRange>
+              <description>Wakeup input mux select</description>
+            </field>
+            <field>
+              <name>IRFLTS</name>
+              <access>read-write</access>
+              <bitRange>[13:8]</bitRange>
+              <description>IRFLT input mux select</description>
+            </field>
+            <field>
+              <name>CAPS</name>
+              <access>read-write</access>
+              <bitRange>[21:16]</bitRange>
+              <description>Capture input mux select</description>
+            </field>
+            <field>
+              <name>UTS</name>
+              <access>read-write</access>
+              <bitRange>[29:24]</bitRange>
+              <description>UART input mux select</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>IOMC3</name>   <!-- IOMC3 -->
+          <description>IO map control register 3</description>
+          <addressOffset>0x24</addressOffset>
+          <fields>
+            <field>
+              <name>UT0MXS</name>
+              <access>read-write</access>
+              <bitRange>[2:0]</bitRange>
+              <description>UART0 input mux select</description>
+            </field>
+            <field>
+              <name>UT0IOEN</name>
+              <access>read-write</access>
+              <bitRange>[3:3]</bitRange>
+              <description>UART0 I/O enable</description>
+            </field>
+
+            <field>
+              <name>UT1MXS</name>
+              <access>read-write</access>
+              <bitRange>[6:4]</bitRange>
+              <description>UART1 input mux select</description>
+            </field>
+            <field>
+              <name>UT1IOEN</name>
+              <access>read-write</access>
+              <bitRange>[7:7]</bitRange>
+              <description>UART1 I/O enable</description>
+            </field>
+
+            <field>
+              <name>UT2MXS</name>
+              <access>read-write</access>
+              <bitRange>[10:8]</bitRange>
+              <description>UART2 input mux select</description>
+            </field>
+            <field>
+              <name>UT2IOEN</name>
+              <access>read-write</access>
+              <bitRange>[11:11]</bitRange>
+              <description>UART2 I/O enable</description>
+            </field>
+          </fields>
+        </register>
+
+        <!-- JL_POWER -->
+        <register>
+          <name>PWR_CON</name>   <!-- PWR_CON -->
+          <description>Power control register</description>
+          <addressOffset>0x40</addressOffset>
+        </register>
+
+        <!-- JL_CLOCK -->
+        <register>
+          <name>SYS_DIV</name>   <!-- SYS_DIV -->
+          <description>System clock divider</description>
+          <addressOffset>0x44</addressOffset>
+          <fields>
+            <field>
+              <name>hsbdiv</name>
+              <access>read-write</access>
+              <bitRange>[7:0]</bitRange>
+              <description>hsb_clk divider (from org_clk)</description>
+            </field>
+            <field>
+              <name>lsbdiv</name>
+              <access>read-write</access>
+              <bitRange>[10:8]</bitRange>
+              <description>lsb_clk divider (from hsb_clk)</description>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CLK_CON0</name>   <!-- CLK_CON0 -->
+          <description>Clock control register 0</description>
+          <addressOffset>0x48</addressOffset>
+          <fields>
+            <field>
+              <name>RC_EN</name>
+              <access>read-write</access>
+              <bitRange>[0:0]</bitRange>
+              <description>RC oscillator enable</description>
+            </field>
+            <field>
+              <name>TSSEL</name>
+              <access>read-write</access>
+              <bitRange>[1:1]</bitRange>
+              <description>test clock select</description>
+            </field>
+
+            <field>
+              <name>OSC_SEL</name>
+              <access>read-write</access>
+              <bitRange>[5:4]</bitRange>
+              <description>osc_clk selection</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>BTOSC_CLK</name>
+                  <value>0</value>
+                  <description>Use btosc_clk (Bluetooth oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTOSH_CLK</name>
+                  <value>1</value>
+                  <description>Use rtosh_clk (RTC high-freq oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTOSL_CLK</name>
+                  <value>2</value>
+                  <description>Use rtosl_clk (RTC low-freq oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>TEST_MODE</name>
+                  <value>3</value>
+                  <description>Use test mode clock</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>CKSEL</name>
+              <access>read-write</access>
+              <bitRange>[8:6]</bitRange>
+              <description>clock select</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RC_CLK</name>
+                  <value>0</value>
+                  <description>Use rc_clk (RC oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>BTOSC_CLK</name>
+                  <value>4</value>
+                  <description>Use btosc_clk (Bluetooth oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTOSH_CLK</name>
+                  <value>5</value>
+                  <description>Use rtosh_clk (RTC high-freq oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTOSL_CLK</name>
+                  <value>6</value>
+                  <description>Use rtosl_clk (RTC low-freq oscillator)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PLL_CLK</name>
+                  <value>7</value>
+                  <description>Use pll_clk (or pll_sys_clk)</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>SFR_CKMD</name>
+              <access>read-write</access>
+              <bitRange>[9:9]</bitRange>
+              <description>sfr ckmd</description>
+            </field>
+
+            <field>
+              <name>PB0_SEL</name>
+              <access>read-write</access>
+              <bitRange>[12:10]</bitRange>
+              <description>PB0 clock output</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>disabled</name>
+                  <value>0</value>
+                  <description>No clock output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>LSB_CLK</name>
+                  <value>1</value>
+                  <description>lsb_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>BTOSC_CLK</name>
+                  <value>2</value>
+                  <description>btosc_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTOSH_CLK</name>
+                  <value>3</value>
+                  <description>rtosh_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RC_CLK</name>
+                  <value>4</value>
+                  <description>rc_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HSB_CLK</name>
+                  <value>5</value>
+                  <description>hsb_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RTOSL_CLK</name>
+                  <value>6</value>
+                  <description>rtosl_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PLL_SYS_CLK</name>
+                  <value>7</value>
+                  <description>pll_sys_clk output</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>PB9_SEL</name>
+              <access>read-write</access>
+              <bitRange>[15:13]</bitRange>
+              <description>PB9 clock output</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>disabled</name>
+                  <value>0</value>
+                  <description>No clock output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>FM_LO_D2</name>
+                  <value>1</value>
+                  <description>FM local-oscillator divided by 2</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PLL_RFI_CLK</name>
+                  <value>2</value>
+                  <description>pll_rfi_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PLL_192M</name>
+                  <value>3</value>
+                  <description>pll_192m output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>BT_LO_D32</name>
+                  <value>4</value>
+                  <description>Bluetooth local-oscillator divided by 32</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>WL_CLK</name>
+                  <value>5</value>
+                  <description>wl_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>APC_CLK</name>
+                  <value>6</value>
+                  <description>apc_clk output</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RCCL_CLK</name>
+                  <value>7</value>
+                  <description>?? rccl_clk output</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>CLK_CON1</name>   <!-- CLK_CON1 -->
+          <description>Clock control register 1</description>
+          <addressOffset>0x4C</addressOffset>
+          <size>32</size>
+        </register>
+        <register>
+          <name>CLK_CON2</name>   <!-- CLK_CON2 -->
+          <description>Clock control register 2</description>
+          <addressOffset>0x50</addressOffset>
+          <size>32</size>
+        </register>
+
+        <register>
+          <name>PLL_CON</name>   <!-- PLL_CON -->
+          <description>PLL control register</description>
+          <addressOffset>0x80</addressOffset>
+          <size>32</size>
+        </register>
+
+        <!-- JL_SYSTEM -->
+        <register>
+          <name>LDO_CON</name>   <!-- LDO_CON -->
+          <description>LDO control register</description>
+          <addressOffset>0x84</addressOffset>
+          <size>32</size>
+        </register>
+        <register>
+          <name>LVD_CON</name>   <!-- LVD_CON -->
+          <description>Low Voltage Detector control register</description>
+          <addressOffset>0x88</addressOffset>
+        </register>
+        <register>
+          <name>WDT_CON</name>   <!-- WDT_CON -->
+          <description>Watchdog control register</description>
+          <addressOffset>0x8C</addressOffset>
+          <size>8</size>
+        </register>
+        <register>
+          <name>OSA_CON</name>   <!-- OSA_CON -->
+          <description>OSA control register</description>
+          <addressOffset>0x90</addressOffset>
+          <size>8</size>
+        </register>
+        <register>
+          <name>EFUSE_CON</name>   <!-- EFUSE_CON -->
+          <description>eFuse control register</description>
+          <addressOffset>0x94</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <!-- ================= GPIOs ================= -->
+
+    <peripheral>
+      <name>PORTA</name>
+      <description>GPIO bank A</description>
+      <groupName>PORT</groupName>
+      <baseAddress>0x60100</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x20</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>OUT</name>
+          <description>Output level register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>IN</name>
+          <description>Input state register</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>DIR</name>
+          <description>Direction control register</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+        <register>
+          <name>DIE</name>
+          <description>Digital input enable register</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+        <register>
+          <name>PU</name>
+          <description>Pullup enable register</description>
+          <addressOffset>0x10</addressOffset>
+        </register>
+        <register>
+          <name>PD</name>
+          <description>Pulldown enable register</description>
+          <addressOffset>0x14</addressOffset>
+        </register>
+        <register>
+          <name>HD</name>
+          <description>High drive current enable register</description>
+          <addressOffset>0x18</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral derivedFrom="PORTA">
+      <name>PORTB</name>
+      <description>GPIO bank B</description>
+      <baseAddress>0x60120</baseAddress>
+    </peripheral>
+
+    <peripheral derivedFrom="PORTA">
+      <name>PORTC</name>
+      <description>GPIO bank C</description>
+      <baseAddress>0x60140</baseAddress>
+    </peripheral>
+
+    <peripheral derivedFrom="PORTA">
+      <name>PORTD</name>
+      <description>GPIO bank D</description>
+      <baseAddress>0x60160</baseAddress>
+    </peripheral>
+
+    <!-- ================= Timers ================= -->
+
+    <peripheral>
+      <name>TIMER0</name>
+      <description>16-bit timer</description>
+      <groupName>TIMER</groupName>
+      <baseAddress>0x60200</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x10</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <interrupt>
+        <name>TIM0</name>
+        <description>Timer 0 interrupt</description>
+        <value>2</value>
+      </interrupt>
+
+      <registers>
+        <register>
+          <name>CON</name>
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <fields>
+            <field>
+              <name>PND</name>
+              <access>read-only</access>
+              <bitRange>[15:15]</bitRange>
+              <description>Interrupt pending bit</description>
+            </field>
+            <field>
+              <name>PCLR</name>
+              <access>write-only</access>
+              <bitRange>[14:14]</bitRange>
+              <description>Writing a '1' clears the pending interrupt</description>
+            </field>
+
+            <field>
+              <name>PWM_INV</name>
+              <access>read-write</access>
+              <bitRange>[9:9]</bitRange>
+              <description>PWM output inversion enable</description>
+            </field>
+            <field>
+              <name>PWM_EN</name>
+              <access>read-write</access>
+              <bitRange>[8:8]</bitRange>
+              <description>PWM output enable</description>
+            </field>
+
+            <field>
+              <name>PSEL</name>
+              <access>read-write</access>
+              <bitRange>[7:4]</bitRange>
+              <description>Timer clock prescaler</description>
+              <enumeratedValues>
+                <!--
+                  If you'd about to sort the dividers, then this might make more sense..
+                    0000:  1
+                    0100:  2
+                    0001:  4
+                    0101:  8
+                    0010:  16
+                    0110:  32
+                    0011:  64
+                    0111:  128
+                    1000:  256
+                    1100:  512
+                    1001:  1024
+                    1101:  2048
+                    1010:  4096
+                    1110:  8192
+                    1011:  16384
+                    1111:  32768
+
+                  Bits [5:4] denote the base prescalers: /1, /4, /16, /64.
+                  Bit [6] enables the /2 prescaler
+                  Bit [7] enables the /256 prescaler
+                  -->
+
+                <enumeratedValue>
+                  <name>div1</name>
+                  <value>0</value>
+                  <description>Timer clock is divided by 1</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div4</name>
+                  <value>1</value>
+                  <description>Timer clock is divided by 4</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div16</name>
+                  <value>2</value>
+                  <description>Timer clock is divided by 16</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div64</name>
+                  <value>3</value>
+                  <description>Timer clock is divided by 64</description>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>div2</name>
+                  <value>4</value>
+                  <description>Timer clock is divided by 4 (1*2)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div8</name>
+                  <value>5</value>
+                  <description>Timer clock is divided by 8 (4*2)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div32</name>
+                  <value>6</value>
+                  <description>Timer clock is divided by 32 (16*2)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div128</name>
+                  <value>7</value>
+                  <description>Timer clock is divided by 128 (64*2)</description>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>div256</name>
+                  <value>8</value>
+                  <description>Timer clock is divided by 256 (1*256)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div1024</name>
+                  <value>9</value>
+                  <description>Timer clock is divided by 1024 (4*256)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div4096</name>
+                  <value>10</value>
+                  <description>Timer clock is divided by 4096 (16*256)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div16384</name>
+                  <value>11</value>
+                  <description>Timer clock is divided by 16384 (64*256)</description>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>div512</name>
+                  <value>12</value>
+                  <description>Timer clock is divided by 512 (1*2*256)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div2048</name>
+                  <value>13</value>
+                  <description>Timer clock is divided by 2048 (4*2*256)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div8192</name>
+                  <value>14</value>
+                  <description>Timer clock is divided by 8192 (16*2*256)</description>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>div32768</name>
+                  <value>15</value>
+                  <description>Timer clock is divided by 32768 (64*2*256)</description>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>SSEL</name>
+              <access>read-write</access>
+              <bitRange>[3:2]</bitRange>
+              <description>Timer clock source selection</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>busclk</name>
+                  <description>Timer clocks from its bus clock</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>extclk</name>
+                  <description>Timer clocks from its external clock input 'TMR'</description>
+                  <value>1</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>oscclk</name>
+                  <description>Timer clocks from the osc_clk clock signal, usually wired to bt_osc which is typically 24 MHz</description>
+                  <value>2</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>rcclk</name>
+                  <description>Timer clocks from the rc_clk clock signal, which is around 250 kHz</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>MODE</name>
+              <access>read-write</access>
+              <bitRange>[1:0]</bitRange>
+              <description>Timer operation mode</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>disabled</name>
+                  <description>Timer is disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <!-- something like that -->
+                <enumeratedValue>
+                  <name>counting</name>
+                  <description>Timer is counting</description>
+                  <value>1</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>capture_rising</name>
+                  <description>Timer captures rising edge on its 'CAP' input</description>
+                  <value>2</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>capture_falling</name>
+                  <description>Timer captures falling edge on its 'CAP' input</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>CNT</name>
+          <description>Counter register</description>
+          <addressOffset>0x04</addressOffset>
+          <fields>
+            <field>
+              <name>CNT</name>
+              <access>read-write</access>
+              <bitRange>[15:0]</bitRange>
+              <description>This register holds the current value of the timer's counter.</description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>PRD</name>
+          <description>Period register</description>
+          <addressOffset>0x08</addressOffset>
+          <fields>
+            <field>
+              <name>PRD</name>
+              <access>read-write</access>
+              <bitRange>[15:0]</bitRange>
+              <description>
+                When the counter reaches the value in this register,
+                the counter resets and an interrupt is generated.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>PWM</name>
+          <description>PWM duty cycle</description>
+          <addressOffset>0x0C</addressOffset>
+          <fields>
+            <field>
+              <name>PWM</name>
+              <access>read-write</access>
+              <bitRange>[15:0]</bitRange>
+              <description>
+                When the counter reaches the value in this register,
+                the PWM output will go high (or low), if it is enabled.
+              </description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral derivedFrom="TIMER0">
+      <name>TIMER1</name>
+      <baseAddress>0x60210</baseAddress>
+
+      <interrupt>
+        <name>TIM1</name>
+        <description>Timer 1 interrupt</description>
+        <value>3</value>
+      </interrupt>
+    </peripheral>
+
+    <peripheral derivedFrom="TIMER0">
+      <name>TIMER2</name>
+      <baseAddress>0x60220</baseAddress>
+
+      <interrupt>
+        <name>TIM2</name>
+        <description>Timer 2 interrupt</description>
+        <value>4</value>
+      </interrupt>
+    </peripheral>
+
+    <peripheral derivedFrom="TIMER0">
+      <name>TIMER3</name>
+      <baseAddress>0x60230</baseAddress>
+
+      <interrupt>
+        <name>TIM3</name>
+        <description>Timer 3 interrupt</description>
+        <value>5</value>
+      </interrupt>
+    </peripheral>
+
+    <!-- ================= UART ================= -->
+
+    <peripheral>
+      <name>UART0</name>
+      <description>UART interface</description>
+      <groupName>UART</groupName>
+      <baseAddress>0x60300</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x24</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <interrupt>
+        <name>UART0</name>
+        <description>UART0 interrupt</description>
+        <value>16</value>
+      </interrupt>
+
+      <registers>
+        <register>
+          <name>CON</name>
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <fields>
+            <field>
+              <name>TPND</name>
+              <access>read-only</access>
+              <bitRange>[15:15]</bitRange>
+              <description>TX interrupt pending status</description>
+            </field>
+            <field>
+              <name>RPND</name>
+              <access>read-only</access>
+              <bitRange>[14:14]</bitRange>
+              <description>
+                RX interrupt pending status
+              </description>
+            </field>
+
+            <field>
+              <name>CLRTPND</name>
+              <access>write-only</access>
+              <bitRange>[13:13]</bitRange>
+              <description>Writing a '1' clears the pending TX interrupt</description>
+            </field>
+            <field>
+              <name>CLRRPND</name>
+              <access>write-only</access>
+              <bitRange>[12:12]</bitRange>
+              <description>Writing a '1' clears the pending RX interrupt</description>
+            </field>
+
+            <field>
+              <name>OTPND</name>
+              <access>read-only</access>
+              <bitRange>[11:11]</bitRange>
+              <description>Overtime interrupt pending status</description>
+            </field>
+            <field>
+              <name>CLR_OTPND</name>
+              <access>write-only</access>
+              <bitRange>[10:10]</bitRange>
+              <description>Writing a '1' clears the pending overtime interrupt</description>
+            </field>
+
+            <field>
+              <name>TB8</name>
+              <access>write-only</access>
+              <bitRange>[9:9]</bitRange>
+              <description>The topmost bit to send in 9-bit mode</description>
+            </field>
+            <field>
+              <name>RB8</name>
+              <access>read-only</access>
+              <bitRange>[8:8]</bitRange>
+              <description>The topmost received bit in 9-bit mode</description>
+            </field>
+
+            <field>
+              <name>RDC</name>
+              <access>write-only</access>
+              <bitRange>[7:7]</bitRange>
+              <description>
+                When set to '1', the current received byte amount is written into HRXCNT register (does it exist there?)
+                and then the counter is reset to 0.
+              </description>
+            </field>
+
+            <field>
+              <name>RX_MODE</name>
+              <access>read-write</access>
+              <bitRange>[6:6]</bitRange>
+              <description>Reception mode</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>normal</name>
+                  <description>Reception is done normally</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>dma</name>
+                  <description>Reception is done through DMA</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>OT_IE</name>
+              <access>read-write</access>
+              <bitRange>[5:5]</bitRange>
+              <description>Overtime interrupt enable</description>
+            </field>
+
+            <field>
+              <name>DIVS</name>
+              <access>read-write</access>
+              <bitRange>[4:4]</bitRange>
+              <description>Baudrate divider prescaler</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>div4</name>
+                  <description>UART clock is divided by 4, e.g. baudrate = uart_clk / 4 / (BAUD + 1)</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>div3</name>
+                  <description>UART clock is divided by 3, e.g. (baudrate = uart_clk / 3 / (BAUD + 1)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>RXIE</name>
+              <access>read-write</access>
+              <bitRange>[3:3]</bitRange>
+              <description>Reception interrupt enable</description>
+            </field>
+            <field>
+              <name>TXIE</name>
+              <access>read-write</access>
+              <bitRange>[2:2]</bitRange>
+              <description>Transmission interrupt enable</description>
+            </field>
+
+            <field>
+              <name>M9EN</name>
+              <access>read-write</access>
+              <bitRange>[1:1]</bitRange>
+              <description>UART character width</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>8bit</name>
+                  <description>UART transfers data in 8-bit characters</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>9bit</name>
+                  <description>UART transfers data in 9-bit characters</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>UTEN</name>
+              <access>read-write</access>
+              <bitRange>[0:0]</bitRange>
+              <description>Enable UART</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>disabled</name>
+                  <description>UART is disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>enabled</name>
+                  <description>UART is enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>BAUD</name>
+          <description>Baudrate divider register</description>
+          <addressOffset>0x04</addressOffset>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>BAUD</name>
+              <access>write-only</access>
+              <bitRange>[15:0]</bitRange>
+              <description>
+                Baud rate divider\n
+                'baudrate = uart_clk / D / (N + 1)',\n
+                where D is 3 if DVS=1 and 4 if DVS=0
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>BUF</name>
+          <description>Data buffer register</description>
+          <addressOffset>0x08</addressOffset>
+          <size>8</size>
+          <fields>
+            <field>
+              <name>BUF</name>
+              <access>read-write</access>
+              <bitRange>[7:0]</bitRange>
+              <description>
+                UART data buffer, writing a byte sends it over,
+                reading returns the last received byte.\n
+                If the byte was sent, an interrupt is generated.
+                The same for reception, if a byte was received, an interrupt is generated too.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>OTCNT</name>    <!-- or: OT -->
+          <description>Overtime (timeout) count register</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>OTCNT</name>
+              <access>write-only</access>
+              <bitRange>[31:0]</bitRange>
+              <description>
+                Number of bit clocks (maybe?) in which a falling edge should appear on RX until
+                it times out and triggers the OverTime interrupt.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>TXADR</name>    <!-- or: DMA_RD_ADR -->
+          <description>TX DMA base address</description>
+          <addressOffset>0x10</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>TXADR</name>
+              <access>write-only</access>
+              <bitRange>[17:0]</bitRange>
+              <description>Base address of the TX DMA buffer.\n
+                It is 17 bits long, which means that it only covers the low 128k of RAM.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>TXCNT</name>    <!-- or: DMA_RD_CNT -->
+          <description>TX DMA byte count</description>
+          <addressOffset>0x14</addressOffset>
+          <size>16</size>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>TXCNT</name>
+              <access>write-only</access>
+              <bitRange>[15:0]</bitRange>
+              <description>
+                Count of bytes to send over via DMA.
+                Writing a value here triggers the TX DMA.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>RXSADR</name>    <!-- or: DMA_WR_SADR -->
+          <description>RX DMA start address</description>
+          <addressOffset>0x18</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>RXSADR</name>
+              <access>write-only</access>
+              <bitRange>[17:0]</bitRange>
+              <description>
+                Starting address of the RX DMA loop buffer.\n
+                It is 17 bits long, which means that it only covers the low 128k of RAM.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>RXEADR</name>    <!-- or: DMA_WR_EADR -->
+          <description>RX DMA ending address</description>
+          <addressOffset>0x1C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>RXEADR</name>
+              <access>write-only</access>
+              <bitRange>[17:0]</bitRange>
+              <description>
+                Ending address of the RX DMA loop buffer.\n
+                It is 17 bits long, which means that it only covers the low 128k of RAM.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>RXCNT</name>    <!-- or: DMA_WR_CNT -->
+          <description>RX DMA byte count</description>
+          <addressOffset>0x20</addressOffset>
+          <size>32</size>
+          <access>read-only</access>
+          <fields>
+            <field>
+              <name>RXCNT</name>
+              <access>read-only</access>
+              <bitRange>[31:0]</bitRange>
+              <description>
+                Number of bytes to receive from RX DMA.\n
+                When this register is written, the interrupt is cleared and DMA will start.
+                After there was enough bytes received, DMA will stop and an interrupt is fired.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <!-- Is there any 'HRXCNT?' -->
+      </registers>
+    </peripheral>
+
+    <peripheral derivedFrom="UART0">
+      <name>UART1</name>
+      <baseAddress>0x60324</baseAddress>
+
+      <interrupt>
+        <name>UART1</name>
+        <description>UART1 interrupt</description>
+        <value>17</value>
+      </interrupt>
+    </peripheral>
+
+    <peripheral>
+      <name>UART2</name>
+      <description>UART interface (cut-down variant)</description>
+      <groupName>UARTL</groupName>
+      <baseAddress>0x60348</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0xC</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <interrupt>
+        <name>UART2</name>
+        <description>UART2 interrupt</description>
+        <value>18</value>
+      </interrupt>
+
+      <registers>
+        <register>
+          <name>CON</name>
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <fields>
+            <field>
+              <name>TPND</name>
+              <access>read-only</access>
+              <bitRange>[15:15]</bitRange>
+              <description>TX interrupt pending status</description>
+            </field>
+            <field>
+              <name>RPND</name>
+              <access>read-only</access>
+              <bitRange>[14:14]</bitRange>
+              <description>RX interrupt pending status</description>
+            </field>
+            <field>
+              <name>CLRTPND</name>
+              <access>write-only</access>
+              <bitRange>[13:13]</bitRange>
+              <description>Writing a '1' clears the pending TX interrupt</description>
+            </field>
+            <field>
+              <name>CLRRPND</name>
+              <access>write-only</access>
+              <bitRange>[12:12]</bitRange>
+              <description>Writing a '1' clears the pending RX interrupt</description>
+            </field>
+            <field>
+              <name>TB8</name>
+              <access>write-only</access>
+              <bitRange>[9:9]</bitRange>
+              <description>The topmost bit to send in 9-bit mode</description>
+            </field>
+            <field>
+              <name>RB8</name>
+              <access>read-only</access>
+              <bitRange>[8:8]</bitRange>
+              <description>The topmost received bit in 9-bit mode</description>
+            </field>
+            <field>
+              <name>DIVS</name>
+              <access>read-write</access>
+              <bitRange>[4:4]</bitRange>
+              <description>Baudrate divider prescaler</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>div4</name>
+                  <description>UART clock is divided by 4, e.g. baudrate = uart_clk / 4 / (BAUD + 1)</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>div3</name>
+                  <description>UART clock is divided by 3, e.g. (baudrate = uart_clk / 3 / (BAUD + 1)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>RXIE</name>
+              <access>read-write</access>
+              <bitRange>[3:3]</bitRange>
+              <description>Reception interrupt enable</description>
+            </field>
+            <field>
+              <name>TXIE</name>
+              <access>read-write</access>
+              <bitRange>[2:2]</bitRange>
+              <description>Transmission interrupt enable</description>
+            </field>
+            <field>
+              <name>M9EN</name>
+              <access>read-write</access>
+              <bitRange>[1:1]</bitRange>
+              <description>UART character width</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>8bit</name>
+                  <description>UART transfers data in 8-bit characters</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>9bit</name>
+                  <description>UART transfers data in 9-bit characters</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>UTEN</name>
+              <access>read-write</access>
+              <bitRange>[0:0]</bitRange>
+              <description>Enable UART</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>disabled</name>
+                  <description>UART is disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+
+                <enumeratedValue>
+                  <name>enabled</name>
+                  <description>UART is enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>BUF</name>
+          <description>Data buffer register</description>
+          <addressOffset>0x04</addressOffset>
+          <size>8</size>
+          <fields>
+            <field>
+              <name>BUF</name>
+              <access>read-write</access>
+              <bitRange>[7:0]</bitRange>
+              <description>
+                UART data buffer, writing a byte sends it over,
+                reading returns the last received byte.\n
+                If the byte was sent, an interrupt is generated.
+                The same for reception, if a byte was received, an interrupt is generated too.
+              </description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>BAUD</name>
+          <description>Baudrate divider register</description>
+          <addressOffset>0x08</addressOffset>
+          <access>write-only</access>
+          <fields>
+            <field>
+              <name>BAUD</name>
+              <access>write-only</access>
+              <bitRange>[15:0]</bitRange>
+              <description>
+                Baud rate divider\n
+                'baudrate = uart_clk / D / (N + 1)',\n
+                where D is 3 if DVS=1 and 4 if DVS=0
+              </description>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+
+    <!-- ================= SPI ================= -->
+
+    <peripheral>
+      <name>SPI0</name>
+      <description>Serial Peripheral Interface controller</description>
+      <groupName>SPI</groupName>
+      <baseAddress>0x60400</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x14</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <interrupt>
+        <name>SPI0</name>
+        <description>SPI0 interrupt</description>
+        <value>12</value>
+      </interrupt>
+
+      <registers>
+        <register>
+          <name>CON</name>
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+
+        <register>
+          <name>BAUD</name>
+          <description>Clock divider register</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+
+        <register>
+          <name>BUF</name>
+          <description>Data buffer</description>
+          <addressOffset>0x08</addressOffset>
+          <size>8</size>
+        </register>
+
+        <register>
+          <name>ADR</name>
+          <description>DMA buffer base address</description>
+          <addressOffset>0x0C</addressOffset>
+          <access>write-only</access>
+          <size>32</size>
+        </register>
+
+        <register>
+          <name>CNT</name>
+          <description>DMA transfer byte count</description>
+          <addressOffset>0x10</addressOffset>
+          <access>write-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral derivedFrom="SPI0">
+      <name>SPI1</name>
+      <baseAddress>0x60414</baseAddress>
+
+      <interrupt>
+        <name>SPI1</name>
+        <description>SPI1 interrupt</description>
+        <value>13</value>
+      </interrupt>
+    </peripheral>
+
+    <peripheral derivedFrom="SPI0">
+      <name>SPI2</name>
+      <baseAddress>0x60428</baseAddress>
+
+      <!-- No interrupts? -->
+    </peripheral>
+
+    <!-- ================= PAP ================= -->
+
+    <peripheral>
+      <name>PAP</name>
+      <description>Parralel Active Port</description>
+      <groupName>PAP</groupName>
+      <baseAddress>0x60500</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x18</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <interrupt>
+        <name>PAP</name>
+        <description>PAP interrupt</description>
+        <value>19</value>
+      </interrupt>
+
+      <registers>
+        <register>
+          <name>CON</name>
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+
+        <register>
+          <name>DAT0</name>
+          <description>Data register 0</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+
+        <register>
+          <name>DAT1</name>
+          <description>Data register 1</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+
+        <register>
+          <name>ADR</name>
+          <description>DMA buffer base address</description>
+          <addressOffset>0x10</addressOffset>
+          <access>write-only</access>
+          <size>32</size>
+        </register>
+
+        <register>
+          <name>CNT</name>
+          <description>DMA transfer byte count</description>
+          <addressOffset>0x14</addressOffset>
+          <access>write-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <!-- ================= SD ================= -->
+
+    <peripheral>
+      <name>SD0</name>
+      <description>SD/MMC host</description>
+      <groupName>SD</groupName>
+      <baseAddress>0x60600</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x14</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <interrupt>
+        <name>SD0</name>
+        <description>SD0 interrupt</description>
+        <value>14</value>
+      </interrupt>
+
+      <registers>
+        <register>
+          <name>CON0</name>
+          <description>Control register 0</description>
+          <addressOffset>0x00</addressOffset>
+          <fields>
+            <field>
+              <name>DINT</name>
+              <access>read-only</access>
+              <bitRange>[15:15]</bitRange>
+              <description>Data interrupt status</description>
+            </field>
+            <field>
+              <name>CLR_DINT</name>
+              <access>write-only</access>
+              <bitRange>[14:14]</bitRange>
+              <description>Writing '1' clears a pending data interrupt</description>
+            </field>
+            <field>
+              <name>LINE4</name>
+              <access>read-write</access>
+              <bitRange>[13:13]</bitRange>
+              <description>Data bus width</description>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>1bit</name>
+                  <description>1-bit bus width (DAT0)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>4bit</name>
+                  <description>4-bit bus width (DAT0-3)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DATCLK8</name>
+              <access>read-write</access>
+              <bitRange>[12:12]</bitRange>
+              <description>Data clock stretch by 8 clocks?</description>
+            </field>
+            <field>
+              <name>DATCRC</name>
+              <access>read-only</access>
+              <bitRange>[11:11]</bitRange>
+              <description>Data CRC error flag</description>
+            </field>
+            <field>
+              <name>SDDMODE</name>
+              <access>read-write</access>
+              <bitRange>[10:8]</bitRange>
+              <description>Data transfer mode</description>
+              <enumeratedValues>
+                <!-- Note, the MSB is always set for some reason, the remaining LSBs is the command itself -->
+                <enumeratedValue>
+                  <name>nop</name>
+                  <description>No operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>send</name>
+                  <description>Send data to card</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>receive</name>
+                  <description>Receive data from card</description>
+                  <value>6</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+
+            <field>
+              <name>CINT</name>
+              <access>read-only</access>
+              <bitRange>[7:7]</bitRange>
+              <description>Command interrupt status</description>
+            </field>
+            <field>
+              <name>CLR_CINT</name>
+              <access>write-only</access>
+              <bitRange>[6:6]</bitRange>
+              <description>Writing '1' clears a pending command interrupt</description>
+            </field>
+            <field>
+              <name>TIMEOUT</name>
+              <access>read-only</access>
+              <bitRange>[5:5]</bitRange>
+              <description>Command response timeout flag</description>
+            </field>
+            <field>
+              <name>CMDCLK8</name>
+              <access>read-write</access>
+              <bitRange>[4:4]</bitRange>
+              <description>Sends 8 clocks at somewhere in command phase?</description>
+            </field>
+            <field>
+              <name>CMDCRC</name>
+              <access>read-only</access>
+              <bitRange>[3:3]</bitRange>
+              <description>Command CRC error status</description>
+            </field>
+            <field>
+              <name>SDCMODE</name>
+              <access>write-only</access>
+              <bitRange>[2:0]</bitRange>
+              <description>Command transfer mode</description>
+              <enumeratedValues>
+                <!-- Note, the MSB is the busy check flag, the remaining LSBs is the command itself -->
+                <enumeratedValue>
+                  <name>nop</name>
+                  <description>No operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>resp48_busy</name>
+                  <description>48-bit response, checks busy signal</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>resp136_busy</name>
+                  <description>136-bit response, checks busy signal</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>noresp_busy</name>
+                  <description>No response, checks busy signal</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>resp48_nobusy</name>
+                  <description>48-bit response, does not check busy signal</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>resp136_nobusy</name>
+                  <description>136-bit response, does not check busy signal</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>noresp_nobusy</name>
+                  <description>No response, does not check busy signal</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>CON1</name>
+          <description>Control register 1</description>
+          <addressOffset>0x04</addressOffset>
+          <fields>
+            <field>
+              <name>SD_BAUD</name>
+              <access>read-write</access>
+              <bitRange>[15:8]</bitRange>
+              <description>Card clock divider, Fcard = Fbus / (N + 1)</description>
+            </field>
+            <field>
+              <name>DATIE</name>
+              <access>read-write</access>
+              <bitRange>[7:7]</bitRange>
+              <description>Enable data interrupt</description>
+            </field>
+            <field>
+              <name>CMDIE</name>
+              <access>read-write</access>
+              <bitRange>[6:6]</bitRange>
+              <description>Enable command interrupt</description>
+            </field>
+            <field>
+              <name>CLKALL</name>
+              <access>read-write</access>
+              <bitRange>[5:5]</bitRange>
+              <description>Always output card clock</description>
+            </field>
+            <field>
+              <name>CRCSTA</name>
+              <access>read-only</access>
+              <bitRange>[3:1]</bitRange>
+              <description>CRC status bits</description>
+            </field>
+            <field>
+              <name>SDCEN</name>
+              <access>read-write</access>
+              <bitRange>[0:0]</bitRange>
+              <description>Controller enable</description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>CON2</name>
+          <description>Control register 2</description>
+          <addressOffset>0x08</addressOffset>
+          <resetValue>0x0200</resetValue>
+          <resetMask>0x03FF</resetMask>
+          <fields>
+            <field>
+              <name>SDDCNT</name>
+              <access>read-write</access>
+              <bitRange>[8:0]</bitRange>
+              <description>Data block size, blksz = [SDDCNT] + 1</description>
+            </field>
+          </fields>
+        </register>
+
+        <register>
+          <name>CPTR</name>
+          <description>Command buffer address</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+
+        <register>
+          <name>DPTR</name>
+          <description>Data buffer address</description>
+          <addressOffset>0x10</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral derivedFrom="SD0">
+      <name>SD1</name>
+      <baseAddress>0x60614</baseAddress>
+
+      <interrupt>
+        <name>SD1</name>
+        <description>SD1 interrupt</description>
+        <value>15</value>
+      </interrupt>
+    </peripheral>
+
+    <!-- ================================================================= -->
+
+    <peripheral>
+      <name>LSMISC</name>
+      <description>Misc stuff on lowspeed bus</description>
+      <groupName>LSMISC</groupName>
+      <baseAddress>0x60900</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>PWM4_CON</name>
+          <description>4th PWM channel (?) control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>IRTC_CON</name>
+          <description>IRTC control register</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>IRFLT_CON</name>
+          <description>IR filter control register</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>AUDIO</name>
+      <description>Audio codec</description>
+      <groupName>AUDIO</groupName>
+      <baseAddress>0x60A00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>DAC_LEN</name>   <!-- DAC_LEN -->
+          <description>DAC buffer length</description>
+          <addressOffset>0x00</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>DAC_CON</name>   <!-- DAC_CON -->
+          <description>DAC control register</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>DAC_ADR</name>   <!-- DAC_ADR -->
+          <description>DAC buffer address</description>
+          <addressOffset>0x08</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>DAC_TRML</name>   <!-- DAC_TRML -->
+          <description>DAC left channel trim</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>8</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>DAC_TRMR</name>   <!-- DAC_TRMR -->
+          <description>DAC right channel trim</description>
+          <addressOffset>0x10</addressOffset>
+          <size>8</size>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>LADC_CON</name>   <!-- LADC_CON -->
+          <description>LADC control register</description>
+          <addressOffset>0x20</addressOffset>
+        </register>
+        <register>
+          <name>LADC_ADR</name>   <!-- LADC_ADR -->
+          <description>LADC buffer address</description>
+          <addressOffset>0x2C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>LADC_LEN</name>   <!-- LADC_LEN -->
+          <description>LADC buffer length</description>
+          <addressOffset>0x30</addressOffset>
+          <size>16</size>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>DAA_CON0</name>   <!-- DAA_CON0 -->
+          <description>D-A analog control register 0</description>
+          <addressOffset>0x40</addressOffset>
+        </register>
+        <register>
+          <name>DAA_CON1</name>   <!-- DAA_CON1 -->
+          <description>D-A analog control register 1</description>
+          <addressOffset>0x44</addressOffset>
+        </register>
+        <register>
+          <name>DAA_CON2</name>   <!-- DAA_CON2 -->
+          <description>D-A analog control register 2</description>
+          <addressOffset>0x48</addressOffset>
+        </register>
+        <register>
+          <name>DAA_CON3</name>   <!-- DAA_CON3 -->
+          <description>D-A analog control register 3</description>
+          <addressOffset>0x4C</addressOffset>
+        </register>
+        <register>
+          <name>DAA_CON4</name>   <!-- DAA_CON4 -->
+          <description>D-A analog control register 2</description>
+          <addressOffset>0x50</addressOffset>
+          <size>8</size>
+        </register>
+        <register>
+          <name>DAA_CON5</name>   <!-- DAA_CON5 -->
+          <description>D-A analog control register 5</description>
+          <addressOffset>0x54</addressOffset>
+          <size>8</size>
+        </register>
+
+        <register>
+          <name>ADA_CON0</name>   <!-- ADA_CON0 -->
+          <description>A-D analog control register 0</description>
+          <addressOffset>0x80</addressOffset>
+        </register>
+        <register>
+          <name>ADA_CON1</name>   <!-- ADA_CON1 -->
+          <description>A-D analog control register 1</description>
+          <addressOffset>0x84</addressOffset>
+        </register>
+        <register>
+          <name>ADA_CON2</name>   <!-- ADA_CON2 -->
+          <description>A-D analog control register 2</description>
+          <addressOffset>0x88</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>ALNK</name>
+      <description>Serial audio link (I2S)</description>
+      <groupName>ALNK</groupName>
+      <baseAddress>0x60B00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x20</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON0</name>   <!-- ALNK_CON0 -->
+          <description>Control register 0</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>CON1</name>   <!-- ALNK_CON1 -->
+          <description>Control register 1</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>CON2</name>   <!-- ALNK_CON2 -->
+          <description>Control register 2</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+
+        <register>
+          <name>ADR0</name>   <!-- ALNK_ADR0 -->
+          <description>DAT0 buffer base address</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>ADR1</name>   <!-- ALNK_ADR1 -->
+          <description>DAT1 buffer base address</description>
+          <addressOffset>0x10</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>ADR2</name>   <!-- ALNK_ADR2 -->
+          <description>DAT2 buffer base address</description>
+          <addressOffset>0x14</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>ADR3</name>   <!-- ALNK_ADR3 -->
+          <description>DAT3 buffer base address</description>
+          <addressOffset>0x18</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>LEN</name>   <!-- ALNK_LEN -->
+          <description>Buffer length</description>
+          <addressOffset>0x1C</addressOffset>
+          <access>write-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>NFC</name>
+      <description>ISO-14993 NFC</description>
+      <groupName>NFC</groupName>
+      <baseAddress>0x60C00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x20</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON0</name>   <!-- NFC_CON0 -->
+          <description>Control register 0</description>
+          <addressOffset>0x04</addressOffset>
+          <size>32</size>  <!-- really? -->
+        </register>
+        <register>
+          <name>CON1</name>   <!-- NFC_CON1 -->
+          <description>Control register 1</description>
+          <addressOffset>0x08</addressOffset>
+          <size>32</size>  <!-- really? -->
+        </register>
+        <register>
+          <name>CON2</name>   <!-- NFC_CON2 -->
+          <description>Control register 2</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>32</size>  <!-- really? -->
+        </register>
+
+        <register>
+          <name>BUF0</name>   <!-- NFC_BUF0 -->
+          <description>Data buffer 0</description>
+          <addressOffset>0x10</addressOffset>
+          <size>32</size>  <!-- really? -->
+        </register>
+        <register>
+          <name>BUF1</name>   <!-- NFC_BUF1 -->
+          <description>Data buffer 1</description>
+          <addressOffset>0x14</addressOffset>
+          <size>32</size>  <!-- really? -->
+        </register>
+        <register>
+          <name>BUF2</name>   <!-- NFC_BUF2 -->
+          <description>Data buffer 2</description>
+          <addressOffset>0x18</addressOffset>
+          <size>32</size>  <!-- really? -->
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>BUF3</name>   <!-- NFC_BUF3 -->
+          <description>Data buffer 3</description>
+          <addressOffset>0x1C</addressOffset>
+          <size>32</size>  <!-- really? -->
+          <access>write-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>USB</name>
+      <description>Full-speed dual role USB controller</description>
+      <groupName>USB</groupName>
+      <baseAddress>0x60D00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>IO_CON</name>   <!-- USB_IO_CON -->
+          <description>USB IO port control</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+
+        <register>
+          <name>CON0</name>   <!-- USB_CON0 -->
+          <description>USB control register 0</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>CON1</name>   <!-- USB_CON1 -->
+          <description>USB control register 1</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+
+        <register>
+          <name>EP0_CNT</name>   <!-- USB_EP0_CNT -->
+          <description>USB endpoint 0 TX byte count</description>
+          <addressOffset>0x0C</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>EP1_CNT</name>   <!-- USB_EP1_CNT -->
+          <description>USB endpoint 1 TX byte count</description>
+          <addressOffset>0x10</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>EP2_CNT</name>   <!-- USB_EP2_CNT -->
+          <description>USB endpoint 2 TX byte count</description>
+          <addressOffset>0x14</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>EP3_CNT</name>   <!-- USB_EP3_CNT -->
+          <description>USB endpoint 3 TX byte count</description>
+          <addressOffset>0x18</addressOffset>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>EP0_ADR</name>   <!-- USB_EP0_ADR -->
+          <description>USB endpoint 0 buffer base address</description>
+          <addressOffset>0x1C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>EP1_TADR</name>   <!-- USB_EP1_TADR -->
+          <description>USB endpoint 1 TX buffer base address</description>
+          <addressOffset>0x20</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>EP1_RADR</name>   <!-- USB_EP1_RADR -->
+          <description>USB endpoint 1 RX buffer base address</description>
+          <addressOffset>0x24</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>EP2_TADR</name>   <!-- USB_EP2_TADR -->
+          <description>USB endpoint 2 TX buffer base address</description>
+          <addressOffset>0x28</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>EP2_RADR</name>   <!-- USB_EP2_RADR -->
+          <description>USB endpoint 2 RX buffer base address</description>
+          <addressOffset>0x2C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <name>EP3_TADR</name>   <!-- USB_EP3_TADR -->
+          <description>USB endpoint 3 TX buffer base address</description>
+          <addressOffset>0x30</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>EP3_RADR</name>   <!-- USB_EP3_RADR -->
+          <description>USB endpoint 3 RX buffer base address</description>
+          <addressOffset>0x34</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>CRC</name>
+      <description>CRC16-CCITT</description>
+      <groupName>CRC</groupName>
+      <baseAddress>0x60E00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x08</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>FIFO</name>   <!-- CRC_FIFO -->
+          <description>Data input FIFO(?)</description>
+          <addressOffset>0x00</addressOffset>
+          <access>write-only</access>
+          <size>8</size>
+        </register>
+        <register>
+          <name>REG</name>   <!-- CRC_REG -->
+          <description>CRC register (writing 0x6EA5 unlocks some stuff like MODE_CON or WDT_CON!)</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>RAND</name>
+      <description>64-bit random number generator</description>
+      <groupName>RAND64</groupName>
+      <baseAddress>0x60F00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x08</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>R64L</name>   <!-- RAND64L -->
+          <description>Low 32-bits of the random result</description>
+          <addressOffset>0x00</addressOffset>
+          <access>read-only</access>
+          <size>32</size>
+        </register>
+        <register>
+          <name>R64H</name>   <!-- RAND64H -->
+          <description>High 32-bits of the random result</description>
+          <addressOffset>0x04</addressOffset>
+          <access>read-only</access>
+          <size>32</size>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>ADC</name>
+      <description>Generic 10-bit ADC</description>
+      <groupName>ADC</groupName>
+      <baseAddress>0x61000</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x08</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- ADC_CON -->
+          <description>Control register 0</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>RES</name>   <!-- ADC_RES -->
+          <description>Conversion result</description>
+          <addressOffset>0x04</addressOffset>
+          <access>read-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>PLCNT</name>
+      <description>Pulse counter</description>
+      <groupName>PLCNT</groupName>
+      <baseAddress>0x61100</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x08</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- PLCNTCON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <size>8</size>
+        </register>
+        <register>
+          <name>VL</name>   <!-- PLCNTVL -->
+          <description>Count value</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>PD</name>
+      <description>Power down control</description>
+      <groupName>PD</groupName>
+      <baseAddress>0x61200</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x08</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- PD_CON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <size>16</size>
+        </register>
+        <register>
+          <name>DAT</name>   <!-- PD_DAT -->
+          <description>Data buffer</description>
+          <addressOffset>0x04</addressOffset>
+          <size>8</size>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>CTM</name>
+      <description>Charge time measurement unit</description>
+      <groupName>CTM</groupName>
+      <baseAddress>0x61300</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0C</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+         <register>
+          <name>CON0</name>   <!-- CTM_CON0 -->
+          <description>Control register 0</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>CON1</name>   <!-- CTM_CON1 -->
+          <description>Control register 1</description>
+          <addressOffset>0x04</addressOffset>
+          <size>32</size>
+        </register>
+        <register>
+          <name>RES</name>   <!-- CTM_RES -->
+          <description>Result register</description>
+          <addressOffset>0x08</addressOffset>
+          <access>read-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>SPDET</name>
+      <description>Speed detector thing</description>
+      <groupName>SPDET</groupName>
+      <baseAddress>0x61400</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+    </peripheral>
+
+    <peripheral>
+      <name>WLA</name>
+      <description>WL (Bluetooth) analog control</description>
+      <groupName>WLA</groupName>
+      <baseAddress>0x61C00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+    </peripheral>
+
+    <peripheral>
+      <name>FMA</name>
+      <description>FM receiver analog control</description>
+      <groupName>FMA</groupName>
+      <baseAddress>0x61D00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+    </peripheral>
+
+    <!-- ================================>
+    |  High-speed bus (0x70000-0x7FFFF)  |
+    <================================= -->
+
+    <peripheral>
+      <name>CPU</name>
+      <description>CPU or like peripherals</description>
+      <groupName>CPU</groupName>
+      <baseAddress>0x70000</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <size>32</size>
+
+      <registers>
+        <!-- JL_DSP -->
+        <register>
+          <name>DSP_CON</name>   <!-- DSPCON -->
+          <description>DSP control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+
+        <!-- JL_NVIC -->
+        <register>
+          <dim>2</dim>
+          <dimIncrement>0x0C</dimIncrement>
+          <name>ILAT%s</name>   <!-- ILATx -->
+          <description>Interrupt latch status</description>
+          <addressOffset>0x04</addressOffset>
+          <access>read-only</access>
+        </register>
+        <register>
+          <dim>2</dim>
+          <dimIncrement>0x0C</dimIncrement>
+          <name>ILAT%s_SET</name>   <!-- ILATx_SET -->
+          <description>Interrupt latch set bits</description>
+          <addressOffset>0x08</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <dim>2</dim>
+          <dimIncrement>0x0C</dimIncrement>
+          <name>ILAT%s_CLR</name>   <!-- ILATx_CLR -->
+          <description>Interrupt latch clear bits</description>
+          <addressOffset>0x0C</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <dim>4</dim>
+          <dimIncrement>0x04</dimIncrement>
+          <name>IPCON%s</name>   <!-- IPCONx -->
+          <description>Interrupt priority control</description>
+          <addressOffset>0x1C</addressOffset>
+        </register>
+
+        <!-- JL_TICK -->
+        <register>
+          <name>TICK_CON</name>   <!-- TICK_TMR_CON -->
+          <description>Tick timer control register</description>
+          <addressOffset>0x40</addressOffset>
+          <size>8</size>
+        </register>
+        <register>
+          <name>TICK_CNT</name>   <!-- TICK_TMR_CNT -->
+          <description>Tick timer counter</description>
+          <addressOffset>0x44</addressOffset>
+        </register>
+        <register>
+          <name>TICK_PRD</name>   <!-- TICK_TMR_PRD -->
+          <description>Tick timer period</description>
+          <addressOffset>0x48</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>DEBUG</name>
+      <description>Debug-ish stuff</description>
+      <groupName>DEBUG</groupName>
+      <baseAddress>0x70100</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <size>32</size>
+
+      <registers>
+        <register>
+          <name>DSP_BF_CON</name>   <!-- DSP_BF_CON -->
+          <description>wa</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+
+        <register>
+          <name>WR_EN</name>   <!-- DEBUG_WR_EN -->
+          <description>wa</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+
+        <register>
+          <name>MSG</name>   <!-- DEBUG_MSG -->
+          <description>Debug message bits</description>
+          <addressOffset>0x08</addressOffset>
+          <access>read-only</access>
+        </register>
+        <register>
+          <name>MSG_CLR</name>   <!-- DEBUG_MSG_CLR -->
+          <description>Debug message bits clear</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+
+        <register>
+          <name>DSP_PC_LIMH</name>   <!-- DSP_PC_LIMH -->
+          <description>DSP program counter limit high</description>
+          <addressOffset>0x10</addressOffset>
+        </register>
+        <register>
+          <name>DSP_PC_LIML</name>   <!-- DSP_PC_LIML -->
+          <description>DSP program counter limit low</description>
+          <addressOffset>0x14</addressOffset>
+        </register>
+
+        <register>
+          <name>DSP_EX_LIMH</name>   <!-- DSP_EX_LIMH -->
+          <description>DSP ex(?) limit high</description>
+          <addressOffset>0x18</addressOffset>
+        </register>
+        <register>
+          <name>DSP_EX_LIML</name>   <!-- DSP_EX_LIML -->
+          <description>DSP ex(?) limit low</description>
+          <addressOffset>0x1C</addressOffset>
+        </register>
+
+        <register>
+          <name>PRP_EX_LIMH</name>   <!-- PRP_EX_LIMH -->
+          <description>PRP ex(?) limit high</description>
+          <addressOffset>0x20</addressOffset>
+        </register>
+        <register>
+          <name>PRP_EX_LIML</name>   <!-- PRP_EX_LIML -->
+          <description>PRP ex(?) limit low</description>
+          <addressOffset>0x24</addressOffset>
+        </register>
+
+        <register>
+          <name>PRP_MMU_MSG</name>   <!-- PRP_MMU_MSG -->
+          <description>wa</description>
+          <addressOffset>0x28</addressOffset>
+          <access>read-only</access>
+        </register>
+        <register>
+          <name>LSB_MMU_MSG_CH</name>   <!-- LSB_MMU_MSG_CH -->
+          <description>wa</description>
+          <addressOffset>0x2C</addressOffset>
+          <access>read-only</access>
+        </register>
+
+        <register>
+          <name>PRP_WR_LIMIT_MSG</name>   <!-- PRP_WR_LIMIT_MSG -->
+          <description>wa</description>
+          <addressOffset>0x30</addressOffset>
+          <access>read-only</access>
+        </register>
+        <register>
+          <name>LSB_WR_LIMIT_CH</name>   <!-- LSB_WR_LIMIT_CH -->
+          <description>wa</description>
+          <addressOffset>0x34</addressOffset>
+          <access>read-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>SFC</name>
+      <description>Serial flash controller</description>
+      <groupName>SFC</groupName>
+      <baseAddress>0x70200</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x10</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- SFC_CON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <size>32</size>
+        </register>
+        <register>
+          <name>BAUD</name>   <!-- SFC_BAUD -->
+          <description>Clock divider register</description>
+          <addressOffset>0x04</addressOffset>
+          <size>8</size>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>CODE</name>   <!-- SFC_CODE -->
+          <description>wa</description>
+          <addressOffset>0x08</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>BASE_ADR</name>   <!-- SFC_BASE_ADR -->
+          <description>Flash base address register</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>32</size>
+          <access>write-only</access>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>ENC</name>
+      <description>Enc-rypter</description>
+      <groupName>ENC</groupName>
+      <baseAddress>0x70300</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x14</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- ENC_CON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+          <size>8</size>
+        </register>
+        <register>
+          <name>KEY</name>   <!-- ENC_KEY -->
+          <description>Key register</description>
+          <addressOffset>0x04</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>ADR</name>   <!-- ENC_ADR -->
+          <description>ADR register</description>
+          <addressOffset>0x08</addressOffset>
+          <access>write-only</access>
+        </register>
+        <register>
+          <name>UNENC_ADRH</name>   <!-- SFC_UNENC_ADRH -->
+          <description>Unencrypted address range (high)</description>
+          <addressOffset>0x0C</addressOffset>
+          <size>32</size>
+        </register>
+        <register>
+          <name>UNENC_ADRL</name>   <!-- SFC_UNENC_ADRL -->
+          <description>Unencrypted address range (low)</description>
+          <addressOffset>0x10</addressOffset>
+          <size>32</size>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>AES</name>
+      <description>AES engine</description>
+      <groupName>AES</groupName>
+      <baseAddress>0x70500</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x2C</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <size>32</size>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- AES_CON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+
+        <register>
+          <name>DATIN</name>   <!-- AES_DATIN -->
+          <description>Input data register</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>KEY</name>   <!-- AES_KEY -->
+          <description>Key register</description>
+          <addressOffset>0x08</addressOffset>
+          <access>write-only</access>
+        </register>
+
+        <register>
+          <dim>4</dim>
+          <dimIncrement>4</dimIncrement>
+          <name>ENCRES%s</name>   <!-- AES_ENCRESx -->
+          <description>Encrypted result</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+        <register>
+          <dim>4</dim>
+          <dimIncrement>4</dimIncrement>
+          <name>DECRES%s</name>   <!-- AES_DECRESx -->
+          <description>Decrypted result</description>
+          <addressOffset>0x1C</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>FFT</name>
+      <description>Fast Fourier transform</description>
+      <groupName>FFT</groupName>
+      <baseAddress>0x70600</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x10</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <size>32</size>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- FFT_CON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>ADRI</name>   <!-- FFT_ADRI -->
+          <description>Input buffer base address</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>ADRO</name>   <!-- FFT_ADRO -->
+          <description>Output buffer base address</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+        <register>
+          <name>ADRW</name>   <!-- FFT_ADRW -->
+          <description>Window data base address</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>EQ</name>
+      <description>Equalizer</description>
+      <groupName>EQ</groupName>
+      <baseAddress>0x70700</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x14</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <size>32</size>
+
+      <registers>
+        <register>
+          <name>CON</name>   <!-- EQ_CON -->
+          <description>Control register</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>LEN</name>   <!-- EQ_LEN -->
+          <description>Buffer length</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>ADRI</name>   <!-- EQ_ADRI -->
+          <description>Input buffer base address</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+        <register>
+          <name>ADRO</name>   <!-- EQ_ADRO -->
+          <description>Output buffer base address</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+        <register>
+          <name>CADR</name>   <!-- EQ_CADR -->
+          <description>Coefficent(?) base address</description>
+          <addressOffset>0x10</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>SRC</name>
+      <description>Sampling rate converter</description>
+      <groupName>SRC</groupName>
+      <baseAddress>0x70800</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x24</size>
+        <usage>registers</usage>
+      </addressBlock>
+
+      <size>32</size>
+
+      <registers>
+        <register>
+          <name>CON0</name>   <!-- SRC_CON0 -->
+          <description>Control register 0</description>
+          <addressOffset>0x00</addressOffset>
+        </register>
+        <register>
+          <name>CON1</name>   <!-- SRC_CON1 -->
+          <description>Control register 1</description>
+          <addressOffset>0x04</addressOffset>
+        </register>
+        <register>
+          <name>CON2</name>   <!-- SRC_CON2 -->
+          <description>Control register 2</description>
+          <addressOffset>0x08</addressOffset>
+        </register>
+        <register>
+          <name>CON3</name>   <!-- SRC_CON3 -->
+          <description>Control register 3</description>
+          <addressOffset>0x0C</addressOffset>
+        </register>
+
+        <register>
+          <name>IDAT_ADR</name>   <!-- SRC_IDAT_ADR -->
+          <description>Input data buffer base address</description>
+          <addressOffset>0x10</addressOffset>
+        </register>
+        <register>
+          <name>IDAT_LEN</name>   <!-- SRC_IDAT_LEN -->
+          <description>Input data length</description>
+          <addressOffset>0x14</addressOffset>
+        </register>
+
+        <register>
+          <name>ODAT_ADR</name>   <!-- SRC_ODAT_ADR -->
+          <description>Output data buffer base address</description>
+          <addressOffset>0x18</addressOffset>
+        </register>
+        <register>
+          <name>ODAT_LEN</name>   <!-- SRC_ODAT_LEN -->
+          <description>Output data length</description>
+          <addressOffset>0x1C</addressOffset>
+        </register>
+
+        <register>
+          <name>FLTB_ADR</name>   <!-- SRC_FLTB_ADR -->
+          <description>FLTB base address</description>
+          <addressOffset>0x20</addressOffset>
+        </register>
+      </registers>
+    </peripheral>
+
+    <peripheral>
+      <name>FMRX</name>
+      <description>FM receiver (digital part)</description>
+      <groupName>FMRX</groupName>
+      <baseAddress>0x70900</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+    </peripheral>
+
+    <peripheral>
+      <name>MCPWM</name>
+      <description>Motor control PWM</description>
+      <groupName>MCPWM</groupName>
+      <baseAddress>0x70A00</baseAddress>
+
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x100</size>
+        <usage>registers</usage>
+      </addressBlock>
+    </peripheral>
+
+  </peripherals>
+</device>
