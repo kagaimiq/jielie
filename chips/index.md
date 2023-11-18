@@ -15,7 +15,7 @@
 
 ### Generic Audio
 
-- AC109N (CD002 / CD02?)
+- [AC109N (CD002 / CD02)](cd02/index.md#ac109n)
   - AC1082
   - AC1083
   - AC1085
@@ -28,11 +28,11 @@
 
 ### Bluetooth Audio
 
-- AC410N (AC4100)
+- [AC410N (CD03)](cd03/index.md#ac410n)
 - AC460N (BT15)
-- [AC461N (BC51?)](bc51/index.md#ac461n)
+- [AC461N (BC51)](bc51/index.md#ac461n)
 - [AC690N (BR17)](br17/index.md#ac690n)
-- AC691N (BR20)
+- [AC691N (BR20)](br20/index.md#ac691n)
 - [AC692N (BR21)](br21/index.md#ac692n)
 - AC693N (BR22)
 - [AC695N (BR23)](br23/index.md#ac695n)
@@ -101,7 +101,8 @@ Or a *design name*, or a project name...
 - HB01 (AC209N)
 - HB02 (AC309N)
 - HB03 (AC329N)
-- AC4100 (AC410N)
+- [CD02 (AC109N)](cd02/index.md)
+- [CD03 (AC410N)](cd03/index.md)
 - BT15 (AC460N)
 - [BC51 (AC461N)](bc51/index.md)
 - DV11 (AC530N)
@@ -112,7 +113,7 @@ Or a *design name*, or a project name...
 - BD29 (AC630N)
 - [BR17 (AC690N)](br17/index.md)
 - BR18 (AI800N)
-- BR20 (AC691N)
+- [BR20 (AC691N)](br20/index.md)
 - [BR21 (AC692N)](br21/index.md)
 - BR22 (AC693N)
 - [BR23 (AC695N, AC635N)](br23/index.md)
