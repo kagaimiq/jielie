@@ -5,7 +5,7 @@ The **AC695N** and **AC635N** chip series.
 - Series: **AC635N**, **AC695N**
 - CPU Core: [Pi32v2](../../cpu/index.md#pi32)
 - SRAM: 176k + 16k (192k total)
-- [Memory map](memmap.md)
+- [IO map](iomap.md), [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC695N

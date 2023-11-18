@@ -6,7 +6,7 @@
   - Rated clock: 240 MHz
 - SRAM: 64 KiB at least
 - SDRAM: 32 MiB seems like - DDR1 (AC56xx) or DDR2 (AC54xx)
-- [Memory map](memmap.md)
+- [IO map](iomap.md), [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC540N

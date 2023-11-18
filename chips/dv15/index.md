@@ -5,7 +5,7 @@
   - Rated clock: 200 MHz
 - SRAM: 64 KiB at least
 - SDRAM: 8 MiB seems like
-- [Memory map](memmap.md)
+- [IO map](iomap.md), [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC521N
