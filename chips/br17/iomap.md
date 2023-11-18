@@ -1,4 +1,4 @@
-# IO map of BR17
+# BR17 I/O function map
 
 | Pin   | func       | func        | func         | func      | func  | func    | func       | func       | func    | func        |
 |-------|------------|-------------|--------------|-----------|-------|---------|------------|------------|---------|-------------|
@@ -59,3 +59,109 @@ Note:
   - PD2 = MISO
   - PD3 = CS
 
+## By function
+
+### Timer
+
+| Timer |  0  |  1   |  2   |  3  |
+|-------|-----|------|------|-----|
+| TMR   | PA7 | PA14 | PB1  | PB7 |
+| CAP   |     | PC2  | PA15 | PA2 |
+| PWM   | PA1 |      | PB3  | PB4 |
+
+TMR is the timer's external clock input, CAP is the capture input and PWM is - guess what!
+
+### UART
+
+| UART0 |  A  |  B  |  C  |  D   |
+|-------|-----|-----|-----|------|
+| TX    | PA5 | PB6 | PC2 | PA14 |
+| RX    | PA6 | PB7 | PC3 | PA15 |
+
+| UART1 |  A  |  B  |  C  |   D   |
+|-------|-----|-----|-----|-------|
+| TX    | PB0 | PC0 | PA1 | USBDP |
+| RX    | PB1 | PC1 | PA2 | USBDM |
+
+| UART2 |  A  |  B   |  C   |  D  |
+|-------|-----|------|------|-----|
+| TX    | PA3 | PA9  | PB9  | PC4 |
+| RX    | PA4 | PA10 | PB10 | PC5 |
+
+### IIC
+
+| IIC |   A   |  B  |  C   |  D  |
+|-----|-------|-----|------|-----|
+| SCL | USBDP | PC4 | PA14 | PA5 |
+| SDA | USBDM | PC5 | PA15 | PA6 |
+
+### SPI
+
+| SPI0    |  A  |  B  |
+|---------|-----|-----|
+| CS      | PD3 | PB6 |
+| CLK     | PD0 | PB8 |
+| DO(0)   | PD1 | PB7 |
+| DI(1)   | PD2 | PB5 |
+| DAT2(2) |     | PB4 |
+| DAT3(3) |     | PB3 |
+
+| SPI1 |  A   |  B  |
+|------|------|-----|
+| CLK  | PB11 | PC4 |
+| DO   | PB12 | PC5 |
+| DI   | PB10 | PC3 |
+
+| SPI2 |  A  |  B  |
+|------|-----|-----|
+| CLK  | PB0 | PC0 |
+| DO   | PB1 | PC1 |
+| DI   | PB2 | PC2 |
+
+### SFC
+
+The SFC basically maps into the same pins as the SPI0.
+
+Unfortuneatly, later series does not expose all (or the least required) SFC function pins outside the Port D,
+thus making impossible to hook an external SPI flash like the internal one is hooked to the chip. Is this on purpose?
+
+| SFC     |  A  |  B  |
+|---------|-----|-----|
+| CS      | PD3 | PB6 |
+| CLK     | PD0 | PB8 |
+| DI(0)   | PD2 | PB5 |
+| DO(1)   | PD1 | PB7 |
+| DAT2(2) |     | PB4 |
+| DAT3(3) |     | PB3 |
+
+### SD
+
+| SD0  |  A   |  B   |
+|------|------|------|
+| CLK  | PA13 | PB12 |
+| CMD  | PA12 | PB11 |
+| DAT0 | PA11 | PB10 |
+| DAT1 | PA10 | PB9  |
+| DAT2 | PA9  | PB8  |
+| DAT3 | PA8  | PB7  |
+
+| SD1  |  A  |  B  |
+|------|-----|-----|
+| CLK  | PC5 | PB2 |
+| CMD  | PC4 | PB1 |
+| DAT0 | PC3 | PB0 |
+| DAT1 | PC2 | PB3 |
+| DAT2 | PC1 | PB4 |
+| DAT3 | PC0 | PB5 |
+
+### ALNK
+
+| ALNK |  A   |  B  |
+|------|------|-----|
+| MCLK | PA15 | PB6 |
+| SCLK | PA9  | PB0 |
+| LRCK | PA10 | PB1 |
+| DAT0 | PA11 | PB2 |
+| DAT1 | PA12 | PB3 |
+| DAT2 | PA13 | PB4 |
+| DAT3 | PA14 | PB5 |
