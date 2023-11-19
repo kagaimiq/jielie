@@ -2,7 +2,9 @@
 
 - Series: **AC109N**
 - CPU Core: [JL-8051](../../cpu/index.md#8051)
-- [IO map](iomap.md)
+- Additional info:
+  - [IO map](iomap.md)
+  - [SFR list](sfr.md)
 
 # AC109N
 
