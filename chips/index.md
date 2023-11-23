@@ -76,7 +76,7 @@
 - AC64N
 - AC81N
 - AC91N
-- AC104N
+- AC104N - maybe that's AD104N
 - AC812N
 - AC889N
 - AC890N
@@ -124,6 +124,7 @@ Or a *design name*, or a project name...
 - BR36 (AC700N)
 - WL80 (AC790N)
 - WL82 (AC791N)
+- [SH50 (AD100)](sh50/index.md)
 - SH54 (AD14N, AD104N)
 - SH55 (AD15N, AD105N)
 
