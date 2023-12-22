@@ -5,7 +5,7 @@
 | PA0   |            |             |              |           |       |         |            | SEG0       |         |             |
 | PA1   |            |             |              |           |       | PWM0    | UART1_TX.C | SEG1       | Touch8  | AMUX0L      |
 | PA2   |            |             |              |           |       | CAP3    | UART1_RX.C | SEG2       | Touch9  | AMUX0R      |
-| PA3   |            |             |              |           | ADC0  |         | UART2_TX.A | SEG3       | Touch10 | AMUX1L      |
+| PA3   | ISP_CLK    |             |              |           | ADC0  |         | UART2_TX.A | SEG3       | Touch10 | AMUX1L      |
 | PA4   |            |             |              |           | ADC1  |         | UART2_RX.A | SEG4       | Touch11 | AMUX1R      |
 | PA5   |            |             |              | IIC_SCL.D | ADC2  |         | UART0_TX.A | SEG5       | Touch12 |             |
 | PA6   |            |             |              | IIC_SDA.D | ADC3  |         | UART0_RX.A | SEG6       | Touch13 |             |
@@ -48,8 +48,8 @@
 | PR3   | LP Reset   | OSCO_12     |              |           |       |         |            |            |         |             |
 | OSCI  |            | OSCI_32K    |              |           |       |         |            |            |         |             |
 | HOSCI |            | OSCI_12     |              |           |       |         |            |            |         |             |
-| USBDP |            |             |              | IIC_SCL.A |       |         | UART1_TX.D |            |         |             |
-| USBDM |            |             |              | IIC_SDA.A |       |         | UART1_RX.D |            |         |             |
+| USBDP | ISP_DI     |             |              | IIC_SCL.A |       |         | UART1_TX.D |            |         |             |
+| USBDM | ISP_DO     |             |              | IIC_SDA.A |       |         | UART1_RX.D |            |         |             |
 
 Note:
 - Functions that are *italic* is these which were not clearly mentioned in the docs, etc...
