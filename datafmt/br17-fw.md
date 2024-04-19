@@ -1,6 +1,6 @@
 # BR17 firmware structure
 
-**Almost competed!**
+**Almost completed!**
 
 This describes the structure of a firmware format used for (at least) the BR17, BR20 and BR21 chip families. (AC690x, AC691x and AC692x series resp.)
 
@@ -74,22 +74,45 @@ The key used is 0xFFFF, which is really used in all chunks encrypted with this m
 000000f0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
 ```
 
-So, when decrypted the contents reveal this:
+When the header is decrypted, the following content is revealed:
 
 ```
-AC690N    18 00 F0 02 0A 01 00 00
-AC691N    18 00 F0 02 0A 01 00 00
-AC692N    18 00 F0 0A 0A 01 00 00
+00000000  cb 61 fd 3b 00 b0 06 00  fd ff ff ff 03 00 00 00  |.a.;............|
+00000010  00 00 00 00 00 00 00 00  18 00 f0 02 0a 01 00 00  |................|
+00000020  01 00 a1 58 00 02 00 00  50 c7 00 00 00 00 00 00  |...X....P.......|
+00000030  75 62 6f 6f 74 2e 62 6f  6f 74 00 00 00 00 00 00  |uboot.boot......|
+00000040  03 00 a1 7f 00 d0 00 00  00 02 00 00 01 00 00 00  |................|
+00000050  5f 5f 5f 5f 5f 2e 5f 5f  5f 5f 32 00 00 00 00 00  |_____.____2.....|
+00000060  02 00 4e 00 20 d7 00 00  00 d6 05 00 02 00 00 00  |..N. ...........|
+00000070  75 73 65 72 2e 61 70 70  00 00 00 00 00 00 00 00  |user.app........|
+00000080  70 64 63 3a 00 00 00 00  00 00 00 00 00 00 00 00  |pdc:............|
+00000090  70 64 6e 3a 6a 6c 5f 36  39 30 78 00 00 00 00 00  |pdn:jl_690x.....|
+000000a0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000b0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000c0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000d0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000e0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
+000000f0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
 ```
 
+At the very beginning, a [flash header](sdfile.md#flash-header) can be observed, which contains the following info:
+- `info1` → Size of the whole flash image
+- `info2` → unknown, 0xFFFFFFFD (-3)
+- `version1`, `version2` → always zero?
+- `chiptype` → the following:
+  * AC690N: `18 00 F0 02 0A 01 00 00`
+  * AC691N: *same as AC690N*
+  * AC692N: `18 00 F0 0A 0A 01 00 00`
 
-- `uboot.boot` (type 0x01) - the second-stage bootloder
-- `_____.____2` (type 0x03) - the additional file list
-- `user.app` (type 0x02) - the main app area itself
+Then, at offsets 0x20, 0x40 and 0x60 the [file headers](sdfile.md#flash-header) can be seen, which describe the following files:
+
+- `uboot.boot` (type 0x01) → the second-stage bootloader
+- `_____.____2` (type 0x03) → the additional file list
+- `user.app` (type 0x02) → the main app area itself
 
 #### pdc/pdn
 
-You might've noticed two 16-byte lines after these 128 bytes, what they are?
+You might've noticed two 16-byte lines after these 128 bytes, what these are?
 
 The first one, which starts with `pdc:` is followed by a byte, whose value is set to the value of the `UPVR_CTL` parameter in the ISD config.
 That parameter by itself has two possible values: 0 or 1, thus there it will also have a value of 0x00 or 0x01.
@@ -122,26 +145,27 @@ The `_____.____2` file contains additional file entries that were not listed in 
 ```
 
 The files listed there are:
- - `ver.bin` (type 0x05) - contains version info of libraries linked with the main app
- - `user.app` (type 0x02) - the main app area itself (once again)
- - `sys.cfg` (type 0x06) - system configuration
- - `spc.aer` (type 0x07) - special area definition
- - `chip_key.bin` (type 0x08) - obfuscated copy of a chipkey used to encrypt the main app area (how lame!)
+ - `ver.bin` (type 0x05) → Version info of the SDK, libraries, etc. (everything residing in the `.version` section)
+ - `user.app` (type 0x02) → The main app area
+ - `sys.cfg` (type 0x06) → System configuration
+ - `spc.aer` (type 0x07) → Special area definitions (VM, BTIF, etc.)
+ - `chip_key.bin` (type 0x08) → An obfuscated copy of a chipkey used for this image (how lame!)
 
 ### uboot.boot
 
-This file contains the second-stage bootloader, which is stored in an encrypted [BANKCB](bankcb.md) format.
+This file contains the second-stage bootloader, that is stored in an encrypted [BANKCB](bankcb.md) format.
 
-Actually, there are *two* BANKCB blobs, which are located next to each other.
-The first one is loaded by the Boot ROM, which then chainloads the second one and runs it.
+Actually, there are *two* BANKCB blobs, that are located next to each other.
+The first one is loaded by the Boot ROM, which chainloads the second blob right after the the first one.
 
 Even if the second blob's load address claims to be 0x01000000 or something like that,
-actually it is loaded next to the first blob.
+actually it is loaded next to the first blob, rather being e.g. mapped into the SFC map somehow.
 So if the first blob's load address is 0x2000 and size is 0x260, then the second blob is loaded at address 0x2260.
 
 ### ver.bin
 
-This contains version info of libraries linked with the main app.
+This file contains the version info of the SDK, libraries, etc.
+basically everything residing in the `.version` section, which is then consolidated into a single `ver.bin` file with the `link-version` utility in the toolchain.
 
 ```
 0000d200  2f 00 00 00 76 65 72 73  69 6f 6e 5f 73 74 61 72  |/...version_star|
@@ -168,7 +192,13 @@ This contains version info of libraries linked with the main app.
 This is where the main app lives in, along with its resources.
 
 This area is exposed into the CPU's memory map via [SFC](../ip/sfc.md), and it is encrypted.
-The encryption key depends on the chipkey that's burned into the chip, although in this case it's  actually derived from the `chip_key.bin` file, chipkey readout from the chip is done in order to check if they match or not..
+
+With the usual `uboot.boot` used in the firmware (i.e. practically everything) the key used to decrypt this area is actually taken from the `chipkey.bin` file,
+not directly from the chip's efuses. The readout from the efuses are only done in order to check if the key in the firmware and in the chip match.
+And even that is done in a rather quirky way: keys from the firmware and from the chip are ORed together, and checked whether they match the firmware key.
+This means that a firmware with a 0xFFFF key can work on any chip, despite the chips containing something other than 0xFFFF in most cases;
+and a chip with a totally burnt out key (i.e. 0x0000) can successfuly boot up any firmware with any chipkey.
+
 
 If this area is decrypted, then the following structure can be observed:
 
@@ -201,15 +231,45 @@ If this area is decrypted, then the following structure can be observed:
 The code file (`sdram.app`, `sdk.app`, or something else, perhaps) is always the first file and comes immediatly at the beginning, as the execution starts from address 0x01000000, where the user.app is mapped to.
 Thus, the file list is located at the very end of the area, so in order to know where it is located, you need to look into `sys.cfg` first.
 
+```
+0000d720  40 c6 0f c6 15 c6 1e c6  cb ea 34 00 4b ea e8 33  |@.........4.K..3|
+0000d730  c7 ea 34 00 47 ea e8 33  1c e1 60 1d 00 98 2f 11  |..4.G..3..`.../.|
+0000d740  80 ea 34 00 00 ea e8 2f  01 80 82 ea 00 00 02 ea  |..4..../........|
+0000d750  b4 17 b2 20 02 99 29 03  03 80 90 ee 22 20 13 c6  |... ..)....." ..|
+0000d760  02 80 0b 01 48 e8 01 40  5a 27 80 ea 34 00 00 ea  |....H..@Z'..4...|
+0000d770  80 00 81 ea 05 01 01 ea  06 24 82 ea 00 00 02 ea  |.........$......|
+
+....
+
+0006ab20  b3 0b 9a 53 00 d4 05 00  fd ff ff ff 08 00 00 00  |...S............|
+0006ab30  00 00 00 00 00 00 00 00  18 00 f0 02 0a 01 00 00  |................|
+0006ab40  00 00 bc 96 00 00 00 00  6e 53 05 00 00 00 00 00  |........nS......|
+0006ab50  73 64 72 61 6d 2e 61 70  70 00 ff ff ff ff ff ff  |sdram.app.......|
+0006ab60  00 00 da ce 00 54 05 00  b0 02 00 00 01 00 00 00  |.....T..........|
+0006ab70  62 74 5f 63 66 67 2e 62  69 6e 00 ff ff ff ff ff  |bt_cfg.bin......|
+0006ab80  00 00 7c c3 00 58 05 00  40 0b 00 00 02 00 00 00  |..|..X..@.......|
+0006ab90  66 61 73 74 5f 72 75 6e  2e 62 69 6e 00 ff ff ff  |fast_run.bin....|
+0006aba0  00 00 9b 09 00 64 05 00  dc 16 00 00 03 00 00 00  |.....d..........|
+0006abb0  62 74 2e 6d 70 33 00 ff  ff ff ff ff ff ff ff ff  |bt.mp3..........|
+0006abc0  00 00 42 85 00 7c 05 00  3c 0e 00 00 04 00 00 00  |..B..|..<.......|
+0006abd0  6d 75 73 69 63 2e 6d 70  33 00 ff ff ff ff ff ff  |music.mp3.......|
+0006abe0  00 00 42 e8 00 8c 05 00  fc 0e 00 00 05 00 00 00  |..B.............|
+0006abf0  63 6f 6e 6e 65 63 74 2e  6d 70 33 00 ff ff ff ff  |connect.mp3.....|
+0006ac00  00 00 20 dd 00 9c 05 00  3c 0b 00 00 06 00 00 00  |.. .....<.......|
+0006ac10  64 69 73 63 6f 6e 6e 65  63 74 2e 6d 70 33 00 ff  |disconnect.mp3..|
+0006ac20  00 00 ea 4d 00 a8 05 00  12 2b 00 00 07 00 00 00  |...M.....+......|
+0006ac30  6c 6f 77 5f 70 6f 77 65  72 2e 6d 70 33 00 ff ff  |low_power.mp3...|
+```
+
 The file list is once again an sydfs, although its header and file entries are not encrypted since it is already located in an encrypted area.
 
 Typical files found here:
- - `sdram.app`, `sdk.app`, etc. - the main code - should be the first one
- - `bt_cfg.bin`, `ac691x_cfg.bin`, etc. - the [bluetooth/SDK config](sdkcfg.md) file, contains stuff like bluetooth device names, power level and few other things
- - `bt_conn.mp3`, `power_on.mp3`, `music.mp3`, etc. - the voice/sound/audio/whatever prompts
- - `fast_run.bin` - a piece code loaded into RAM1 in order to do the bare minimum to run the main code when returning from deep sleep (present only on AC690N, as far as I can tell)
- - `f_ascii_s.pix`, `f_gb2312_s.pix`, `f_gb2312.tab`, etc. - the UI font files
- - `menu.res`, `ui_sty.sty` - the UI resource/style files
+ - `sdram.app`, `sdk.app`, etc. → the main code - should be the first one
+ - `bt_cfg.bin`, `ac691x_cfg.bin`, etc. → the [bluetooth/SDK config](sdkcfg.md) file, contains stuff like bluetooth device names, power level and few other things
+ - `bt_conn.mp3`, `power_on.mp3`, `music.mp3`, etc. → the voice/sound/audio/whatever prompts.
+ - `fast_run.bin` → a piece code loaded into RAM1 in order to do the bare minimum to run the main code when returning from deep sleep (present only on AC690N, as far as I can tell)
+ - `f_ascii_s.pix`, `f_gb2312_s.pix`, `f_gb2312.tab`, etc. → the UI font files
+ - `menu.res`, `ui_sty.sty` → the UI resource/style files
 
 ### sys.cfg
 
@@ -225,6 +285,16 @@ This file contains some system configuration stuff like flash SPI config, clock 
 ```
 
 An important thing to notice is that this file is also stored encrypted, and the "encryption state" actually follows the `user.app`, described above. Thus in order to decrypt sys.cfg you should know the chipkey and know how big user.app is..
+
+The example provided above thus is decrypted into following:
+
+```
+0006ad20  00 00 00 00 00 00 08 00  00 b0 06 00 00 d4 05 00  |................|
+0006ad30  0a a1 00 00 01 00 00 00  20 d7 00 00 00 00 00 00  |........ .......|
+0006ad40  60 d6 05 00 30 00 00 00  00 00 00 00 00 36 6e 01  |`...0........6n.|
+0006ad50  00 00 00 00 01 00 00 00  01 00 00 00 00 f0 06 00  |................|
+0006ad60  00 10 01 00
+```
 
 ### spc.aer
 
@@ -263,10 +333,10 @@ Each entry is 16 bytes long and contain information about the region name, its o
 I believe the "option flag" is used in the firmware update process (via a USB stick or SD card, via BFU files) in order to decide what to do with this area, e.g. in order to erase the VM, or something like that.
 
 Common regions are:
- - `PRCT` - Protect region, usually covers the entire flash image, and has a "protect area" option on it.
- - `BTIF` - Something Bluetooth related
- - `VMIF` - [VM region](vm.md)
- - `WTIF` - Something else related
+ - `PRCT` → Protect region, usually covers the entire flash image, and has a "protect area" option on it.
+ - `BTIF` → Something Bluetooth related
+ - `VMIF` → [VM region](vm.md)
+ - `WTIF` → Something else related
 
 These regions are configured in the `SPECIAL_AREA_[START|END]` block in the ISD config.
 There are three parameters related to each area:
@@ -350,7 +420,7 @@ Well, at offset +48 you can see the chip series name, which correspond to `AC690
 
 ### BOOT_START_FIRST
 
-Just 32 bytes before the end of a flash image, there is a space for a `BOOT_START_FIRST` string.
+Just 32 bytes before the end of a flash image, there is a space for a `BOOT_START_FIRST` tag.
 
 ```
 0006afc0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
@@ -365,6 +435,6 @@ Just 32 bytes before the end of a flash image, there is a space for a `BOOT_STAR
 ```
 
 This is used in order for uboot to set a "first boot flag" when entering the code in the main app area.
-This string is present only once, as it is erased to all 0x00's in order to not trigger the "first boot" each time the device turns on.
+This tag is present only once, as it is erased to all 0x00's in order to not trigger the "first boot" each time the device turns on.
 
-Whether this string is put into image or not is specified in the `BOOT_FIRST` parameter in the ISD config.
+Whether this tag is put into image or not is specified in the `BOOT_FIRST` parameter in the ISD config.
