@@ -13,6 +13,7 @@
 | PA7   | PWMCH1_A    | Wakeup8        | AVOUT          | UART3_RXA |            |           |
 | PA8   | UART3_TXB   | LINE_0R        | IIC_SDA_B      | Wakeup9   | PWMCH2_A   |           |
 | PA9   | UART3_RXB   | MIC            | PWM0           |           |            |           |
+| PA13  | UART1_RXA   | VPP            | PWM3           |           |            |           |
 | PD0   | SPI1_CLKB   | ADC12          | UART2_TXC      | CAP2      |            |           |
 | PD3   |             | SENSOR1_CLK_A  | SENSOR0_CLK_A  |           |            |           |
 | PD4   | UART0_TXD   | SENSOR1_HSYN_A | SENSOR0_HSYN_A |           |            |           |
@@ -64,10 +65,10 @@
 | TX    |     |     | PH12 | PD4 |
 | RX    |     |     |      | PD5 |
 
-| UART1 |  A  |  B  |  C  |  D  |
-|-------|-----|-----|-----|-----|
-| TX    |     | PH2 |     | PF2 |
-| RX    |     | PH5 |     | PF3 |
+| UART1 |  A   |  B  |  C  |  D  |
+|-------|------|-----|-----|-----|
+| TX    |      | PH2 |     | PF2 |
+| RX    | PA13 | PH5 |     | PF3 |
 
 | UART2 |  A  |  B  |  C  |  D  |
 |-------|-----|-----|-----|-----|
