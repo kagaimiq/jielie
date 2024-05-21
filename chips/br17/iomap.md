@@ -58,6 +58,9 @@ Note:
   - PD1 = MOSI
   - PD2 = MISO
   - PD3 = CS
+- Leftover info:
+  - Default pulldown: PA3, USBDP, USBDM
+  - Default pullup: PB4, PB6, PD3
 
 ## By function
 

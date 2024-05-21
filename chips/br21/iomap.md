@@ -48,3 +48,6 @@ Note:
   - PD1 = MOSI
   - PD2 = MISO
   - PD3 = CS
+- Leftover info:
+  - Default pulldown: USBDP, USBDM
+  - Default pullup: PD3, PR2, PR3
