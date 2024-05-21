@@ -2,7 +2,8 @@
 
 SPI (Serial Peripheral Interface) bus controller.
 
-_Note_: SPI0's DMA transfers can be encrypted with the [ENC](enc.md) block.
+The SPI0 is dedicated to the main SPI flash (and to a PSRAM chip in some cases), thus it supports the DSPI/QSPI (2/4-bit wide) mode, and also it has some special properties, namely:
+the DMA transfers can be (de)scrambled with the [ENC](enc.md) block (if enabled), and they also automatically feed the CRC16 calculation block.
 
 ## Registers
 
