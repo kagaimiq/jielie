@@ -189,14 +189,15 @@ basically everything residing in the `.version` section, which is then consolida
 
 ### user.app
 
-This is where the main app lives in, along with its resources.
+This area is exposed into the CPU's memory map via [SFC](../ip/sfc.md), and this is where the main app, along with all of its resources, live in.
 
-This area is exposed into the CPU's memory map via [SFC](../ip/sfc.md), and it is encrypted.
+It is also stored in encrypted form on the flash, in a form of 32-byte blocks with the key being XORed by the absolute CPU map address shifted two times right (i.e. `dkey = key ^ (addr >> 2)`).
+The reason for this approach is that the icache requests data in 32-byte blocks (which is the size of a single cache line),.
 
 With the usual `uboot.boot` used in the firmware (i.e. practically everything) the key used to decrypt this area is actually taken from the `chipkey.bin` file,
 not directly from the chip's efuses. The readout from the efuses are only done in order to check if the key in the firmware and in the chip match.
-And even that is done in a rather quirky way: keys from the firmware and from the chip are ORed together, and checked whether they match the firmware key.
-This means that a firmware with a 0xFFFF key can work on any chip, despite the chips containing something other than 0xFFFF in most cases;
+And even that is done in a rather quirky way: keys from the firmware and from the chip are ORed together, and then the result is checked against the firmware key.
+This means that a firmware with a 0xFFFF key can work on any chip, even if that particular chip has something other than 0xFFFF programmed into it,
 and a chip with a totally burnt out key (i.e. 0x0000) can successfuly boot up any firmware with any chipkey.
 
 
@@ -219,7 +220,7 @@ If this area is decrypted, then the following structure can be observed:
    |                        |
    :------------------------:
    .                        .
-   .                        .
+   .     Other files...     .
    .                        .
    .                        .
    :------------------------:   <==== pointed there by sys.cfg
@@ -228,8 +229,8 @@ If this area is decrypted, then the following structure can be observed:
 
 ```
 
-The code file (`sdram.app`, `sdk.app`, or something else, perhaps) is always the first file and comes immediatly at the beginning, as the execution starts from address 0x01000000, where the user.app is mapped to.
-Thus, the file list is located at the very end of the area, so in order to know where it is located, you need to look into `sys.cfg` first.
+The code file (`sdram.app`, `sdk.app`, or something else, perhaps) is always the first file and comes immediately at the beginning, because the execution always starts from the start of the SFC map.
+And because of that, the file list itself is located at the very end in this area, so in order to know where it is located, you need to look into `sys.cfg` first.
 
 ```
 0000d720  40 c6 0f c6 15 c6 1e c6  cb ea 34 00 4b ea e8 33  |@.........4.K..3|
@@ -262,6 +263,7 @@ Thus, the file list is located at the very end of the area, so in order to know 
 ```
 
 The file list is once again an sydfs, although its header and file entries are not encrypted since it is already located in an encrypted area.
+Another thing that should've probably noted too is that the addressing is done relatively to the start of the area.
 
 Typical files found here:
  - `sdram.app`, `sdk.app`, etc. → the main code - should be the first one
@@ -286,7 +288,7 @@ This file contains some system configuration stuff like flash SPI config, clock 
 
 An important thing to notice is that this file is also stored encrypted, and the "encryption state" actually follows the `user.app`, described above. Thus in order to decrypt sys.cfg you should know the chipkey and know how big user.app is..
 
-The example provided above thus is decrypted into following:
+Decrypting the example above reveals the following:
 
 ```
 0006ad20  00 00 00 00 00 00 08 00  00 b0 06 00 00 d4 05 00  |................|
@@ -330,7 +332,7 @@ Each entry is 16 bytes long and contain information about the region name, its o
  - u8: (reserved)
  - u16: CRC16 of the previous 14 bytes
 
-I believe the "option flag" is used in the firmware update process (via a USB stick or SD card, via BFU files) in order to decide what to do with this area, e.g. in order to erase the VM, or something like that.
+I believe the "option flag" is used in the firmware update process (e.g. via a USB stick or SD card) in order to decide what to do with this area, e.g. in order to erase the VM, or something like that.
 
 Common regions are:
  - `PRCT` → Protect region, usually covers the entire flash image, and has a "protect area" option on it.
@@ -352,7 +354,7 @@ There are three parameters related to each area:
 ### chip_key.bin
 
 This file contains an obfuscated copy of a chipkey used to encrypt the main app area.
-Right, they kept the key in the firmware blob! It's just obfuscated in such a manner that it won't make sense.
+That's right, they kept the key in the firmware blob! It's just obfuscated in such a manner that it won't make sense.
 
 ```
 0006adc0  3a cc b5 50 f0 6e c9 65  f7 be e3 38 60 1e 2e 51  |:..P.n.e...8`..Q|
@@ -361,7 +363,8 @@ Right, they kept the key in the firmware blob! It's just obfuscated in such a ma
 0006adf0  41 43 36 39 30 58 00 01  00 00 00 00 00 00 00 00  |AC690X..........|
 ```
 
-Actually, despite it's being reported as being 32 bytes long, it's actually 64 bytes long.
+Actually, despite it's being reported as being 32 bytes long, it's actually 64 bytes long - you can clearly see that in the example above.
+More on that later.
 
 #### chipkey encoding
 
@@ -372,7 +375,7 @@ The first 32 bytes encode the chipkey itself, and their usage is as follows:
 
 The chipkey is decoded as follows:
 
-First the sum of all 16 random bytes is obtained, with the example provided above it would be: 0x864.
+First the sum of the first 16 bytes is obtained, with the example provided above it would be: 0x864.
 Since the checksum is calculated into a 8-bit variable, the sum thus becomes 0x64.
 
 If the sum is below 0x10, it is set to 0x55. If it is above or equal to 0xE0, it is set 0xAA.
@@ -382,7 +385,7 @@ Then XOR the bytes 0-15 with bytes 16-31, where the latter is indexed backwards,
 In our case it will result in this byte string:
 `96 ed c7 b2 b7 0c ad 0c 25 35 3d 27 7b 56 8d da`
 
-Then it's a matter of subtracting the extracted byte with the sum that was calculated before:
+Then it's a matter of subtracting the extracted byte with the sum that we calculated before:
  - 0x96 - 0x64 = 50
  - 0xed - 0x64 = 137
  - 0xc7 - 0x64 = 99
@@ -416,7 +419,7 @@ Okay, we know the first 32 bytes is the chipkey itself, what are the rest?
 The first 2 bytes is actually the CRC16 of the first 32 bytes, which is what's actually checked by uboot (not the data CRC field in the file entry!)
 
 The rest is yet to be investigated.
-Well, at offset +48 you can see the chip series name, which correspond to `AC690X`, `AC691X` and `AC692X` series respectively.
+Well, at offset +48 you can see the chip series name, which in this case may contain `AC690X`, `AC691X` and `AC692X` respectively.
 
 ### BOOT_START_FIRST
 
@@ -437,4 +440,4 @@ Just 32 bytes before the end of a flash image, there is a space for a `BOOT_STAR
 This is used in order for uboot to set a "first boot flag" when entering the code in the main app area.
 This tag is present only once, as it is erased to all 0x00's in order to not trigger the "first boot" each time the device turns on.
 
-Whether this tag is put into image or not is specified in the `BOOT_FIRST` parameter in the ISD config.
+Whether this tag is put into image or not is specified in the `BOOT_FIRST` parameter of the ISD config.
