@@ -12,9 +12,9 @@ The transmission begins with a start bit, whose pulse doesn't matter as long as 
 
 Then the 16 bits of the key above is sent MSB-first, with the '0' bit signalled by a 1/5th periods pulse, and a '1' bit is signalled with a 4/5th periods pulse.
 
-The sequence ends with pulling the line high to end the last sent bit (the processing is one on the rising edges),
+The sequence ends with pulling the line high to complete the last sent bit (the processing is done on the rising edges),
 and finally the acknowledge from the chip is sampled.
-If the chip drives the line high, it means that the chip acknowledges the key transmission and now proceeds to enter the UART bootloader.
+If the chip drives the line high, it means that the chip has acknowledged the key reception and it now proceeds to enter the UART bootloader.
 
 ![UART key signal example](https://forumupload.ru/uploads/001b/ca/8a/3/268990.png)
 
