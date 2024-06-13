@@ -1,7 +1,6 @@
 # USB_KEY
 
-The chips usually contain a Mask ROM where the initial boot code is located in,
-that also contains a builtin USB bootloader.
+The chips have a Mask ROM that contains the initial boot code, alongside with a USB bootloader used to program the chip's flash, among other things.
 
 It can be invoked either by not letting it boot successfuly (by corrupting/erasing/disconnecting the flash)
 or by sending a special signal on the USB lines, which seems to be called "USB_KEY".
@@ -47,7 +46,7 @@ Here is a comparsion of three random resistors I decided to test for now:
 
 The USB download mode in the ROM expects an external crystal oscillator (a BT_OSC oscillator, or a RTC_OSCH one), whose frequency is auto-detected so it doesn't have to be strictly 24 or 12 MHz.
 
-Series like AC5xxx are presumeably running off some internal oscilaltor,
+Series like AC5xxx are presumeably running off some internal oscillator,
 and recent bluetooth series like AD697N presumeably can work without a crystal oscillator already.
 In other cases in order to get into the USB bootloader other methods are used, that being the [ISP_KEY](isp-key.md)
 
