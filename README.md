@@ -24,7 +24,8 @@ Although it seems like they now do print the actual chip names on some recent ch
 ## Contents
 
 - [Chips](chips/index.md) - Information about chips
-- [Boards and devices](boards/index.md) - Information about some boards and devices
+- [Boards](boards/index.md) - Information about some boards
+- [Devices](devices/index.md) - Information about some devices
 - [Peripheral blocks](periph/index.md) - Information about the peripheral blocks
 - [CPU cores](cpu/index.md) - Information about the CPU cores and architectures used in JieLi chips.
 - [Protocols](protos/index.md) - Information about some communication protocols.
