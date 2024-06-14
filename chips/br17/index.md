@@ -1,11 +1,18 @@
 # BR17
 
-The **AC690N** chip series. Originated from the AC46xx series...
-
 - Series: **AC690N**
-- CPU Core: [Pi32](../../cpu/index.md#pi32)
-- SRAM: 104k + 24k (128k total)
-- [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
+- CPU Core: [pi32](../../cpu/index.md#pi32) (specced at 160 MHz, clocks up to 240 MHz just fine)
+- SRAM: 144.5k in total:
+  * 104k of RAM0
+  * 16k of icache RAM
+  * 512-byte interrupt vector storage
+  * 24k of "non-volatile" RAM1
+- MaskROM: 10k
+  * here's the [dump](br17_50000.bin)
+- Additional info:
+  * [I/O function map](iomap.md)
+  * [IRQ map](irq.md)
+  * [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC690N

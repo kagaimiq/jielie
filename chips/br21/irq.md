@@ -1,6 +1,6 @@
 # IRQ map of BR21
 
-- Vector table is at **0x00000**
+- Vector table is at **0x00000** (first 256 bytes of RAM0)
 
 | #  | Vector  | SDK name  | Source                    |
 |----|---------|-----------|---------------------------|

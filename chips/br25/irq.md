@@ -1,6 +1,6 @@
 # IRQ map of BR25
 
-- Vector table is at **0x31F00**
+- Vector table is at **0x31F00** (last 256 bytes of RAM1)
 
 | #  | Vector  | SDK name  | Source                    |
 |----|---------|-----------|---------------------------|

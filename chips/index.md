@@ -1,7 +1,8 @@
 # Chips
 
-- [Pinout diagrams](pinout-diagrams/index.md)
-- [Chip markings](chip-marks.md)
+- [What do the chip markings mean](chip-marks.md)
+- [Pinout diagrams](pinout-diagrams/index.md) - far from complete
+- [Datasheets](datasheets.md) - for now for a few chips, linking to external resources..
 
 ## Chip series
 
@@ -130,8 +131,8 @@ Or a *design name*, or a project name...
 
 ## Misc chips
 
-- [AV10](misc/av10.md) - CVBS (PAL/NTSC .. no SECAM!) video decoder
-- FT33 (AC3433) - FM transmitter
+- [AV10](misc/av10.md) - CVBS (PAL/NTSC .. but not SECAM!) video decoder
+- FT33 (AC3433) - an FM transmitter chip
 
 ### to be determined
 

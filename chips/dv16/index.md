@@ -1,12 +1,12 @@
 # DV16
 
-- Series: **AC540N**, **AC560N**
-- CPU core: [Pi32v2](../../cpu/index.md#pi32v2)
-  - Dual core
-  - Rated clock: 240 MHz
+- Series: **AC540N** and **AC560N**
+- CPU core: dual-core [pi32v2](../../cpu/index.md#pi32v2), rated at 240 MHz
 - SRAM: 64 KiB at least
 - SDRAM: 32 MiB seems like - DDR1 (AC56xx) or DDR2 (AC54xx)
-- [IO map](iomap.md), [Memory map](memmap.md)
+- Additional info:
+  * [I/O function map](iomap.md)
+  * [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC540N

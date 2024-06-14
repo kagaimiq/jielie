@@ -4,6 +4,9 @@ The **AC520N** chip series for video cameras (mainly dashcams, but [not quite](.
 
 - Series: **AC520N**
 - CPU core: [Blackfin](../../cpu/index.md#blackfin)
+- SDRAM: 8 MiB SDR
+- Additional info:
+  - [Memory map](memmap.md) (incomplete)
 
 --------------------------------------------------------------------------------
 # AC520N

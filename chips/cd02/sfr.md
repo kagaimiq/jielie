@@ -26,7 +26,7 @@
 | 0x91    | PWR_CON      | Power control register             |
 | 0x92    | WDT_CON      | Watchdog control register          |
 | 0x93    | BANK_SEL     | Bank select                        |
-| 0x94    | PBANK        | Program bank?                      |
+| 0x94    | PBANK        | PDATA bank? (as the P2 is used as an actual I/O port) |
 | 0x95    | IE1          | Interrupt enable register 1        |
 | 0x96    | IO_MC0       | I/O map control register 0         |
 | 0x97    | IO_MC1       | I/O map control register 1         |

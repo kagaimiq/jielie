@@ -1,13 +1,20 @@
 # BR23
 
-The **AC695N** and **AC635N** chip series.
-
-- Series: **AC635N**, **AC695N**
-- CPU Core: [Pi32v2](../../cpu/index.md#pi32)
-- SRAM: 176k + 16k (192k total)
-- [IO map](iomap.md), [Memory map](memmap.md)
+- Series: **AC695N** and **AC635N**
+- CPU Core: [pi32v2](../../cpu/index.md#pi32)
+- SRAM: 208k in total:
+  * 176k of RAM0
+  * 16k of "non-volatile" RAM1
+  * 16k of icache RAM
+  * a portion of it is used for interrupt vector table
+  * first 16k of RAM0 are occupied by a data cache when e.g. using PSRAM.
+- MaskROM: 10k
+- Additional info:
+  * [I/O function map](iomap.md)
+  * [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
+
 # AC695N
 
 ## Chip feature table
@@ -69,3 +76,7 @@ The **AC695N** and **AC635N** chip series.
 - Package: QFN32 4x4mm
 - [Datasheet](https://www.lenzetech.com/public/store/pdf/jsggs/AC6956F%20Datasheet%20V1.2.pdf)
 - Quadro (4 channel) DAC
+
+# AC635N
+
+The AC695N series that likely to have a defective analog audio part, so the package real estate is instead used for additional GPIO pins compared to their audio-enabled counterparts.

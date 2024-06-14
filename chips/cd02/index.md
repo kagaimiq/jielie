@@ -1,10 +1,13 @@
 # CD02
 
 - Series: **AC109N**
-- CPU Core: [JL-8051](../../cpu/index.md#8051)
+- CPU core: [JL-8051](../../cpu/index.md#8051)
+- SRAM: 16k + 256-byte 8051 IDATA
+- OTP PROM: 16k
+- Mask ROM: 32k?
 - Additional info:
-  - [IO map](iomap.md)
-  - [SFR list](sfr.md)
+  * [I/O function map](iomap.md)
+  * [SFR list](sfr.md)
 
 # AC109N
 

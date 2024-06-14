@@ -1,11 +1,18 @@
 # BR21
 
-The **AC692N** chip series.
-
 - Series: **AC692N**
-- CPU Core: [Pi32](../../cpu/index.md#pi32)
-- SRAM: 64k + 64k (128k total), last 16k of SRAM1 is reserved for the icache.
-- [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
+- CPU Core: [pi32](../../cpu/index.md#pi32)
+- SRAM: 128k in total:
+  * 64k of RAM0
+  * 64k of "non-volatile" RAM1
+  * first 256 bytes of RAM0 are used for the interrupt vector table
+  * last 16k of RAM1 are reseved for the icache (and so are inaccessible when running off flash)
+- MaskROM: 10k
+  * here's the [dump](br21_20000.bin)
+- Additional info
+  * [I/O function map](iomap.md)
+  * [IRQ map](irq.md)
+  * [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
 # AC692N

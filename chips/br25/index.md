@@ -1,11 +1,27 @@
 # BR25
 
-- Series: **AC636N**, **AC696N**, **AC608N**
-- CPU Core: [Pi32v2](../../cpu/index.md#pi32)
-- SRAM: 136k (probably 128k + 8k)
-- [IO map](iomap.md), [IRQ map](irq.md), [Memory map](memmap.md)
+- Series: **AC696N** and **AC636N**, likely **AC608N** too
+- CPU Core: [pi32v2](../../cpu/index.md#pi32)
+- SRAM: 153.5k in total:
+  * 128k of RAM0
+  * 16k of RAM1
+  * some more extra 1.5k following RAM1
+  * 16k of icache RAM
+- MaskROM: 32k
+  * System boot code
+  * USB bootloader, UART bootloader
+  * FreeRTOS bits
+  * LZ4 decompression lib
+  * some other stuff
+  * see the [rom listing](https://github.com/jiang20082233/AC6966B-JBD/blob/696X/SDK/cpu/br25/tools/rom.lst)
+  * here's the [dump](br25_110000.bin), too (likely redundant due to existence of a listing above, though)
+- Additional info:
+  * [I/O function map](iomap.md)
+  * [IRQ map](irq.md)
+  * [Memory map](memmap.md)
 
 --------------------------------------------------------------------------------
+
 # AC696N
 
 ## Chip feature table
@@ -75,3 +91,7 @@
 ### AC6969H
 
 - Package: SOP16
+
+# AC636N
+
+Audio-less versions of AC696N chips.

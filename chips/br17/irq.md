@@ -1,6 +1,6 @@
 # IRQ map of BR17
 
-- Vector table is at **0x1E000**
+- Vector table is at **0x1E000** (a dedicated 512-byte SRAM)
 
 | #  | Vector  | SDK name  | Source                    |
 |----|---------|-----------|---------------------------|
