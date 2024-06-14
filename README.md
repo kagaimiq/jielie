@@ -6,7 +6,7 @@
 
 --------------------------------------------------------------------------------
 
-JieLi (杰理, "π", "JL", "Jerry" | "jelly", 光) is a company that was based in year 2010 in the ZhuHai city of Guangdong province, China.
+JieLi Technology ('杰理' aka "Jerry", "π" // "jelly", 光) is a company that was based in year 2010 in the ZhuHai city of Guangdong province, China.
 
 Their chips can be found in various cheap MP3 players, Bluetooth speakers, Bluetooth/MP3 modules, dash cams and so on.
 (along with other companies like "Jianrong" Appotech/Buildwin, "AB" Bluetrum, MVSilicon, Beken, RDA, etc.)
@@ -25,9 +25,12 @@ Although it seems like they now do print the actual chip names on some recent ch
 
 - [Chips](chips/index.md) - Information about chips
 - [Boards and devices](boards/index.md) - Information about some boards and devices
-- [IP blocks](ip/index.md) - Information about the IP blocks
-- [CPU cores](cpu/index.md) - Information about the CPU cores
-- [Some links](specilinks.md) - Some links to some JieLi-related stuff.
-- [Protocols](protos/index.md) - Protocols informations
+- [Peripheral blocks](periph/index.md) - Information about the peripheral blocks
+- [CPU cores](cpu/index.md) - Information about the CPU cores and architectures used in JieLi chips.
+- [Protocols](protos/index.md) - Information about some communication protocols.
 - [Misc stuff](misc/index.md) - Various other information and stuff (until I find a proper place for them, I guess)
-- [Data formats](datafmt/index.md) - Information about various data formats
+- [Data formats](datafmt/index.md) - Information about various data format and structures used in JieLi chips.
+
+## See also
+
+- [Some links](specilinks.md) to JieLi-related resources and stuff.

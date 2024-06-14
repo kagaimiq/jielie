@@ -52,7 +52,7 @@ Note that every "file" is aligned on a 512-byte boundary.
 
 ### Top-level file list
 
-The flash begins with 128 bytes of some "garbage", which is, in fact, four 32-byte blocks encrypted with a simple LFSR-based stream cipher algorithm used by the [ENC](/ip/enc.md) block.
+The flash begins with 128 bytes of some "garbage", which is, in fact, four 32-byte blocks encrypted with a simple LFSR-based stream cipher algorithm used by the [ENC](../periph/enc.md) block.
 The key used is 0xFFFF, which is really used in all chunks encrypted with this method (except the main "user.app" block, more on that later.)
 
 ```
@@ -189,7 +189,7 @@ basically everything residing in the `.version` section, which is then consolida
 
 ### user.app
 
-This area is exposed into the CPU's memory map via [SFC](../ip/sfc.md), and this is where the main app, along with all of its resources, live in.
+This area is exposed into the CPU's memory map via [SFC](../periph/sfc.md), and this is where the main app, along with all of its resources, live in.
 
 It is also stored in encrypted form on the flash, in a form of 32-byte blocks with the key being XORed by the absolute CPU map address shifted two times right (i.e. `dkey = key ^ (addr >> 2)`).
 The reason for this approach is that the icache requests data in 32-byte blocks (which is the size of a single cache line),.

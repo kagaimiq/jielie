@@ -1,4 +1,4 @@
-# IP blocks
+# Peripheral blocks
 
 ## IIC
 
