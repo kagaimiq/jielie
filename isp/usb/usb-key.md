@@ -42,16 +42,6 @@ So in order to guarantee correct sensing of the acknowledge, you need to attach 
 Here is a comparsion of three random resistors I decided to test for now:
 ![Waveform of a clock signal followed by an acknowledge sense, the voltage drop depends on a pullup resitor used](usb_key_pullup.png)
 
-## Enviroment
-
-The USB download mode in the ROM expects an external crystal oscillator (a BT_OSC oscillator, or a RTC_OSCH one), whose frequency is auto-detected so it doesn't have to be strictly 24 or 12 MHz.
-
-Series like AC5xxx are presumeably running off some internal oscillator,
-and recent bluetooth series like AD697N presumeably can work without a crystal oscillator already.
-In other cases in order to get into the USB bootloader other methods are used, that being the [ISP_KEY](isp-key.md)
-
-The system clock (and thus the CPU clock too) generally becomes 48 MHz.
-
 ## USB bus considerations
 
 When the chip enters the boot mode (or it fails to boot from flash and so it enters the boot mode),
