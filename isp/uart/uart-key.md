@@ -20,3 +20,9 @@ If the chip drives the line high, it means that the chip has acknowledged the ke
 ![UART key signal example](uart_key.png)
 
 *(yes I did just stick the UART wire into the input of a sound card to sample this signal (hence you can clearly see the Audacity's interface), by the way I've generated this key signal using the RP2040 MCU, utilizing the PIO!)*
+
+## Now what?
+
+After the chip accepts the key it waits for a loader to be sent over the UART (with a some amount of time before it simply continues with the normal boot process).
+
+Read [this page](load-a-loader.md) for details.
