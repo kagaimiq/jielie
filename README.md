@@ -35,4 +35,4 @@ Although it seems like they now do print the actual chip names on some recent ch
 
 ## See also
 
-- [Some links](specilinks.md) to JieLi-related resources and stuff.
+- [Some links](links.md) to JieLi-related resources and stuff.
