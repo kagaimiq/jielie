@@ -89,6 +89,7 @@ In some cases, some parts of the serial number may be omitted to fit into tiny p
 | AC19DH4502-01           | AC4601       | year 2019                      | [esp8266](https://esp8266.ru/forum/threads/jl-soc.5500/post-88589) |
 | **AC1631D97294-04A**    | AC5204A      | year 2016                      | myself |
 | AC19AP22917-1A4         | AC5x01A      | year 2019, 4 = ??              |        |
+| AC24BP1Y297-51C8        | AC635N       | year 2024, 8 Mbit flash        | deadman96385 |
 | AC21BP0A908             | AC690        | year 2021                      |        |
 | AC20AP2J262-1A8         | AC6901A      | year 2020, 8 Mbit flash        |        |
 | AS1707AP0Y11Q-5A8       | AC6905A      | year 2017, 8 Mbit flash        |        |
