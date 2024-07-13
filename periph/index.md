@@ -58,7 +58,7 @@ CRC16 calculator
 | FIFO | 0x00   | Input byte data |
 | REG  | 0x04   | CRC register    |
 
-- If the REG is set to 0x6EA5, then you can modify the WDT_CON register in SYSCFG.
+- Setting the `REG` to 0x6EA5 allows to modify some registers, notably: `WDT_CON` (to modify more than just the watchdog feed bit), and `MODE_CON` (to change the chip operaion mode, see [mode_det](../isp/isp/isp.md#mode_det)).
 - Polynomial it uses is 0x1021 (x16 + x12 + x5 + 1).
 
 ## RAND64
