@@ -4,20 +4,20 @@
 
 | #  | Vector  | SDK name  | Source                    |
 |----|---------|-----------|---------------------------|
-|  0 | 0x31F00 | EMUEXCPT  | EMU exception ..?         |
-|  1 | 0x31F04 | EXCEPTION | CPU exception             |
-|  2 | 0x31F08 | SYSCALL   | System call ..?           |
+|  0 | 0x31F00 | EMUEXCPT  | Emulation (debug) vector  |
+|  1 | 0x31F04 | EXCEPTION | CPU exception vector      |
+|  2 | 0x31F08 | SYSCALL   | System call vector (triggered with the `syscall` instruction) |
 |  3 | 0x31F0C | TICK_TMR  | Tick timer                |
 |  4 | 0x31F10 | TIMER0    | Timer 0                   |
 |  5 | 0x31F14 | TIMER1    | Timer 1                   |
 |  6 | 0x31F18 | TIMER2    | Timer 2                   |
 |  7 | 0x31F1C | TIMER3    | Timer 3                   |
-|  8 | 0x31F20 | USB_SOF   | USB (SOF)                 |
-|  9 | 0x31F24 | USB_CTRL  | USB (control)             |
-| 10 | 0x31F28 | RTC_WDT   | P33 RTC/Watchdog          |
+|  8 | 0x31F20 | USB_SOF   | USB SOF interrupt         |
+|  9 | 0x31F24 | USB_CTRL  | USB SIE interrupt         |
+| 10 | 0x31F28 | RTC_WDT   | P33 RTC and Watchdog      |
 | 11 | 0x31F2C | ALINK0    | ALNK0                     |
 | 12 | 0x31F30 | AUDIO     | AUDIO                     |
-| 13 | 0x31F34 | PORT      | .                         |
+| 13 | 0x31F34 | PORT      | GPIO interrupts of some sort? |
 | 14 | 0x31F38 | SPI0      | SPI0                      |
 | 15 | 0x31F3C | SPI1      | SPI1                      |
 | 16 | 0x31F40 | SD0       | SD0                       |
@@ -64,7 +64,7 @@
 | 57 | 0x31FE4 |           |                           |
 | 58 | 0x31FE8 |           |                           |
 | 59 | 0x31FEC |           |                           |
-| 60 | 0x31FF0 | SOFT0     | SDK soft irq 0 (`swi 60`) |
-| 61 | 0x31FF4 | SOFT1     | SDK soft irq 1 (`swi 61`) |
-| 62 | 0x31FF8 | SOFT2     | SDK soft irq 2 (`swi 62`) |
-| 63 | 0x31FFC | SOFT3     | SDK soft irq 3 (`swi 63`) |
+| 60 | 0x31FF0 | SOFT0     | Software interrupt 0 (`swi 0`) |
+| 61 | 0x31FF4 | SOFT1     | Software interrupt 1 (`swi 1`) |
+| 62 | 0x31FF8 | SOFT2     | Software interrupt 2 (`swi 2`) |
+| 63 | 0x31FFC | SOFT3     | Software interrupt 3 (`swi 3`) |

@@ -9,6 +9,7 @@
   * a portion of it is used for interrupt vector table
   * first 16k of RAM0 are occupied by a data cache when e.g. using PSRAM.
 - MaskROM: 10k
+- Memory can be expanded with the QSPI PSRAM, up to 8 MiB.
 - Additional info:
   * [I/O function map](iomap.md)
   * [Memory map](memmap.md)
@@ -79,4 +80,4 @@
 
 # AC635N
 
-The AC695N series that likely to have a defective analog audio part, so the package real estate is instead used for additional GPIO pins compared to their audio-enabled counterparts.
+Audio-less versions of AC695N chips, which have additional GPIOs exposed in place of audio-related pins. Otherwise they're nearly identical to their audio-enabled counterparts.

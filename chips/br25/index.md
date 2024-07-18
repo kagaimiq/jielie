@@ -14,7 +14,7 @@
   * LZ4 decompression lib
   * some other stuff
   * see the [rom listing](https://github.com/jiang20082233/AC6966B-JBD/blob/696X/SDK/cpu/br25/tools/rom.lst)
-  * here's the [dump](br25_110000.bin), too (likely redundant due to existence of a listing above, though)
+  * here's the [dump](br25_110000.bin), too (useful to decompress the `uboot.boot`, if you want that)
 - Additional info:
   * [I/O function map](iomap.md)
   * [IRQ map](irq.md)

@@ -70,11 +70,11 @@ struct jlfs2_ent {
   * In some cases (e.g. in the `app_dir_head` entry) the size is set to 0xFFFFFFFF, which means undefined..
 - u8: Attributes
   * presumeably:
-  * bit0-3 = type: 0 = `uboot.boot`, 1 = `user.app`, 2 = file, 3 = directory ...
-  * bit4 = absolute address? special area entry? (used in the latter)
+  * bit0-3 = type: 0 = `uboot.boot`, 1 = `app_dir_head`, 2 = file, 3 = directory ...
+  * bit4 = absolute address? special area entry? (used in the latter, also in `key_mac`)
   * bit5 = ?
   * bit6 = `uboot.boot` is compressed
-  * bit7 = ? set within `app_dir_head`
+  * bit7 = ? set within/for `app_dir_head`
 - u8: (reserved) - or not?
 - u16: Index
   * A nonzero means that this is the last file entry

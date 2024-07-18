@@ -44,7 +44,7 @@ This register is usually locked of any changes until a special magic value (usua
 
 ### Running code
 
-- For each word of data send a "RAM write" command with the data word itself (the word means the frame word, not a CPU word), followed by an "RAM advance" command.
+- For each word of data send a "RAM write" command with the data word itself ('word' means a frame word, not a CPU word), followed by an "RAM advance" command.
 - After the data has been loaded, send the "start CPU" command to let CPU go.
 - Send a bunch of clocks on the ISP clock line to let CPU run until the code does something like resetting `MODE_CON` in order to let it run without an external "test" clock.
 
@@ -69,7 +69,7 @@ CLK  __-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-___
          opcode           pad
 ```
 
-This can be though as a 8-bit host-to-chip data packet where the data is ignored. (or in reverse)
+This can be thought as a 8-bit host-to-chip data packet where the data is ignored. (or in reverse)
 
 ### Host-to-chip data packet
 
@@ -79,19 +79,19 @@ For a host to chip packet, the frame begins with 5 bits of the opcode, immediatl
 DIN  __ooooooooooDDDDDDDD....DDDD________
 CLK  __-_-_-_-_-_-_-_-_-_....-_-_-_-_-___
        \________/\______________/\____/
-         opcode      data out     pad
+         opcode      data in      pad
 ```
 
 ### Chip-to-host data packet
 
-For a chip to host packet, the frame begins with 5 bits of the opcode, followed by 3 padding bits, finally followed by data bits coming out of the chip.
+For a chip to host packet, the frame begins with 5 bits of the opcode, followed by 3 padding bits and finally followed by data bits coming out of the chip.
 
 ```
 DIN  __oooooooooo______________________________
 DOUT __________________DDDDDDDD....DDDD__
 CLK  __-_-_-_-_-_-_-_-_-_-_-_-_....-_-___
        \________/\____/\______________/
-         opcode   pad      data in
+         opcode   pad      data out
 ```
 
 ## ISP commands

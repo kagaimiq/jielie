@@ -17,23 +17,25 @@ the DMA transfers can be (de)scrambled with the [ENC](enc.md) block (if enabled)
 
 ### CON
 
-| Bits  | R/W | Default | Name         | Description                           |
-|-------|-----|---------|--------------|---------------------------------------|
-| 31:16 | /   | /       | /            | /                                     |
-| 15    | R   | 0       | PND          | Interrupt pending                     |
-| 14    | W   | 0       | PCLR         | Clear pending int                     |
-| 13    | R/W | 0       | IE           | Interrupt enable                      |
-| 12    | R/W | 0       | DIR          | Direction (0 = send, 1 = receive)     |
-| 11:10 | R/W | 0       | DATW         | Bus width (0 = 1-bit, 1 = 2-bit, 2 = 4-bit)  |
-| 9:8   | /   | /       | /            | /                                     |
-| 7     | R/W | 0       | CSID         | CS polarity (0 = low idle, 1 = high idle)    |
-| 6     | R/W | 0       | CKID         | Clock polarity (0 = low idle, 1 = high idle) |
-| 5     | R/W | 0       | UE           | Data update edge (0 = rising, 1 = falling)   |
-| 4     | R/W | 0       | SE           | Data sample edge (0 = rising, 1 = falling)   |
-| 3     | R/W | 0       | BIDIR        | Full duplex mode                      |
-| 2     | R/W | 0       | CSE          | CS enable                             |
-| 1     | R/W | 0       | SLAVE        | Slave mode                            |
-| 0     | R/W | 0       | SPIE         | Enable                                |
+| Bits  | R/W | Default | Name  | Description                           |
+|-------|-----|---------|-------|---------------------------------------|
+| 31:16 | /   | /       | /     | /                                     |
+| 15    | R   | 0       | PND   | Interrupt pending                     |
+| 14    | W   | 0       | PCLR  | Clear a pending interrupt             |
+| 13    | R/W | 0       | IE    | Interrupt enable                      |
+| 12    | R/W | 0       | DIR   | Transfer direction (0: send, 1: receive) |
+| 11:10 | R/W | 0       | DATW  | Bus width (0: 1-bit, 1: 2-bit 'DSPI', 2: 4-bit 'QSPI')  |
+| 9:8   | /   | /       | /     | /                                     |
+| 7     | R/W | 0       | CSID  | Chip select polarity (0: idle low, 1: idle high) |
+| 6     | R/W | 0       | CKID  | Clock polarity (0: idle low, 1: idle high) |
+| 5     | R/W | 0       | UE    | Data update edge (0: clock rising, 1: clock falling) |
+| 4     | R/W | 0       | SE    | Data sample edge (0: clock rising, 1: clock falling) |
+| 3     | R/W | 0       | BIDIR | Full duplex mode enable               |
+| 2     | R/W | 0       | CSE   | Chip select enable                    |
+| 1     | R/W | 0       | SLAVE | Role (0: master, 1: slave)            |
+| 0     | R/W | 0       | SPIE  | Enable                                |
+
+
 
 ### BAUD
 
