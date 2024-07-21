@@ -4,17 +4,10 @@
 - CPU Core: [pi32v2](../../cpu/index.md#pi32)
 - SRAM: 153.5k in total:
   * 128k of RAM0
-  * 16k of RAM1
+  * 8k of RAM1
   * some more extra 1.5k following RAM1
   * 16k of icache RAM
-- MaskROM: 32k
-  * System boot code
-  * USB bootloader, UART bootloader
-  * FreeRTOS bits
-  * LZ4 decompression lib
-  * some other stuff
-  * see the [rom listing](https://github.com/jiang20082233/AC6966B-JBD/blob/696X/SDK/cpu/br25/tools/rom.lst)
-  * here's the [dump](br25_110000.bin), too (useful to decompress the `uboot.boot`, if you want that)
+- [MaskROM](maskrom.md): 32k
 - Additional info:
   * [I/O function map](iomap.md)
   * [IRQ map](irq.md)
