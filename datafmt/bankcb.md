@@ -2,7 +2,8 @@
 
 BANKCB (probably: BANKed Code Block(s)) is used to store banked code, for example in the early chip series like [AC410N](../chips/cd03/index.md#ac410n) or in 8051-based chips like [SH50](../chips/sh50/index.md), etc.
 
-Even with chips that have access to relatively huge memory storage (e.g. a memory-mapped SPI flash or an SDRAM of some kind), this thing still lives to this day to store the second stage bootloader (the `uboot.boot`) that is in charge of initializing such memories and eventually starting execution from them.
+This format is also used in chip series that inherently have access to a relatively huge memory storage such as a memory mapped SPI flash or some kind of SDRAM.
+In these cases it is used to store the second stange bootloader (`uboot.boot`) which is used to initialize such memories and finally handle over execution to code contained there.
 
 ## Format
 
@@ -19,7 +20,7 @@ struct bankcb {
 };
 ```
 
-- u16: Bank number (or count, for a 'master' bank)
+- u16: Bank number, or bank count for a master bank.
 - u16: Bank size
 - u32: Bank load address
 - u32: Bank data offset
@@ -28,10 +29,9 @@ struct bankcb {
 
 ### Layout
 
-All banks, including the master bank, is stored at the beginning of a BANKCB image.
-Then the bank data themselve follows.
+All bank headers are stored at the beginning of an image, then the individual bank's data follow.
 
-If the image is scrambled, each header and data portion are scrambled individually.
+If the image is scrambled, then each header and data portion is scrambled individually.
 
 ```
      .------------------------.
@@ -71,15 +71,16 @@ If the image is scrambled, each header and data portion are scrambled individual
      `------------------------'
 ```
 
-The "master bank" is a bank that contains some common code, and is in charge of loading subsequent banks in process.
-Its header also contains a number of all banks in the image; it is either inclusive (accounts a master bank too) or a non-inclusive (only accounts additional banks).
+The "master bank" contains common code, usually with the code that loads subsequent banks in process.
+Its header's "index" field contains count of all banks in the image.
+It is usually inclusive (i.e. the master bank is included in the count), but sometimes it's exclusive (i.e. only the additional banks are counted).
+The latter can be observed within SH50 series.
 
 ## LZ4 compression
 
-Recent chips have an ability to load an LZ4-compressed bank in order to keep the SPL size small.
+Recent chips usually have the `uboot.boot`'s contents compressed with LZ4 in order to keep its size on flash small.
 
-One of the annoying features it has is that you can specify an additional dictonary, which is in most cases is the BootROM of the chip itself, meaning that in order to decompress such image, you have to obtain the dump of the BootROM.
-It, however, allows to have better compression ratio by referencing common patterns from the dictonary (e.g. the BootROM) instead of storing them in the compressed image itself.
+One of the annoying features it has is that you can specify an additional dictionary, which is in most cases is the BootROM of the chip itself, meaning that in order to decompress such image, you have to obtain the dump of the BootROM.
 
 ### LZ4 header
 
@@ -87,16 +88,14 @@ The compressed image starts with a header, which is then followed by the raw LZ4
 
 ```c
 struct lz4hdr {
-	uint32_t	dict_size;	/* Dictonary data size */
-	void		*dict_data;	/* Dictonary data pointer */
+	uint32_t	dict_size;	/* Dictionary data size */
+	void		*dict_data;	/* Dictionary data pointer */
 	void		*temp_data;	/* Temporary load address */
 	uint32_t	dec_size;	/* Decompressed data size */
 }
 ```
 
-- u32: Dictonary size
-- u32: Dictonary data pointer
+- u32: Dictionary size
+- u32: Dictionary data pointer
 - u32: Temporary data buffer (where the compressed image is loaded into for decompression)
-- u32: Size of decompressed data
-
-
+- u32: Size of the decompressed data
