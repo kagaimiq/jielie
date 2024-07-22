@@ -13,6 +13,7 @@
   * [I/O function map](iomap.md)
   * [IRQ map](irq.md)
   * [Memory map](memmap.md)
+  * [Clocks](clocks.md)
 
 --------------------------------------------------------------------------------
 # AC692N
