@@ -101,3 +101,121 @@
 | CLK  | PB10 | USBDP |
 | DO   | PB9  | USBDM |
 | DI   | PB8  | PA13  |
+
+## IOMAP registers
+
+### IOMAP_CON0
+
+| Bits  | Type | Name           | Default | Description            |
+|-------|------|----------------|---------|------------------------|
+| 31:24 |      |                |         |                        |
+| 23    | R/W  | SPDIF_IN_D_IOS | b0      | S/PDIF input D selection (0: Input Channel 9, 1: PB1) |
+| 22    | R/W  | SPDIF_IN_C_IOS | b0      | S/PDIF input C selection (0: Input Channel 8, 1: PB0) |
+| 21    | R/W  | SPDIF_IN_B_IOS | b0      | S/PDIF input B selection (0: Input Channel 10, 1: PA10) |
+| 20    | R/W  | SPDIF_IN_A_IOS | b0      | S/PDIF input A selection (0: Input Channel 11, 1: PA9) |
+| 19:18 |      |                |         |                        |
+| 17:16 | R/W  | SPI0_IOS       | b0      | SPI0 I/O map select    |
+| 15    | R/W  | SD0_IOS        | b0      | SD0 I/O map select     |
+| 14    | R/W  | PAP_DEN        | b0      | PAP data lines enable  |
+| 13    | R/W  | PAP_REN        | b0      | PAP read signal enable |
+| 12    | R/W  | PAP_WEN        | b0      | PAP write signal enable |
+| 11    | R/W  | ALNK0_IOS      | b0      | ALNK0 I/O map select   |
+| 10:8  | R/W  | IRFLT_OS       | b000    | IRFLT output desination (4: timer0 cap, 5: timer1 cap, 6: timer2 cap, 7: timer3 cap) |
+| 7:6   | R/W  | UT0_IOS        | b00     | UART0 I/O map select   |
+| 5     |      |                |         |                        |
+| 4     | R/W  | SD1_IOS        | b0      | SD1 I/O map select     |
+| 3     | R/W  | SD1_DT_EN      | b1      | SD1 CMD/DAT lines enable |
+| 2     | R/W  | SD1_CK_EN      | b1      | SD1 CLK line enable    |
+| 1     | R/W  | SD0_DT_EN      | b1      | SD0 CMD/DAT lines enable |
+| 0     | R/W  | SD0_CK_EN      | b1      | SD0 CLK line enable    |
+
+### IOMAP_CON1
+
+| Bits  | Type | Name           | Default | Description            |
+|-------|------|----------------|---------|------------------------|
+| 31    | R/W  | TMR3_CAP_IOS   | b0      | Timer3 capture input (0: PA2, 1: Input Channel 2) |
+| 30    | R/W  | TMR2_CAP_IOS   | b0      | Timer2 capture input (0: PA15, 1: Input Channel 2) |
+| 29    | R/W  | TMR1_CAP_IOS   | b0      | Timer1 capture input (0: PB5, 1: Input Channel 2) |
+| 28    | R/W  | TMR0_CAP_IOS   | b0      | Timer0 capture input (0: PA9, 1: Input Channel 2) |
+| 27    | R/W  | TMR3_CIN_IOS   | b0      | Timer3 ext clock input (0: PB6, 1: *pll_12m*) |
+| 26    | R/W  | TMR2_CIN_IOS   | b0      | Timer2 ext clock input (0: PB1, 1: Input Channel 4) |
+| 25    | R/W  | TMR1_CIN_IOS   | b0      | Timer1 ext clock input (0: PA10, 1: *pll_24m*) |
+| 24    | R/W  | TMR0_CIN_IOS   | b0      | Timer0 ext clock input (0: PA7, 1: Input Channel 4) |
+| 23    |      |                |         |                        |
+| 22:21 | R/W  | SDTAP_IOS      | b00     | SDTAP I/O map select   |
+| 20    | R/W  | PLNK_SCKOE     | b0      | PLNK SCK output enable |
+| 19:18 | R/W  | IIC_IOS        | b00     | IIC I/O map select     |
+| 17    |      |                |         |                        |
+| 16    | R/W  | SPI2_IOS       | b0      | SPI2 I/O map select    |
+| 15:14 | R/W  | UT2_IOS        | b00     | UART2 I/O map select   |
+| 13    | R/W  | RDEC0_SIN1_IOS | b0      | RDEC0 SIN1 input select (0: Input Channel 7, 1: PA3) |
+| 12    | R/W  | RDEC0_SIN0_IOS | b0      | RDEC0 SIN0 input select (0: Input Channel 6, 1: PA2) |
+| 11:8  | R/W  | OUTPUT_CH0_SEL | b0000   | Output Channel 0 select (0: UT0_TX, 1: UT1_TX, 2: TMR0_PWM_OUT, 3: TMR1_PWM_OUT, 4: RTC_OSCL, 5: BTOSC_CLK, 6: PLL_12M, 7: UT2_TX, 8: CH0_PWMH, 9: CH0_PWML, 10: CH1_PWMH, 11: CH1_PWML, 12: CH2_PWMH, 13: CH2_PWML, 14: WLC_INT_FREQ, 15: TMR3_PWM_OUT) |
+| 7     | R/W  | UT1_CTS_IOS    | b0      | UART1 CTS I/O select (0: Input Channel 5, 1: PA5) |
+| 6     | R/W  | CAP_ES         | b0      | Invert the CAP_MUX (Input Ch2) input level |
+| 5     | R/W  | SFC_IOS        | b0      | SFC I/O map select     |
+| 4     | R/W  | SPI1_IOS       | b0      | SPI1 I/O map select    |
+| 3:2   | R/W  | UT1_IOS        | b00     | UART1 I/O map select   |
+| 1     | R/W  | SPI0_DIDO_MIX  | b0      | SPI0 DI/DO mix control (0: receives only on DI, 1: receives both on DI and DO) |
+| 0     | R/W  | PSR_IOS        | b0      | PSRAM I/O map select   |
+
+### IOMAP_CON2
+
+| Bits  | Type | Name            | Default | Description            |
+|-------|------|-----------------|---------|------------------------|
+| 31:30 |      |                 |         |                        |
+| 29:24 | R/W  | INPUT_CHANNEL_3 | h00     | Input Channel 3 (UART RX mux) selection (0-15: PA0-15, 16-31: PB0-15, 32-47: PC0-15, 48-55: PD0-7, 59: TMR0_PWM_OUT, 60: TMR1_PWM_OUT, 61: USBDP, 62: USBDM) |
+| 23:22 |      |                 |         |                        |
+| 21:16 | R/W  | INPUT_CHANNEL_2 | h00     | Input Channel 2 (CAP mux) selection (see above) |
+| 15    | R/W  | RDEC2_SIN1_IOS  | b0      | RDEC2 SIN1 input select (0: Input Channel 7, 1: PB6) |
+| 14    | R/W  | RDEC2_SIN0_IOS  | b0      | RDEC2 SIN0 input select (0: Input Channel 6, 1: PB4) |
+| 13:8  | R/W  | INPUT_CHANNEL_1 | h00     | Input Channel 1 (IRFLT mux) selection (see above) |
+| 7     | R/W  | RDEC1_SIN1_IOS  | b0      | RDEC1 SIN1 input select (0: Input Channel 7, 1: PB3) |
+| 6     | R/W  | RDEC1_SIN0_IOS  | b0      | RDEC1 SIN0 input select (0: Input Channel 6, 1: PB2) |
+| 5:0   | R/W  | INPUT_CHANNEL_0 | h00     | Input Channel 0 (WKUP mux) selection (see above) |
+
+
+### IOMAP_CON3
+
+| Bits  | Type | Name            | Default | Description            |
+|-------|------|-----------------|---------|------------------------|
+| 31:28 |      |                 |         |                        |
+| 27:24 | R/W  | OUTPUT_CH2_SEL  | b0000   | Output Channel 2 select (0: U1_RTS, 1: UT1_TX, 2: WLC_INT_ACTIVE, 3: TMR1_PWM_OUT, 4: PLNK_SCLK, 5: BTOSC_CLK, 6: PLL_24M, 7: UT2_TX, 8: CH0_PWMH, 9: CH0_PWML, 10: CH1_PWMH, 11: CH1_PWML, 12: CH2_PWMH, 13: CH2_PWML, 14: TMR2_PWM_OUT, 15: TMR3_PWM_OUT) |
+| 23:20 | R/W  | OUTPUT_CH1_SEL  | b0000   | Output Channel 1 select (0: UT0_TX, 1: UT1_TX, 2: TMR0_PWM_OUT, 3: WLC_INT_STATUS, 4: RTC_OSCL, 5: BTOSC_CLK, 6: SPDIF_DO, 7: UT2_TX, 8: CH0_PWMH, 9: CH0_PWML, 10: CH1_PWMH, 11: CH1_PWML, 12: CH2_PWMH, 13: CH2_PWML, 14: TMR2_PWM_OUT, 15: TMR3_PWM_OUT) |
+| 19:16 |      |                 |         |                        |
+| 15    | R/W  | PLNK_D1_IOS     | b1      | PLNK D1 input select (0: PA3, 1: Input Channel 9) |
+| 14    |      |                 |         |                        |
+| 13    | R/W  | WLC_EXT_IOS     | b0      | WLC_EXT_ACTIVE input select (0: PA6, 1: Input Channel 10) |
+| 12    | R/W  | MC_FPIN_IOS     | b0      | MCPWM FPIN input select (0: PA14, 1: Input Channel 2) |
+| 11    | R/W  | UT2_IOEN        | b1      | UART2 I/O enable       |
+| 10:8  | R/W  | UT2_MXS         | b000    | UART2 input select (0-3: IO mux, 4: Input Channel 0, 5: Input Channel 1, 6: Input Channel 2, 7: Input Channel 3) |
+| 7     | R/W  | UT1_IOEN        | b1      | UART1 I/O enable       |
+| 6:4   | R/W  | UT1_MXS         | b000    | UART1 input select (0-3: IO mux, 4: Input Channel 0, 5: Input Channel 1, 6: Input Channel 2, 7: Input Channel 3) |
+| 3     | R/W  | UT0_IOEN        | b1      | UART0 I/O enable       |
+| 2:0   | R/W  | UT0_MXS         | b000    | UART0 input select (0-3: IO mux, 4: Input Channel 0, 5: Input Channel 1, 6: Input Channel 2, 7: Input Channel 3) |
+
+### IOMAP_CON4
+
+| Bits  | Type | Name            | Default | Description            |
+|-------|------|-----------------|---------|------------------------|
+| 31:30 |      |                 |         |                        |
+| 29:24 | R/W  | INPUT_CHANNEL_7 | h00     | Input Channel 7 (RDEC DI1) selection (see above) |
+| 23:22 |      |                 |         |                        |
+| 21:16 | R/W  | INPUT_CHANNEL_6 | h00     | Input Channel 6 (RDEC DI0) selection (see above) |
+| 15:14 |      |                 |         |                        |
+| 13:8  | R/W  | INPUT_CHANNEL_5 | h00     | Input Channel 5 (UART1 CTS) selection (see above) |
+| 7:6   |      |                 |         |                        |
+| 5:0   | R/W  | INPUT_CHANNEL_4 | h00     | Input Channel 4 (Timer clock) selection (see above) |
+
+### IOMAP_CON5
+
+| Bits  | Type | Name             | Default | Description            |
+|-------|------|------------------|---------|------------------------|
+| 31:30 |      |                  |         |                        |
+| 29:24 | R/W  | INPUT_CHANNEL_11 | h00     | Input Channel 11 (S/PDIF input A) selection (see above) |
+| 23:22 |      |                  |         |                        |
+| 21:16 | R/W  | INPUT_CHANNEL_10 | h00     | Input Channel 10 (WLC_EXT_ACTIVE_P) selection (see above) |
+| 15:14 |      |                  |         |                        |
+| 13:8  | R/W  | INPUT_CHANNEL_9  | h00     | Input Channel 9 (PLNK D1) selection (see above) |
+| 7:6   |      |                  |         |                        |
+| 5:0   | R/W  | INPUT_CHANNEL_8  | h00     | Input Channel 8 (PLNK D0) selection (see above) |
