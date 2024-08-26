@@ -32,11 +32,11 @@
 | USBDP |           |          | SDTAP_CLKB   | ISP_CLK        | mode_det0     | SPI2_CLKB               | IIC_SCL_A | ADC13 |           | UART1TXD          |
 | USBDM | SD0DAT_E  |          | SDTAP_DATB   | ISP_DI         | mode_det1     | SPI2_DOB                | IIC_SDA_A | ADC14 |           | UART1RXD          |
 
-Note:
-- Most chips have an internal SPI flash attached to the Port D as follows:
+Notes:
+- Most chips have an internal SPI flash that is connected to the chip as follows:
   - PD0 = SCK
-  - PD1 = MOSI
-  - PD2 = MISO
+  - PD1 = MOSI (D0)
+  - PD2 = MISO (D1)
   - PD3 = CS
   - PD4 = Power (yes! it's on a GPIO)
 

@@ -51,12 +51,12 @@
 | USBDP | ISP_DI     |             |              | IIC_SCL.A |       |         | UART1_TX.D |            |         |             |
 | USBDM | ISP_DO     |             |              | IIC_SDA.A |       |         | UART1_RX.D |            |         |             |
 
-Note:
+Notes:
 - Functions that are *italic* is these which were not clearly mentioned in the docs, etc...
-- Most chips have an internal SPI flash attached to the Port D as follows:
+- Most chips have an internal SPI flash that is connected to the chip as follows:
   - PD0 = SCK
-  - PD1 = MOSI
-  - PD2 = MISO
+  - PD1 = MOSI (D0)
+  - PD2 = MISO (D1)
   - PD3 = CS
 - Leftover info:
   - Default pulldown: PA3, USBDP, USBDM

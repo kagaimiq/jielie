@@ -44,12 +44,20 @@
 | PD1   |            |              | SPI0_DOAB(0)   | SFC_DOAB(0)   |               |               |           |       |         |           |                   |         |
 | PD2   |            |              | SPI0_DIA(1)    | SFC_DIA(1)    |               |               |           |       |         |           |                   |         |
 | PD3   |            |              | SPI0_CSA       | SFC_CSA       |               |               |           |       |         |           |                   |         |
-| PD4   |            | flash POWAA! |                |               |               |               |           |       |         |           |                   |         |
+| PD4   |            |              |                |               |               |               |           |       |         |           |                   |         |
 | PD5   | SEG19      |              | SPI0_DAT3AB(3) | SFC_DAT3AB(3) |               |               |           |       |         |           |                   |         |
 | PR0   |            | OSCI_32K     |                |               |               |               |           |       |         |           |                   |         |
 | PR1   |            | OSCO_32K     |                |               |               |               |           |       |         |           |                   |         |
 | USBDP |            |              | SDTAP_CLKB     | ISP_CLK       | SPI2CLKB      | mode_det0     | IIC_SCL_A | ADC12 |         |           | UART1TXD          |         |
 | USBDM |            |              | SDTAP_DATB     | ISP_DI        | SPI2DOB       | mode_det1     | IIC_SDA_A |       |         |           | UART1RXD          |         |
+
+Notes:
+- Most chips have an internal SPI flash that is connected to the chip as follows:
+  * PD0 = CLK
+  * PD1 = MOSI (D0)
+  * PD2 = MISO (D1)
+  * PD3 = CS
+  * PD4 = Power supply
 
 ## Per function
 

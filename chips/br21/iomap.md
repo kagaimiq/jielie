@@ -20,8 +20,8 @@
 | PB1      | SD1_CMD.B  | SD0_DAT2.B | SPI2_DO.A  |              |               |            | ADC7  |          | TMR2  | UART1_RX.A | ALNK_LRCK.B |            | Touch1  |        | *adc_clk*  |           |
 | PB2      | SD1_CLK.B  | SD0_DAT1.B | SPI2_DI.A  | SPI0_CLK.B   | *sfc_clk.b*   |            |       |          |       | UART2_TX.C | ALNK_DAT0.B |            | Touch2  |        | *adc_dat1* | Wakeup 11 |
 | PB3      | SD1_DAT1.B | SD0_DAT0.B | SPI1_DI.A  | SPI0_DAT3.AB | *sfc_dat3.ab* |            |       |          | PWM2  | UART2_RX.C | ALNK_DAT1.B |            | Touch3  | AMUX2R | *adc_dat2* |           |
-| PB4      | SD1_DAT2.B | SD0_CMD.B  | SPI1_CLK.A | SPI0_DAT2.AB | *sfc_dat2.ab* |            | ADC8  |          | PWM3  |            | ALNK_DAT2.B |            | Touch4  | AMUX0L |            | Wakeup 12 |
-| PB5      | SD1_DAT3.B | SD0_CLK.B  | SPI1_DO.A  |              |               |            | ADC9  | PWM_CH2H |       | UART0_TX.B | ALNK_DAT3.B |            | Touch5  | AMUX0R |            |           |
+| PB4      | SD1_DAT2.B | SD0_CMD.B  | SPI1_CLK.A | SPI0_DAT2.AB | *sfc_dat2.ab* |            | ADC8  |          | PWM3  | UART0_RX.B? | ALNK_DAT2.B |            | Touch4  | AMUX0L |            | Wakeup 12 |
+| PB5      | SD1_DAT3.B | SD0_CLK.B  | SPI1_DO.A  |              |               |            | ADC9  | PWM_CH2H |       | UART0_TX.B? | ALNK_DAT3.B |            | Touch5  | AMUX0R |            |           |
 | PB6      |            |            |            | SPI0_DI.B    | *sfc_di.b*    |            |       |          |       |            | ALNK_MCLK.B |            | Touch6  | AMUX2L |            |           |
 | PC0      | SD1_DAT3.A |            |            |              | PAP_D4        |            |       |          |       | UART1_TX.B |             | SEG16/COM5 |         |        |            |           |
 | PC1      | SD1_DAT2.A |            |            |              | PAP_D5        | IIC_SCL.C  |       | PWM_CH1H |       | UART1_RX.B |             | SEG17/COM4 |         |        |            |           |
@@ -41,12 +41,12 @@
 | USBDP    |            |            | SPI2_CLK.B |              |               | IIC_SCL.A  |       |          |       | UART1_TX.D |             |            |         |        |            |           |
 | USBDM    |            |            | SPI2_DO.B  |              |               | IIC_SDA.A  | ADC11 |          |       | UART1_RX.D |             |            |         |        |            |           |
 
-Note:
+Notes:
 - Functions that are *italic* is these which were not clearly mentioned in the docs, etc...
-- Most chips have an internal SPI flash attached to the Port D as follows:
+- Most chips have an internal SPI flash that is connected to the chip as follows:
   - PD0 = SCK
-  - PD1 = MOSI
-  - PD2 = MISO
+  - PD1 = MOSI (D0)
+  - PD2 = MISO (D1)
   - PD3 = CS
 - Leftover info:
   - Default pulldown: USBDP, USBDM
