@@ -3,7 +3,7 @@
 | Address               | Size | Usage                 |
 |-----------------------|------|-----------------------|
 | 0x0010000 - 0x002FFFF | 128k | RAM0                  |
-| 0x0030000 - 0x0031FFF | 16k  | RAM1                  |
+| 0x0030000 - 0x0031FFF | 8k   | RAM1                  |
 | 0x0032000 - 0x00325FF | 1.5k | + extra?              |
 | 0x00F8000 - 0x00FBFFF | 16k  | icache data           |
 | 0x00FC000 - 0x00FDBFF | 7k   | icache tag            |
