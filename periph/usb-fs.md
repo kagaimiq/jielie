@@ -15,7 +15,27 @@ It is cleared by reading the USB_CON0 register.
 The latter one is set whenever a SOF packet comes on the USB bus.
 It is cleared by writing into the `CLR_SOFP` bit in USB_CON0.
 
-## Registers
+## DMA buffers
+
+The data transfer between the chip's memory and the USB bus is performed through
+a set of buffers located in the system memory of the chip, which is then accessed
+by the built-in DMA engine of the USB brigde and the corresponding FIFO's on the SIE side. (it's a guess)
+
+| Endpoint | BR17 | BR21 | BR25 |
+|----------|------|------|------|
+| EP0      | 64   | 64   | 64   |
+| EP1 In   | ?    | 64   | ?    |
+| EP1 Out  | ?    | 64   | ?    |
+| EP2 In   | ?    | 64   | ?    |
+| EP2 Out  | ?    | 1024 | ?    |
+| EP3 In   | ?    | 1024 | ?    |
+| EP3 Out  | ?    | ?    | ?    |
+| EP4 In   |      |      | ?    |
+| EP4 Out  |      |      | ?    |
+
+
+
+## Host registers
 
 | Offset | BR17                  | BR21                  | BR25                  |
 |--------|-----------------------|-----------------------|-----------------------|
@@ -73,14 +93,13 @@ _Width: 16-bit_
 
 | Bits | Type | Name       | Default | Description |
 |------|------|------------|---------|-------------|
-| 15   | R    | MC_ACK     | b0      | Access acknowledge |
+| 15   | R    | MC_ACK     | b0      | Access done flag |
 | 14   | W    | MC_RNW     | b0      | Access type (0: Write, 1: Read) |
-| 13:8 | W    | MC_ADR     | h00     | Register address  |
-| 7:0  | R/W  | MC_DAT     | h00     | Register data     |
+| 13:8 | W    | MC_ADR     | h00     | Register address |
+| 7:0  | R/W  | MC_DAT     | h00     | Register data    |
 
-After writing into this register the access to a specified SIE register is performed,
-after the access is done the MC_ACK bit will be set to '1'.
-If that was a read transfer, the MC_DAT field is also populated with the read data.
+After a write to this register, an access to a specified MC register is performed.
+After it has completed, the `MC_ACK` bit will be set to '1', and if it was a read access, the `MC_DAT` is going to be populated with the read data.
 
 ### IO_CON0
 
@@ -91,7 +110,7 @@ _Width: 16-bit_
 |-------|------|-------------|---------|-----------------------------|
 | 15:13 |      |             |         |                             |
 | 12    | R/W  | USB_SR      | b0      | Slew rate enable thing      |
-| 11    | R/W  | USB_IO_MODE | b1      | Enable USB pins as GPIOs ?   |
+| 11    | R/W  | USB_IO_MODE | b1      | Enable USB pins as GPIOs?   |
 | 10    | R/W  | DMDIE       | b1      | USB_DM digital input enable |
 | 9     | R/W  | DPDIE       | b1      | USB_DP digital input enable |
 | 8     | R    | PM          | b0      |                             |
