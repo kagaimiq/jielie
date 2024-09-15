@@ -7,6 +7,16 @@
   * [Tools readthedocs](https://doc.zh-jieli.com/Tools/zh-cn/index.html)
   * [Tools (e.g. toolchain) download page](https://doc.zh-jieli.com/Tools/zh-cn/other_info/index.html)
 
+### pkgman.jieliapp.com Quick Links
+
+- [The Package manager and JLXPROJ thing](https://pkgman.jieliapp.com/s/pkgman)
+- [Code::Blocks download mirror link I guess](https://pkgman.jieliapp.com/s/codeblocks)
+- [JieLi Compiler Toolchain (for Windows)](https://pkgman.jieliapp.com/s/win-toolchain)
+- [JieLi Compiler Toolchain (for Linux)](https://pkgman.jieliapp.com/s/linux-toolchain)
+- [JieLi postbuild tools (for Windows)](https://pkgman.jieliapp.com/s/downtool)
+- [JieLi postbuild tools (for Linux)](https://pkgman.jieliapp.com/s/linux-postbuild)
+- [Some Firmware Tool](https://pkgman.jieliapp.com/s/fwtool)
+
 ### On GitHub
 
 - The "[JieLi-Tech](https://github.com/Jieli-Tech)" organization.
