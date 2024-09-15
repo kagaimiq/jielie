@@ -2,9 +2,70 @@
 
 **Almost completed!**
 
-This describes the structure of a firmware format used for (at least) the BR17, BR20 and BR21 chip families. (AC690x, AC691x and AC692x series resp.)
+This describes the structure of a firmware format used for (at least) the BR17, BR20 and BR21 chip families. (AC690x, AC691x and AC692x series respectively)
 
-Note that every "file" is aligned on a 512-byte boundary.
+## General layout
+
+```
+     .-----------------------. <=== Starts at 0x00000
+     |  Top-level file list  |
+     :-----------------------:
+     |                       |
+     |      "uboot.boot"     | <-- second stage bootloader
+     |                       |
+     :-----------------------:
+     |     "_____.____2"     | <-- additional file list
+     :-----------------------:
+     |      "ver.bin"        |
+     :-----------------------| <=== mapped to the memory map at 0x1000000
+     |                       |    .---------------------.
+     |                       |    |                     |
+     |                       |    |                     |
+     |                       |    |                     |
+     |                       |    |                     |
+     |                       |    |     "sdram.app"     |<--.
+     |                       |    |                     |   |
+     |                       |    |                     |   |
+     |                       |    |                     |   |
+     |                       |    |                     |   |
+     |                       |    :---------------------:   |
+     |                       |    |    "bt_cfg.bin"     |<--|
+     |       "user.app"      |    :---------------------:   |
+     |                       |    |   "fast_run.bin"    |<--|
+     |                       |    :---------------------:   |
+     |                       |    |      "bt.mp3"       |<--|
+     |                       |    :---------------------:   |
+     |                       |    |   "bt_conn.mp3"     |<--|
+     |                       |    :---------------------:   |
+     |                       |    |   "bt_dconn.mp3     |<--|
+     |                       |    :---------------------:   |
+     |                       |    .                     . <-|
+     |                       |    .                     . <-|
+     |                       |    :---------------------:   |
+     |                       |    |  App data file list |---'
+     |                       |    '---------------------'
+     :-----------------------:
+     |      "sys.cfg"        | <-- system configuration data
+     :-----------------------: <=== here the encrypted SFC data ends
+     |      "spc.aer"        | <-- special area definition
+     :-----------------------:
+     |    "chip_key.bin"     | <-- key used to encrypt the SFC data
+     :-----------------------:
+     |   BOOT_START_FIRST    | <-- first boot tag
+     :-----------------------: <=== The flash image ends here
+     .                       .
+     .                       .
+     .                       .
+     .                       .
+     .                       .
+     :-----------------------:
+     |        "VMIF"         |
+     :-----------------------:
+     |        "BTIF"         |
+     :-----------------------:
+               ....
+
+```
 
 ## Top-level structure
 
@@ -50,10 +111,12 @@ Note that every "file" is aligned on a 512-byte boundary.
    * not really to scale
 ```
 
+Note: most sections are aligned to a 512-byte boundary.
+
 ### Top-level file list
 
-The flash begins with 128 bytes of some "garbage", which is, in fact, four 32-byte blocks encrypted with a simple LFSR-based stream cipher algorithm used by the [ENC](../periph/enc.md) block.
-The key used is 0xFFFF, which is really used in all chunks encrypted with this method (except the main "user.app" block, more on that later.)
+The flash dump starts with 128 bytes of some "garbage", which are actually four 32-byte blocks that are scrambled with the method used by the [ENC](../periph/enc.md) block.
+The key used there is always 0xFFFF, and does not depend on the chip key.
 
 ```
 00000000  34 be 62 24 1f 8e 7a f8  0d 3e 5c 98 cd bd 5b 97  |4.b$..z..>\...[.|
@@ -87,12 +150,6 @@ When the header is decrypted, the following content is revealed:
 00000070  75 73 65 72 2e 61 70 70  00 00 00 00 00 00 00 00  |user.app........|
 00000080  70 64 63 3a 00 00 00 00  00 00 00 00 00 00 00 00  |pdc:............|
 00000090  70 64 6e 3a 6a 6c 5f 36  39 30 78 00 00 00 00 00  |pdn:jl_690x.....|
-000000a0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
-000000b0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
-000000c0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
-000000d0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
-000000e0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
-000000f0  ff ff ff ff ff ff ff ff  ff ff ff ff ff ff ff ff  |................|
 ```
 
 At the very beginning, a [flash header](sdfile.md#flash-header) can be observed, which contains the following info:
@@ -104,7 +161,7 @@ At the very beginning, a [flash header](sdfile.md#flash-header) can be observed,
   * AC691N: *same as AC690N*
   * AC692N: `18 00 F0 0A 0A 01 00 00`
 
-Then, at offsets 0x20, 0x40 and 0x60 the [file headers](sdfile.md#flash-header) can be seen, which describe the following files:
+Then, at offsets 0x20, 0x40 and 0x60 the [file headers](sdfile.md#flash-header) can be seen, which describes three files:
 
 - `uboot.boot` (type 0x01) → the second-stage bootloader
 - `_____.____2` (type 0x03) → the additional file list
@@ -112,18 +169,18 @@ Then, at offsets 0x20, 0x40 and 0x60 the [file headers](sdfile.md#flash-header) 
 
 #### pdc/pdn
 
-You might've noticed two 16-byte lines after these 128 bytes, what these are?
+You might've noticed that there are two 16-byte blocks coming right after the file list, what are they?
 
-The first one, which starts with `pdc:` is followed by a byte, whose value is set to the value of the `UPVR_CTL` parameter in the ISD config.
-That parameter by itself has two possible values: 0 or 1, thus there it will also have a value of 0x00 or 0x01.
+The one that starts with `pdc:` is followed by a byte whose value is set to the value of the `UPVR_CTL` parameter from an ISD config file.
+It is either 0 or 1, and as far as I understand, it specifies whether the version 'downgrade' is disallowed, but not sure what it actually means in practice.
 
-The second one, which starts with `pdn:` is followed with a string, which is the one specified in the `PDCTNAME` parameter from the same ISD config, although it's converted to lowercase first.
-
-Usually nobody changes the default value, so this field has something like `jl_690x` or `jl_692x` in it.
+The one that starts with `pdn:` is followed by a string which is taken from the `PDCTNAME` parameter from the ISD config file, which is then converted to lowercase. Usually nobody bothers to change this, so it will say something like `jl_690x` or `jl_692x`.
 
 ### Additional file list
 
 The `_____.____2` file contains additional file entries that were not listed in top-level file list.
+
+The file headers are stored in raw form, so we can immediatly see the following contents:
 
 ```
 0000d000  05 00 46 8d 00 d2 00 00  14 05 00 00 00 00 00 00  |..F.............|
@@ -145,27 +202,28 @@ The `_____.____2` file contains additional file entries that were not listed in 
 ```
 
 The files listed there are:
- - `ver.bin` (type 0x05) → Version info of the SDK, libraries, etc. (everything residing in the `.version` section)
+ - `ver.bin` (type 0x05) → Version info of the SDK, libraries, etc.
  - `user.app` (type 0x02) → The main app area
  - `sys.cfg` (type 0x06) → System configuration
- - `spc.aer` (type 0x07) → Special area definitions (VM, BTIF, etc.)
- - `chip_key.bin` (type 0x08) → An obfuscated copy of a chipkey used for this image (how lame!)
+ - `spc.aer` (type 0x07) → Special area definitions (for VM, BTIF, etc.)
+ - `chip_key.bin` (type 0x08) → An obfuscated copy of a chipkey used for this image
 
 ### uboot.boot
 
-This file contains the second-stage bootloader, that is stored in an encrypted [BANKCB](bankcb.md) format.
+The file contains the second-stage bootloader that is in charge of doing SPI flash memory map setup, as well as doing firmware upgrades via Bluetooth, the USB UBOOT2.00 bootloader or from BFU files on a USB drive / SD card.
 
-Actually, there are *two* BANKCB blobs, that are located next to each other.
-The first one is loaded by the Boot ROM, which chainloads the second blob right after the the first one.
+It is stored in a scrambled [BANKCB](bankcb.md) format, which also uses the same constant 0xFFFF key.
 
-Even if the second blob's load address claims to be 0x01000000 or something like that,
-actually it is loaded next to the first blob, rather being e.g. mapped into the SFC map somehow.
-So if the first blob's load address is 0x2000 and size is 0x260, then the second blob is loaded at address 0x2260.
+And there are actually *two* BANKCB blobs coming next to another: the first one is loaded by the ROM, which is used to chainload the second bankcb image that contains the actual bootloader code.
+
+The second blob is also loaded next to the first one in memory, meaning that the 'load address' field is meaningless in this case (they set it to 0x01000000, which of course couldn't be in a SPI flash map in any way possible).
+For example if the first blob's load address is 0x2000 and size is 0x260, then the second blob is going to be loaded at address 0x2260.
 
 ### ver.bin
 
 This file contains the version info of the SDK, libraries, etc.
-basically everything residing in the `.version` section, which is then consolidated into a single `ver.bin` file with the `link-version` utility in the toolchain.
+
+This is generated by the `link-version` utility in the toolchain, consolidating data from all `.version` sections.
 
 ```
 0000d200  2f 00 00 00 76 65 72 73  69 6f 6e 5f 73 74 61 72  |/...version_star|
@@ -189,17 +247,18 @@ basically everything residing in the `.version` section, which is then consolida
 
 ### user.app
 
-This area is exposed into the CPU's memory map via [SFC](../periph/sfc.md), and this is where the main app, along with all of its resources, live in.
+This file contains the data exposed into CPU's memory space via the [SFC](../periph/sfc.md) peripheral.
+This is where the main code alongside all of its resources are living in.
 
-It is also stored in encrypted form on the flash, in a form of 32-byte blocks with the key being XORed by the absolute CPU map address shifted two times right (i.e. `dkey = key ^ (addr >> 2)`).
-The reason for this approach is that the icache requests data in 32-byte blocks (which is the size of a single cache line),.
+Since it is accessed by the SFC peripheral with the cache, it is scrambled in 32-byte blocks, with the key being XORed by the absolute address shifted two times right (i.e. `key ^ (addr >> 2)`).
 
-With the usual `uboot.boot` used in the firmware (i.e. practically everything) the key used to decrypt this area is actually taken from the `chipkey.bin` file,
-not directly from the chip's efuses. The readout from the efuses are only done in order to check if the key in the firmware and in the chip match.
-And even that is done in a rather quirky way: keys from the firmware and from the chip are ORed together, and then the result is checked against the firmware key.
-This means that a firmware with a 0xFFFF key can work on any chip, even if that particular chip has something other than 0xFFFF programmed into it,
-and a chip with a totally burnt out key (i.e. 0x0000) can successfuly boot up any firmware with any chipkey.
-
+The actual scrambling key is supposed to be the one stored in chip's "chipkey" fuses, but the stock `uboot.boot` actually takes it from the firmware's `chip_key.bin` file instead.
+However, it does read out the key fuses on the chip in order to check if the firmware key matches with the chip key, however this is done in a rather quirky way:
+both keys are ORed together and then the result is compared to the firmware key, meaning that:
+- A chip with the 0xFFFF key could only run firmware that has a 0xFFFF key
+- A chip with the 0x0000 key can run firmware with any key
+- A firmware with the 0xFFFF key can work on any chip, even when they have a chip key different from 0xFFFF
+- Some combinations of the firmware and chip keys can also work, for example 2606/36EF.
 
 If this area is decrypted, then the following structure can be observed:
 
