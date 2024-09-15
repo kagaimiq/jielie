@@ -2,7 +2,7 @@
 
 The audio codec in BR17 family of chips has the following features:
 - Stereo DAC
-- 3-channel ADC (hard routed to Line-in left, Line-in right and Microphone)
+- 3-channel ADC (ADC0 captures Line-in left channel, ADC1 captures Line-in right channel and ADC2 captures microphone input)
 - DAC output with a headphone amplifier
 - VCOMO buffered common voltage output
 - Three Line-in (AMUX) input pairs
@@ -31,45 +31,83 @@ The audio codec in BR17 family of chips has the following features:
 | 0x84   | ADA_CON1 | ADC analog control 1    |
 | 0x88   | ADA_CON2 | ADC analog control 2    |
 
+### DAC_LEN
+
+DAC buffer length.
+
+Size: 16-bit.
+
 ### DAC_CON
+
+DAC control register.
+
+Size: 16-bit.
 
 | Bits  | Type | Name       | Default | Description            |
 |-------|------|------------|---------|------------------------|
-| 15:12 | R/W  | DCCS       | h0      | DC cancelling filter coefficient (14 is suggested) |
+| 15:12 | R/W  | DCCS       | b0000   | DC cancelling filter coefficient (14 is suggested) |
 | 11:9  |      |            | b000    |                        |
 | 8     | R    | BUFF       | b0      | Buffer flag            |
 | 7     | R    | PND        | b0      | DAC interrupt pending  |
 | 6     | W    | CPND       | b0      | Clear a pending DAC interrupt |
 | 5     | R/W  | DACIE      | b0      | Enable the DAC interrupt |
 | 4     | R/W  | DACEN      | b0      | Enable DAC             |
-| 3:0   | R/W  | DACSR      | h0      | DAC sampling rate      |
+| 3:0   | R/W  | DACSR      | b0000   | DAC sampling rate (b0000 = 44100Hz, b0001 = 48000Hz, b001x = 32000Hz, b0100 = 22050Hz, b0101 = 24000Hz, b011x = 16000Hz, b1x00 = 11025Hz, b1x01 = 12000Hz, b1x1x = 8000Hz) |
 
-| DACSR | Rate     |
-|-------|----------|
-| b0000 | 44100 Hz |
-| b0001 | 48000 Hz |
-| b001x | 32000 Hz |
-| b0100 | 22050 Hz |
-| b0101 | 24000 Hz |
-| b011x | 16000 Hz |
-| b1x00 | 11025 Hz |
-| b1x01 | 12000 Hz |
-| b1x1x | 8000 Hz  |
+### DAC_ADR
+
+DAC buffer base address register.
+
+Size: 32-bit.
+
+### DAC_TRML
+
+DAC left channel trim register.
+
+Size: 8-bit.
+
+### DAC_TRMR
+
+DAC right channel trim register.
+
+Size: 8-bit.
 
 ### LADC_CON
 
+ADC control register.
+
+Size: 16-bit.
+
 | Bits  | Type | Name       | Default | Description            |
 |-------|------|------------|---------|------------------------|
-| 15:12 | R/W  | DCCS       | h0      | DC cancelling filter coefficient (14 is suggested) |
-| 11:9  |      |            | b000    |                        |
+| 15:12 | R/W  | DCCS       | b0000   | DC cancelling filter coefficient (14 is suggested) |
+| 11    | R/W  | CHE2       | b0      | ADC channel 2 capture enable |
+| 10    | R/W  | CHE1       | b0      | ADC channel 1 capture enable |
+| 9     | R/W  | CHE0       | b0      | ADC channel 0 capture enable |
 | 8     | R    | BUFF       | b0      | Buffer flag            |
 | 7     | R    | PND        | b0      | ADC interrupt pending  |
 | 6     | W    | CPND       | b0      | Clear a pending ADC interrupt |
 | 5     | R/W  | ADCIE      | b0      | Enable the ADC interrupt |
 | 4     | R/W  | ADCEN      | b0      | Enable ADC             |
-| 3:0   | R/W  | ADCSR      | h0      | ADC sampling rate (see above) |
+| 3:0   | R/W  | ADCSR      | b0000   | ADC sampling rate (b0000 = 44100Hz, b0001 = 48000Hz, b001x = 32000Hz, b0100 = 22050Hz, b0101 = 24000Hz, b011x = 16000Hz, b1x00 = 11025Hz, b1x01 = 12000Hz, b1x1x = 8000Hz) |
+
+### LADC_ADR
+
+ADC buffer base address register.
+
+Size: 32-bit.
+
+### LADC_LEN
+
+ADC buffer length.
+
+Size: 16-bit.
 
 ### DAA_CON0
+
+DAC analog control register 0.
+
+Size: 16-bit.
 
 | Bits  | Type | Name       | Default | Description            |
 |-------|------|------------|---------|------------------------|
@@ -89,6 +127,10 @@ The audio codec in BR17 family of chips has the following features:
 
 ### DAA_CON1
 
+DAC analog control register 1.
+
+Size: 16-bit.
+
 | Bits  | Type | Name       | Default | Description            |
 |-------|------|------------|---------|------------------------|
 | 15    | R/W  | MIC_2_R    | b0      | Mix microphone signal to the right output channel |
@@ -101,6 +143,10 @@ The audio codec in BR17 family of chips has the following features:
 | 4:0   | R/W  | LG_SEL     | h00     | Left channel gain select |
 
 ### DAA_CON2
+
+DAC analog control register 2.
+
+Size: 16-bit.
 
 | Bits  | Type | Name         | Default | Description            |
 |-------|------|--------------|---------|------------------------|
@@ -122,6 +168,10 @@ The audio codec in BR17 family of chips has the following features:
 
 ### DAA_CON3
 
+DAC analog control register 3.
+
+Size: 16-bit.
+
 | Bits  | Type | Name          | Default | Description            |
 |-------|------|---------------|---------|------------------------|
 | 15    | R/W  | TRIM_OUT      | b0      | DAC trim output result |
@@ -138,6 +188,10 @@ The audio codec in BR17 family of chips has the following features:
 
 ### DAA_CON4
 
+DAC analog control register 4.
+
+Size: 16-bit.
+
 | Bits  | Type | Name           | Default | Description            |
 |-------|------|----------------|---------|------------------------|
 | 15:4  |      |                | b0      |                        |
@@ -147,6 +201,10 @@ The audio codec in BR17 family of chips has the following features:
 | 0     | R/W  | DAC_ISEL5U     | b0      |                        |
 
 ### DAA_CON5
+
+DAC analog control register 5.
+
+Size: 16-bit.
 
 | Bits  | Type | Name           | Default | Description            |
 |-------|------|----------------|---------|------------------------|
@@ -165,3 +223,58 @@ When `DAC_EXT` is set to `1`, these pins will receive external delta-signal modu
 
 `ADC_COE` enables the ADC clock output to PB8.
 `ADC_DOE` enables the ADC data ouptut to PB3/PB2 (ch1), PB5/PB4 (ch2) and PB7/PB6 (ch3).
+
+### ADA_CON0
+
+ADC analog control register 0.
+
+Size: 16-bit.
+
+| Bits  | Type | Name            | Default | Description            |
+|-------|------|-----------------|---------|------------------------|
+| 15:14 |      |                 |         |                        |
+| 13    | R/W  | ADC_ISEL        | b0      | ADC current selection  |
+| 12    | R/W  | ADC0_PGA_EN     | b0      | ADC0 PGA enable        |
+| 11:8  | R/W  | ADC0_PGA_G      | b0      | ADC0 PGA gain          |
+| 7:6   | R/W  | ADC0_DITHER_CFG | b00     | ADC0 dither config     |
+| 5:4   | R/W  | ADC0_S1_ISEL    | b00     | ADC0 OTA bias current  |
+| 3     | R/W  | ADC0_TEST       | b0      | ADC0 test mode enable  |
+| 2     | R/W  | ADC0_FF_EN      | b0      | ADC0 ff mode enable    |
+| 1     | R/W  | ADC0_CHANNEL_EN | b0      | ADC0 channel enable    |
+| 0     | R/W  | ADC0_EN         | b0      | Enable ADC0            |
+
+### ADA_CON1
+
+ADC analog control register 1.
+
+Size: 16-bit.
+
+| Bits  | Type | Name            | Default | Description            |
+|-------|------|-----------------|---------|------------------------|
+| 15:13 |      |                 |         |                        |
+| 12    | R/W  | ADC1_PGA_EN     | b0      | ADC1 PGA enable        |
+| 11:8  | R/W  | ADC1_PGA_G      | b0      | ADC1 PGA gain          |
+| 7:6   | R/W  | ADC1_DITHER_CFG | b00     | ADC1 dither config     |
+| 5:4   | R/W  | ADC1_S1_ISEL    | b00     | ADC1 OTA bias current  |
+| 3     | R/W  | ADC1_TEST       | b0      | ADC1 test mode enable  |
+| 2     | R/W  | ADC1_FF_EN      | b0      | ADC1 ff mode enable    |
+| 1     | R/W  | ADC1_CHANNEL_EN | b0      | ADC1 channel enable    |
+| 0     | R/W  | ADC1_EN         | b0      | Enable ADC1            |
+
+### ADA_CON2
+
+ADC analog control register 2.
+
+Size: 16-bit.
+
+| Bits  | Type | Name            | Default | Description            |
+|-------|------|-----------------|---------|------------------------|
+| 15:13 |      |                 |         |                        |
+| 12    | R/W  | ADC2_PGA_EN     | b0      | ADC2 PGA enable        |
+| 11:8  | R/W  | ADC2_PGA_G      | b0      | ADC2 PGA gain          |
+| 7:6   | R/W  | ADC2_DITHER_CFG | b00     | ADC2 dither config     |
+| 5:4   | R/W  | ADC2_S1_ISEL    | b00     | ADC2 OTA bias current  |
+| 3     | R/W  | ADC2_TEST       | b0      | ADC2 test mode enable  |
+| 2     | R/W  | ADC2_FF_EN      | b0      | ADC2 ff mode enable    |
+| 1     | R/W  | ADC2_CHANNEL_EN | b0      | ADC2 channel enable    |
+| 0     | R/W  | ADC2_EN         | b0      | Enable ADC2            |
