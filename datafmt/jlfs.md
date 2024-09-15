@@ -7,13 +7,13 @@
 Unlike its predecessor, the [SDFILE](sdfile.md), the flash header now is only present in the beginning of a flash image, rather than being a header for each filesystem image as in the former case.
 
 ```c
-struct jlfs2_fhdr {
+struct jlfs2_flash_header {
   uint16_t  hdr_crc;      /* Header CRC */
-  uint16_t  burner_sz;    /* Burner size */
+  uint16_t  burner_size;  /* Burner size */
   char      vid[4];       /* Version ID */
   uint32_t  flash_size;   /* Flash size */
   uint8_t   fs_ver;       /* FS version */
-  uint8_t   blk_align;    /* Block alignment */
+  uint8_t   block_align;  /* Block alignment */
   uint8_t   resvd;        /* (reserved) */
   uint8_t   special_opt;  /* Special option flag */
   char      pid[16];      /* Product ID */
@@ -49,7 +49,7 @@ Presumeably, this is done as follows:
 ### File header
 
 ```c
-struct jlfs2_ent {
+struct jlfs2_file_entry {
   uint16_t  hdr_crc;  /* Header CRC */
   uint16_t  data_crc; /* Data CRC */
   uint32_t  offset;   /* Data offset */
@@ -71,7 +71,7 @@ struct jlfs2_ent {
 - u8: Attributes
   * presumeably:
   * bit0-3 = type: 0 = `uboot.boot`, 1 = `app_dir_head`, 2 = file, 3 = directory ...
-  * bit4 = absolute address? special area entry? (used in the latter, also in `key_mac`)
+  * bit4 = absolute address? special area entry? (used in the latter, also in `key_mac`, as well for the `EXT_RESERVED` directory containing additional special area definitions)
   * bit5 = ?
   * bit6 = `uboot.boot` is compressed
   * bit7 = ? set within/for `app_dir_head`
