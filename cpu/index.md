@@ -51,6 +51,8 @@ A severely cut-down version of pi32v2, meant to be used as a basic 32-bit CPU fo
 
 For example it is used in the AC630N and AC632N series, which do not do any audio so they don't need such powerful and complex CPU's that do not have any real benefit for the intended application of these chips (Bluetooth Low Energy stuff)
 
+It's also used as a control CPU in the P11 subsystem.
+
 [More info](q32s.md)
 
 ## f59
