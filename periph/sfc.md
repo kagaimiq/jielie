@@ -1,9 +1,10 @@
 # SFC
 
-## Overview
+SFC (Serial/SPI Flash Controller) is used to access the SPI flash from the system memory map.
+This block consitutes the interface part of the process; on the other side there is a cache that interfaces with the system memory bus and asks SFC for data whenever there is a cache miss and cache needs to be refilled.
 
-SFC (Serial/SPI Flash Controller) is a dedicated SPI flash controller,
-which supports SPI/DSPI/QSPI modes, and essentially allows to map an arbitrary flash location into memory.
+- SPI and DSPI/QSPI interface variants supported
+- Configurable base address offset
 
 ```
 mem
@@ -19,26 +20,20 @@ mem
 ||             |_16k__|
 ```
 
-### Memory map
+## Memory map
 
-The SFC is mapped into memory through the icache, which ultimately speeds up the flash access time (except when a cache miss happens).
+The SFC is connected to the system memory bus through the icache, which is used to cache data from the SPI flash (which is naturally slow to access on its own, since it is attached to a serial bus and it's a command-oriented device.), which in turn also provides a reasonable burst of data to transfer from the flash chip whenever the cache needs to be refilled.
 
-The icache is usually a 16 KiB 4-way set-associative cache, with a 32-byte line size.
+The cache is usually organized as a 16 KiB 4-way set-associative cache with a 32-byte line size.
 
-### Decryption
+Between the cache and SFC there is an [ENC](enc.md) block in the way, which provides ability to descramble the data read from flash (so that you can't easily see what's going on!).
 
-The contents it reads also can be decrypted with the ENC block
-(a separate peripheral or an embedded block depending on the SFC variant).
+Due to the cache line size, the data is scrambled in 32-byte blocks, additionally the key used for scrambling is the actual key set up in the ENC/SFCENC XORed with the absolute memory address shifted right by 2, i.e. `key = key ^ (addr >> 2)`.
+Since the key is just 16 bits long, this means that it will wrap around each 262144 bytes (i.e. 65536 * 4).
 
-Since the icache line size is 32 bytes, the encrypted block is also 32 bytes long.
-
-Moreover, the key that's used for decryption is XORed with the current offset shifted right by 2 (i.e. `keydec = key ^ (off >> 2)`).
-This also means that the key wraps each 256 KiB, as the key is 16 bits long and shifting offset by 2 allows for 4 times more,
-thus it's 262144 bytes instead of just 65536.
+A bit more info on icache can be found [there](icache.md)
 
 ## Registers
-
-- Variant 1:
 
 | Name     | Offset | Description        |
 |----------|--------|--------------------|
@@ -51,26 +46,24 @@ thus it's 262144 bytes instead of just 65536.
 
 | Name     | Offset | Description        |
 |----------|--------|--------------------|
-| CON      | 0x00   | Control register   |
-| BAUD     | 0x04   | Clock divider      |
-| CODE     | 0x08   |                    |
-| BASE_ADR | 0x0C   | Flash base address |
 | QUCNT    | 0x10   |                    |
 
 ### CON
 
+Control register.
+
 | Bits  | R/W | Default | Description                       |
 |-------|-----|---------|-----------------------------------|
 | 31:26 | /   | /       | /                                 |
-| 25    | R/W |         | Read the JEDEC ID via opcode 0x9F |
+| 25    | R/W |         | If set, accessing SFC will cause the output from the RDID ($9F) command to be read out. |
 | 24    | /   | /       | /                                 |
-| 23:20 |     |         | ? set to 2, on init set to 0xf    |
-| 19:16 | R/W |         | Dummy bit count                   |
+| 23:20 |     |         | Maybe operaiton mode (0: read_out, 1: read_i/o, 2: read_continue). On init it is set to 0xF. |
+| 19:16 | R/W |         | Number of dummy bits between command/address and data readout |
 | 15:12 | /   | /       | /                                 |
-| 11:8  |     |         | SPI mode                          |
+| 11:8  |     |         | SPI mode, see below               |
 | 7     |     |         | ? set to 1                        |
 | 6:4   | /   | /       | /                                 |
-| 3     | R/W |         | Swap DO/DI on the DO input path (i.e. 0 = receive from DO, 1 = receive from DI) |
+| 3     | R/W |         | D0 input source (0: D0, 1: D1). In other words, if it is cleared, the data is received from the MOSI pin, otherwise it's done from MISO. Multi-bit interface options are also affected by this afaik |
 | 2:1   | /   | /       | /                                 |
 | 0     | R/W | 0       | Enable SFC                        |
 
@@ -91,19 +84,29 @@ thus it's 262144 bytes instead of just 65536.
 
 ### BAUD
 
+Clock divider.
+
 | Bits  | R/W | Default | Description                        |
 |-------|-----|---------|------------------------------------|
 | 31:8  | /   | /       | /                                  |
 | 7:0   | W   |         | Clock divider: Fspi = Fsfc / (n+1) |
 
+The *Fsfc* clock source comes from *sfc_clk* or *hsb_clk* depending on the chip (chips after AC690N/BR17 use *sfc_clk*)
+
 ### BASE_ADR
+
+Flash base address.
+
+This register allows to set up the base address of the area in flash that's going to be visible from SFC.
 
 | Bits  | R/W | Default | Description        |
 |-------|-----|---------|--------------------|
-| 31:x  | /   | /       | /                  |
-| x:0   | W   |         | Flash base address |
+| 31:16  | /   | /       | /                  |
+| 15:0   | W   |         | Flash base address |
 
 ## Example-ish
+
+The example below is for the AC690N chip series, however it is applicable to other chips provided the I/O port init and cache tag/data addresses are changed to ones applicable to your particular chip family.
 
 ```c
 /*
