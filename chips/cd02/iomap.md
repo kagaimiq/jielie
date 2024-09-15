@@ -48,4 +48,27 @@ Leftover ADC inputs:
  - ADC12: AMUX left channel
  - ADC13: AMUX right channel
  - ADC14: LDOIN (divided by something, I presume?)
- - ADC15: bandgap reference (something)
+ - ADC15: bandgap reference
+
+## IO map registers
+
+### IO_MC0
+
+| Bits | Description        |
+|------|--------------------|
+| 7:6  | UART I/O mapping, TX/RX: 0 = P06/P07, 1 = P24/P25, 2 = P32/P33, 3 = P36/P37 |
+| 5:4  | IIC I/O mapping, SCL/SDA: 0 = P00/P01, 1 = P26/P27, 2 = P32/P33, 3 = P36/P37 |
+| 3    | SD I/O enable      |
+| 2    | SD CMD/DAT mapping: 0 = P21/P22, 1 = P00/P01 |
+| 1:0  | SD CLK mapping: 0 = P20, 1 = P30, 2 = P35, 3 = n/a? |
+
+### IO_MC1
+
+| Bits | Description       |
+|------|-------------------|
+| 7    | PWM4 wa           |
+| 6    | ISD2W IO mapping, CLK/DAT: 0 = P00/P01, 1 = P24/P25  |
+| 5    | SPI I/O enable    |
+| 4    | SPI I/O mapping, CLK/DO/DI: 0 = P16/P17/P15, 1 = P00/P01/P44 |
+| 3:2  | IRFLT source      |
+| 1:0  | IRFLT destination |
