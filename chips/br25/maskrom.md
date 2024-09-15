@@ -106,52 +106,52 @@
 | 0x117E9C | `vcopy_`                        |
 | 0x117EA0 | `get_cvsd_codec_ops`            |
 | 0x117EA4 | `VecPlus_fix_r_r_r`             |
-| 0x117EA8 | and so on...                    |
-| 0x117EAC |                                 |
-| 0x117EB0 |                                 |
-| 0x117EB4 |                                 |
-| 0x117EB8 |                                 |
-| 0x117EBC |                                 |
-| 0x117EC0 |                                 |
-| 0x117EC4 |                                 |
-| 0x117EC8 |                                 |
-| 0x117ECC |                                 |
-| 0x117ED0 |                                 |
-| 0x117ED4 |                                 |
-| 0x117ED8 |                                 |
-| 0x117EDC |                                 |
-| 0x117EE0 |                                 |
-| 0x117EE4 |                                 |
-| 0x117EE8 |                                 |
-| 0x117EEC |                                 |
-| 0x117EF0 |                                 |
-| 0x117EF4 |                                 |
-| 0x117EF8 |                                 |
-| 0x117EFC |                                 |
-| 0x117F00 |                                 |
-| 0x117F04 |                                 |
-| 0x117F08 |                                 |
-| 0x117F0C |                                 |
-| 0x117F10 |                                 |
-| 0x117F14 |                                 |
-| 0x117F18 |                                 |
-| 0x117F1C |                                 |
-| 0x117F20 |                                 |
-| 0x117F24 |                                 |
-| 0x117F28 |                                 |
-| 0x117F2C |                                 |
-| 0x117F30 |                                 |
-| 0x117F34 |                                 |
-| 0x117F38 |                                 |
-| 0x117F3C |                                 |
-| 0x117F40 |                                 |
-| 0x117F44 |                                 |
-| 0x117F48 |                                 |
-| 0x117F4C |                                 |
-| 0x117F50 |                                 |
-| 0x117F54 |                                 |
-| 0x117F58 |                                 |
-| 0x117F5C |                                 |
+| 0x117EA8 | `VecMinus_fix_r_r_r`            |
+| 0x117EAC | `VecDiv_fix_r_r_r`              |
+| 0x117EB0 | `VecEleMul_fix_r_r_r`           |
+| 0x117EB4 | `VecEleMul_fix_c_r_c`           |
+| 0x117EB8 | `VecMagAndDiv_fix`              |
+| 0x117EBC | `VecCopy_fix_r_r`               |
+| 0x117EC0 | `VecConjEleMulAndDiv_fix`       |
+| 0x117EC4 | `VecRecurAvg_fix`               |
+| 0x117EC8 | `VecConjRecurAvg_fix`           |
+| 0x117ECC | `VecMagRecurAvg_fix`            |
+| 0x117ED0 | `VecPlusMulScalar_fix`          |
+| 0x117ED4 | `VecGetMag_fix`                 |
+| 0x117ED8 | `VecMax_fix_v_s`                |
+| 0x117EDC | `VecMin_fix_v_s`                |
+| 0x117EE0 | `VecOppos_fix`                  |
+| 0x117EE4 | `VecMean_fix`                   |
+| 0x117EE8 | `VecMeanSq_fix_c`               |
+| 0x117EEC | `VecRequanByMax_fix_r`          |
+| 0x117EF0 | `VecRequanByMxa_fix_c`          |
+| 0x117EF4 | `VecEleShift_fix_c`             |
+| 0x117EF8 | `VecOvShift_fix`                |
+| 0x117EFC | `VecCopy_fix_r_c`               |
+| 0x117F00 | `VecMeanSq_fix_r`               |
+| 0x117F04 | `VecEleShift_fix_r`             |
+| 0x117F08 | `logAprx_fix`                   |
+| 0x117F0C | `expAprx_fix`                   |
+| 0x117F10 | `sqrtAprx_fix`                  |
+| 0x117F14 | `VecEleMul_s16_s16_s32`         |
+| 0x117F18 | `VecEleMul_s16_s32_s16`         |
+| 0x117F1C | `VecEleMul_s32_s16_s32`         |
+| 0x117F20 | `VecOvShift_s16_s16`            |
+| 0x117F24 | `VecOvShift_s16_s32`            |
+| 0x117F28 | `VecCopy_s16_s32`               |
+| 0x117F2C | `VecCopy_s32_s16`               |
+| 0x117F30 | `VecMinus_s16_s32_s32`          |
+| 0x117F34 | `VecMeanSq_s16_s32`             |
+| 0x117F38 | `CircVecArrEwMulAndSum_fix`     |
+| 0x117F3C | `B_fir_calc_s`                  |
+| 0x117F40 | `B_array_vol`                   |
+| 0x117F44 | `B_Syn_filt`                    |
+| 0x117F48 | `B_Residu`                      |
+| 0x117F4C | `B_comput_correlataionS`        |
+| 0x117F50 | `B_iircalc`                     |
+| 0x117F54 | `repair_corefun_corr`           |
+| 0x117F58 | `repair_corefun_mixdata`        |
+| 0x117F5C | `get_repair_api`                |
 | 0x117F60 | `firfft`                        |
 | 0x117F64 | `firifft`                       |
 | 0x117F68 | `_rfifft_wrap`                  |
